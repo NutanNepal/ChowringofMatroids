@@ -145,7 +145,6 @@ class Matroids:
             decomposition.append(rounded_solution.tolist())
 
         return decomposition
-
     
     def dimensions(self, fy_monomials):
         dimensions = [0] * len(fy_monomials)

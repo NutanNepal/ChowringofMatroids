@@ -2,16 +2,57 @@ import numpy as np
 import json
 import sys
 
+class braidInterface:
+    
+    def monomial_equality(self, monomial, mapped_monomial):
+
+        sorted_monomial = [(sorted(
+            [tuple(sorted(segment)) for segment in m[0]]), m[1]
+                                    ) for m in monomial]
+        sorted_mapped_monomial = [(sorted(
+            [tuple(sorted(segment)) for segment in m[0]]), m[1]
+                                    ) for m in mapped_monomial]
+        sorted_monomial.sort()
+        sorted_mapped_monomial.sort()
+
+        for i in range(len(sorted_monomial)):
+            if sorted_monomial[i] != sorted_mapped_monomial[i]:
+                return False
+
+        return True
+
+class uniformInterface:
+
+    def monomial_equality(self, monomial, mapped_monomial):
+
+        sorted_monomial = [(sorted(
+            [tuple(sorted(m[0]))]), m[1]
+                                ) for m in monomial]
+        
+        sorted_mapped_monomial = [(sorted(
+            [tuple(sorted(m[0]))]), m[1]
+                                ) for m in mapped_monomial]
+        sorted_monomial.sort()
+        sorted_mapped_monomial.sort()
+
+        for i in range(len(sorted_monomial)):
+            if sorted_monomial[i] != sorted_mapped_monomial[i]:
+                return False
+
+        return True
+
 class Matroid:
 
-    def __init__(self, name, symmetric_group_n):
+    def __init__(self, name, symmetric_group_n, interface):
         self.name = name
         self.symmetric_group_n = symmetric_group_n
+        self.interface = interface
         self.rank = self.name.rank()
         self.conjugacy_Classes, self.class_actions = self.generate_conjugacyClasses(
             self.symmetric_group_n
         )
         weights = generate_weights(self.rank)
+
         maxChains = self.maximalChains(self.name.lattice_of_flats())
         self.fy_monomials = self.generate_fyMonomials(maxChains, weights)
         self.representation_polynomial = self.representation_polynomial()
@@ -29,7 +70,6 @@ class Matroid:
         representation_polynomial = self.decomposition(
             characters_list_graded, self.symmetric_group_n)
         return representation_polynomial
-
 
     def generate_fyMonomials(self, maxChains, weights):
         fy_monomials = [set() for _ in range(len(weights[0]))]
@@ -82,31 +122,15 @@ class Matroid:
             mapped_monomial.append(tuple((tuple(new_term), term[1])))
         return tuple(sorted(mapped_monomial))
 
-    def monomial_equality(self, monomial, mapped_monomial):
-        #sorting the inner tuples, and outer tuples and so on and on
-        sorted_monomial = [(sorted(
-            [tuple(sorted(m[0]))]), m[1]
-                                ) for m in monomial]
-        
-        sorted_mapped_monomial = [(sorted(
-            [tuple(sorted(m[0]))]), m[1]
-                                ) for m in mapped_monomial]
-        sorted_monomial.sort()
-        sorted_mapped_monomial.sort()
-
-        for i in range(len(sorted_monomial)):
-            if sorted_monomial[i] != sorted_mapped_monomial[i]:
-                return False
-
-        return True
-
     def character(self, temp_fyMonomials, irr_representation):
         i = 0
         for monomial in temp_fyMonomials:
             mapped_monomial = tuple(sorted(
                 self.apply_map(monomial, irr_representation)
                 ))
-            if self.monomial_equality(monomial, mapped_monomial): i += 1
+            if self.interface.monomial_equality(monomial, mapped_monomial):
+                i += 1
+                
         return i
 
     def characters_list(self, fy_monomials, class_actions):
@@ -126,8 +150,8 @@ class Matroid:
             character_values = SymmetricGroupRepresentation(partition).to_character().values()
             int_values = [int(value) for value in character_values]
             representations.append(int_values)
+            
         return representations
-
 
     def decomposition(self, characters_list, n):
         # solving the equation Ax = b.
@@ -143,7 +167,6 @@ class Matroid:
 
         return decomposition
 
-    
     def dimensions(self, fy_monomials):
         dimensions = [0] * len(fy_monomials)
         for i in range(len(fy_monomials)):
@@ -167,7 +190,7 @@ def generate_weights(rank):
     return [list(w) for w in weights]
 
 def create_matroid(i, j):
-    matroid = Matroid(matroids.Uniform(i, j), j)
+    matroid = Matroid(matroids.Uniform(i, j), j, uniformInterface())
     serialized_matroid = {
         "name": str(matroid.name),
         "rank": matroid.rank,
