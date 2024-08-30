@@ -1,0 +1,354 @@
+<matroids>
+    <matroid id="U(2, 3)">
+        <name>U(2, 3): Matroid of rank 2 on 3 elements with circuit-closures {2: {{0, 1, 2}}}</name>
+        <rank>2</rank>
+        <sn>3</sn>
+        <gdc>1</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0</row>
+            <row>1, 0, 0</row>
+        </dir>
+    </matroid>
+    <matroid id="U(3, 3)">
+        <name>U(3, 3): Matroid of rank 3 on 3 elements with circuit-closures {}</name>
+        <rank>3</rank>
+        <sn>3</sn>
+        <gdc>1</gdc>
+        <gdc>4</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0</row>
+            <row>2, 1, 0</row>
+            <row>1, 0, 0</row>
+        </dir>
+    </matroid>
+    <matroid id="U(2, 4)">
+        <name>U(2, 4): Matroid of rank 2 on 4 elements with circuit-closures {2: {{0, 1, 2, 3}}}</name>
+        <rank>2</rank>
+        <sn>4</sn>
+        <gdc>1</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+    <matroid id="U(3, 4)">
+        <name>U(3, 4): Matroid of rank 3 on 4 elements with circuit-closures {3: {{0, 1, 2, 3}}}</name>
+        <rank>3</rank>
+        <sn>4</sn>
+        <gdc>1</gdc>
+        <gdc>7</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0</row>
+            <row>2, 1, 1, 0, 0</row>
+            <row>1, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+    <matroid id="U(4, 4)">
+        <name>U(4, 4): Matroid of rank 4 on 4 elements with circuit-closures {}</name>
+        <rank>4</rank>
+        <sn>4</sn>
+        <gdc>1</gdc>
+        <gdc>11</gdc>
+        <gdc>11</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0</row>
+            <row>3, 2, 1, 0, 0</row>
+            <row>3, 2, 1, 0, 0</row>
+            <row>1, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+    <matroid id="U(2, 5)">
+        <name>U(2, 5): Matroid of rank 2 on 5 elements with circuit-closures {2: {{0, 1, 2, 3, 4}}}</name>
+        <rank>2</rank>
+        <sn>5</sn>
+        <gdc>1</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+    <matroid id="U(3, 5)">
+        <name>U(3, 5): Matroid of rank 3 on 5 elements with circuit-closures {3: {{0, 1, 2, 3, 4}}}</name>
+        <rank>3</rank>
+        <sn>5</sn>
+        <gdc>1</gdc>
+        <gdc>11</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0, 0, 0</row>
+            <row>2, 1, 1, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+    <matroid id="U(4, 5)">
+        <name>U(4, 5): Matroid of rank 4 on 5 elements with circuit-closures {4: {{0, 1, 2, 3, 4}}}</name>
+        <rank>4</rank>
+        <sn>5</sn>
+        <gdc>1</gdc>
+        <gdc>21</gdc>
+        <gdc>21</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0, 0, 0</row>
+            <row>3, 2, 2, 0, 0, 0, 0</row>
+            <row>3, 2, 2, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+    <matroid id="U(5, 5)">
+        <name>U(5, 5): Matroid of rank 5 on 5 elements with circuit-closures {}</name>
+        <rank>5</rank>
+        <sn>5</sn>
+        <gdc>1</gdc>
+        <gdc>26</gdc>
+        <gdc>66</gdc>
+        <gdc>26</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0, 0, 0</row>
+            <row>4, 3, 2, 0, 0, 0, 0</row>
+            <row>6, 6, 5, 1, 1, 0, 0</row>
+            <row>4, 3, 2, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+    <matroid id="U(2, 6)">
+        <name>U(2, 6): Matroid of rank 2 on 6 elements with circuit-closures {2: {{0, 1, 2, 3, 4,
+    5}}}</name>
+        <rank>2</rank>
+        <sn>6</sn>
+        <gdc>1</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+    <matroid
+        id="U(3, 6)">
+        <name>U(3, 6): Matroid of rank 3 on 6 elements with circuit-closures {3: {{0, 1, 2, 3, 4,
+    5}}}</name>
+        <rank>3</rank>
+        <sn>6</sn>
+        <gdc>1</gdc>
+        <gdc>16</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+    <matroid
+        id="U(4, 6)">
+        <name>U(4, 6): Matroid of rank 4 on 6 elements with circuit-closures {4: {{0, 1, 2, 3, 4,
+    5}}}</name>
+        <rank>4</rank>
+        <sn>6</sn>
+        <gdc>1</gdc>
+        <gdc>31</gdc>
+        <gdc>31</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>3, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>3, 2, 2, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+    <matroid
+        id="U(5, 6)">
+        <name>U(5, 6): Matroid of rank 5 on 6 elements with circuit-closures {5: {{0, 1, 2, 3, 4,
+    5}}}</name>
+        <rank>5</rank>
+        <sn>6</sn>
+        <gdc>1</gdc>
+        <gdc>41</gdc>
+        <gdc>41</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>4, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>6, 6, 5, 1, 1, 0, 0, 0, 0, 0, 0</row>
+            <row>4, 3, 2, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+    <matroid
+        id="U(6, 6)">
+        <name>U(6, 6): Matroid of rank 6 on 6 elements with circuit-closures {}</name>
+        <rank>6</rank>
+        <sn>6</sn>
+        <gdc>1</gdc>
+        <gdc>57</gdc>
+        <gdc>302</gdc>
+        <gdc>302</gdc>
+        <gdc>57</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>5, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>10, 10, 9, 3, 3, 0, 0, 0, 0, 0, 0</row>
+            <row>10, 10, 9, 3, 3, 0, 0, 0, 0, 0, 0</row>
+            <row>5, 4, 3, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+        </dir>
+    </matroid> {<matroid
+        id="U(2, 7)">
+        <name>U(2, 7): Matroid of rank 2 on 7 elements with circuit-closures {2: {{0, 1, 2, 3, 4, 5,
+    6}}}</name>
+        <rank>2</rank>
+        <sn>7</sn>
+        <gdc>1</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+        <matroid
+        id="U(3, 7)">
+        <name>U(3, 7): Matroid of rank 3 on 7 elements with circuit-closures {3: {{0, 1, 2, 3, 4, 5,
+    6}}}</name>
+        <rank>3</rank>
+        <sn>7</sn>
+        <gdc>1</gdc>
+        <gdc>22</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+        <matroid
+        id="U(4, 7)">
+        <name>U(4, 7): Matroid of rank 4 on 7 elements with circuit-closures {4: {{0, 1, 2, 3, 4, 5,
+    6}}}</name>
+        <rank>4</rank>
+        <sn>7</sn>
+        <gdc>1</gdc>
+        <gdc>57</gdc>
+        <gdc>57</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>3, 2, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>3, 2, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+        <matroid
+        id="U(5, 7)">
+        <name>U(5, 7): Matroid of rank 5 on 7 elements with circuit-closures {5: {{0, 1, 2, 3, 4, 5,
+    6}}}</name>
+        <rank>5</rank>
+        <sn>7</sn>
+        <gdc>1</gdc>
+        <gdc>92</gdc>
+        <gdc>337</gdc>
+        <gdc>92</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>4, 3, 3, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>6, 6, 7, 1, 5, 2, 0, 1, 1, 0, 0, 0, 0, 0, 0</row>
+            <row>4, 3, 3, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+        <matroid
+        id="U(6, 7)">
+        <name>U(6, 7): Matroid of rank 6 on 7 elements with circuit-closures {6: {{0, 1, 2, 3, 4, 5,
+    6}}}</name>
+        <rank>6</rank>
+        <sn>7</sn>
+        <gdc>1</gdc>
+        <gdc>113</gdc>
+        <gdc>813</gdc>
+        <gdc>813</gdc>
+        <gdc>113</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>5, 4, 4, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>10, 12, 15, 3, 10, 6, 0, 3, 3, 0, 0, 0, 0, 0, 0</row>
+            <row>10, 12, 15, 3, 10, 6, 0, 3, 3, 0, 0, 0, 0, 0, 0</row>
+            <row>5, 4, 4, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+        <matroid
+        id="U(7, 7)">
+        <name>U(7, 7): Matroid of rank 7 on 7 elements with circuit-closures {}</name>
+        <rank>7</rank>
+        <sn>7</sn>
+        <gdc>1</gdc>
+        <gdc>120</gdc>
+        <gdc>1191</gdc>
+        <gdc>2416</gdc>
+        <gdc>1191</gdc>
+        <gdc>120</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>6, 5, 4, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>15, 20, 22, 6, 14, 9, 0, 4, 3, 0, 0, 0, 0, 0, 0</row>
+            <row>20, 30, 36, 12, 25, 20, 1, 10, 8, 2, 0, 1, 0, 0, 0</row>
+            <row>15, 20, 22, 6, 14, 9, 0, 4, 3, 0, 0, 0, 0, 0, 0</row>
+            <row>6, 5, 4, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+        <matroid
+        id="U(2, 8)">
+        <name>U(2, 8): Matroid of rank 2 on 8 elements with circuit-closures {2: {{0, 1, 2, 3, 4, 5,
+    6, 7}}}</name>
+        <rank>2</rank>
+        <sn>8
+        </rank>
+        <gdc>1</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+        <matroid id="U(3, 8)">
+        <name>U(3, 8): Matroid of rank 3 on 8 elements with circuit-closures {3: {{0, 1, 2, 3, 4, 5,
+    6, 7}}}</name>
+        <rank>3</rank>
+        <sn>8</sn>
+        <gdc>1</gdc>
+        <gdc>29</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+        <matroid
+        id="U(4, 8)">
+        <name>U(4, 8): Matroid of rank 4 on 8 elements with circuit-closures {4: {{0, 1, 2, 3, 4, 5,
+    6, 7}}}</name>
+        <rank>4</rank>
+        <sn>8</sn>
+        <gdc>1</gdc>
+        <gdc>85</gdc>
+        <gdc>85</gdc>
+        <gdc>1</gdc>
+        <dir>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>3, 2, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>3, 2, 2, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+            <row>1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0</row>
+        </dir>
+    </matroid>
+</matroids>
