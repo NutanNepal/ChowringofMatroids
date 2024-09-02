@@ -1,0 +1,53 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}% Change the margins here if you wish.\
+\usepackage{parskip}
+
+%\setlength{\parindent}{5pt} % This is the set the indent length for new paragraphs, change if you want.
+%\setlength{\parskip}{5pt} % This sets the distance between paragraphs, which will be used anytime you have a blank line in your LaTeX code.
+
+\usepackage{amssymb,amsmath,amsfonts,verbatim}
+\usepackage[breakable, skins]{tcolorbox}
+
+\newtcolorbox{mybox}[2][]{
+    arc=0mm, enhanced, frame hidden, breakable
+}
+
+\newcommand{\qed}{$\hfill\blacksquare$}
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\ind}{\text{Ind}}
+
+%\setlength{\topmargin}{0mm}
+%\setlength{\textwidth}{190mm} 
+%\setlength{\textheight}{240mm}
+%\setlength{\oddsidemargin}{0mm} 
+%\setlength{\evensidemargin}{0mm}
+
+\title{Notes (Equivariant Chow Polynomial of a Matroid)}
+%\author{Nutan Nepal}
+%\date{\today}
+
+
+\begin{document}
+{\textbf{Notes: Equivariant Chow Polynomial of a Matroid}}\hfill \small{\today}
+
+\hrulefill
+
+\vspace*{5mm}
+\hspace*{5mm} Let $G$ be a group and $E$ be a $G$-set. Let $\calA$ be a set of multisets over $E$.
+The action of $G$ on $E$ extends to action on each multiset and
+we say that $G$ acts on $\calA$ if $\calA$ is $G$-invariant.
+
+\hspace*{5mm} Let $V$ denote the permutation representation of $G$ on the set $\calA$. For a multiset
+$A\in\calA$, let $G_A$ denote the stabilizer subgroup of $A$ in $G$ and $T_{G_A}$ denote the trivial
+representation of $G_A$. Then,
+$$V = \bigoplus_{\underline{A}\in \calA/G}{\ind_{G_A}^G(T_{G_A})} $$
+
+\hrulefill
+
+\vspace*{5mm}
+\hspace*{5mm} Let $G$ be a group and $E$ be a $G$-set.
+Let $V$ denote the permutation representation of $G$ on the set $E$. For $x\in E$,
+Let $G_x$ denote the stabilizer subgroup of $x$ in $G$ and $T_{G_x}$ denote the trivial representation
+of $G_x$. Then,
+$$V = \bigoplus_{\underline{x}\in E/G}{\ind_{G_x}^G(T_{G_x})} $$
+\end{document}
