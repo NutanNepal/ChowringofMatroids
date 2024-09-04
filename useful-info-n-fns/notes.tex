@@ -1,23 +1,46 @@
-\documentclass[12pt]{article}
-\usepackage[margin=1in]{geometry}% Change the margins here if you wish.\
+\documentclass[11pt]{article}
+\usepackage[margin = 1in]{geometry}
 \usepackage{parskip}
-
-%\setlength{\parindent}{5pt} % This is the set the indent length for new paragraphs, change if you want.
-%\setlength{\parskip}{5pt} % This sets the distance between paragraphs, which will be used anytime you have a blank line in your LaTeX code.
-
-\usepackage{amssymb,amsmath,amsfonts,verbatim}
+\usepackage{amssymb,amsmath,amsfonts,verbatim, amsthm}
 \usepackage[breakable, skins]{tcolorbox}
+\usepackage{graphicx, tikz-cd, adjustbox}
+\usepackage{float}
+\usepackage{scalerel}
+\usepackage{stackengine,wasysym}
+\usepackage{biblatex}
+\AtBeginBibliography{\small}
+\bibliography{biblio.bib}
 
 \newtcolorbox{mybox}[2][]{
     arc=0mm, enhanced, frame hidden, breakable
 }
+\newcommand\noverline[1]{%
+  \kern\nindent\overline
+  {\kern-\nindent#1\kern-\nindent}\kern\nindent}
 
-\newcommand{\qed}{$\hfill\blacksquare$}
+%\newcommand{\bqed}{$\hfill\blacksquare$}
+\newcommand{\bz}{\mathbb{Z}}
 \newcommand{\calA}{\mathcal{A}}
-\newcommand{\ind}{\text{Ind}}
+\newcommand{\ind}{\text{\normalfont Ind}}
+\newcommand{\stab}{\text{\normalfont Stab}}
+\newcommand{\hilbM}{\normalfont\text{ \underline{H}}_\text{M}}
+\newcommand{\rank}{\normalfont\text{rk}}
+\newcommand{\flats}{\normalfont\text{Flats}}
+\newcommand{\flags}{\normalfont\text{Flags}}
+\newcommand{\matM}{\normalfont\text{M}}
+
+\newcommand{\hilbMmodF}{\normalfont\text{ \underline{H}}_\text{M/F}}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
 
 %\setlength{\topmargin}{0mm}
-%\setlength{\textwidth}{190mm} 
+%\setlength{\textwidth}{150mm} 
 %\setlength{\textheight}{240mm}
 %\setlength{\oddsidemargin}{0mm} 
 %\setlength{\evensidemargin}{0mm}
@@ -28,26 +51,126 @@
 
 
 \begin{document}
-{\textbf{Notes: Equivariant Chow Polynomial of a Matroid}}\hfill \small{\today}
+{\textbf{Notes: Equivariant Chow Polynomial of a Matroid}}\hfill {\small{\today}}
+
+\hrulefill
+\begin{lemma}
+    If $1_H$ denotes the trivial module for $KH$, then $\ind_H^G(1_H)$ affords the permutation representation
+    of $G$ on the right (or left) cosets of $H$.
+\end{lemma}
+\begin{proof}
+    \cite{collins-1990}
+\end{proof}
+
+\begin{theorem}
+    Let $X = \{x_1,\ldots, x_n\}$ be a transitive $G$-set and $G_{x_1} = \stab_G(x_1)$ denote the
+    stabilizer of $x_1\in E$ under the action of $G$. Let $Y$ denote the set of left cosets of $G_{x_1}$.
+    Then $X\cong Y$ as $G$-sets.
+\end{theorem}
+\begin{proof}
+    By Orbit-Stabilizer theorem, we have $[G:H] = n$.
+    Since the action is transitive, there exist $g_1,\ldots,g_n\in G$ with $g_i\cdot x_1 = x_i$ such that
+    $g_1H,\ldots,g_nH$ are the distinct left cosets of $H$ in $G$.
+    (Rotman's group theory book, section on G-sets.)
+
+    $\mathfrak{to. be. continued.(?)}$
+\end{proof}
+
+\begin{corollary}
+    Let $X$ be a $G$-set and $V$ be the permutation representation of $G$ on $X$. Let $X/G$ be the set of orbits
+    under the action of $G$ and $G_x$ be the stabilizer subgroup of $x\in X$. Then
+    $$V = \bigoplus_{\overline{x}\in X/G}{\ind_{G_x}^G(1_{G_x})}.$$
+\end{corollary}
 
 \hrulefill
 
-\vspace*{5mm}
-\hspace*{5mm} Let $G$ be a group and $E$ be a $G$-set. Let $\calA$ be a set of multisets over $E$.
-The action of $G$ on $E$ extends to action on each multiset and
-we say that $G$ acts on $\calA$ if $\calA$ is $G$-invariant.
+\begin{corollary}
+    [\cite{fy-2004}\cite{angarone2024chowringsmatroidspermutation}]
+    The Chow ring $A(\matM)$ of a matroid $\matM$
+    is free as a $\bz$-module, with $\bz$-basis given by the $FY$-monomials
+            $$\text{FY}=\{x_{F_1}^{m_1}x_{F_2}^{m_2}\cdots x_{F_k}^{m_k}:\ (\emptyset = F_0)\subset
+            F_1\subset F_2\subset\cdots\subset
+            F_k,\ \text{and}\ m_i\leq\rank(F_i)-\rank(F_{i-1})-1 \}.$$
+\end{corollary}
 
-\hspace*{5mm} Let $V$ denote the permutation representation of $G$ on the set $\calA$. For a multiset
-$A\in\calA$, let $G_A$ denote the stabilizer subgroup of $A$ in $G$ and $T_{G_A}$ denote the trivial
-representation of $G_A$. Then,
-$$V = \bigoplus_{\underline{A}\in \calA/G}{\ind_{G_A}^G(T_{G_A})} $$
+
+\begin{proposition}
+    \label{prop:fy-formula}
+    Let M be a loopless matroid. The Hilbert-Poincare series of the Chow ring $A(\matM)$ is given by
+    $$\hilbM = \sum_{\emptyset = F_0\subset F_1\subset \cdots\subset F_m}{\prod_{i=1}^m{
+        \frac{x(1-x^{\rank(F_i)-\rank(F_{i-1})-1})}{1-x}}}.$$
+\end{proposition}
+
+\hspace*{5mm}
+Given a flag $F = F_0\subset F_1\subset\ldots\subset F_m$ of strictly increasing flats, the formula in
+proposition~\ref{prop:fy-formula} essentially computes the number of degree $i$ monomials divisible
+precisely by $x_{F_1}x_{F_2}\cdots x_{F_m}$ as coefficients of $x^i$ and sums over all flags to obtain the
+Hilbert-Poincare series.
 
 \hrulefill
 
-\vspace*{5mm}
-\hspace*{5mm} Let $G$ be a group and $E$ be a $G$-set.
-Let $V$ denote the permutation representation of $G$ on the set $E$. For $x\in E$,
-Let $G_x$ denote the stabilizer subgroup of $x$ in $G$ and $T_{G_x}$ denote the trivial representation
-of $G_x$. Then,
-$$V = \bigoplus_{\underline{x}\in E/G}{\ind_{G_x}^G(T_{G_x})} $$
+Consider the polynomial ring $2^{FY}[x]$ with addition and multiplication defined as follows:
+\begin{enumerate}
+    \item $Sx^i + Tx^i = (S\cup T)x^i$,
+    \item $Sx^i\cdot Tx^j = (ST)x^{i+j}$,
+\end{enumerate}
+where $S$ and $T$ are subsets of $FY$ and $ST=\{s\cdot t\ |\ s\in S,\ t\in T\}$.
+A slight modification of the formula in proposition~\ref{prop:fy-formula} is as follows:
+
+\begin{equation}
+    \label{eqn:modH}
+    A = \sum_{\emptyset = F_0\subset F_1\subset \cdots\subset F_m}{\left(\prod_{i=1}^m{
+        \{F_i\}x + \{F_i^2\}x^2+ \cdots \{F_i^{\rank(F_i)-\rank(F_{i-1})-1}\}x^{\rank(F_i)-\rank(F_{i-1})-1}
+    }\right)}
+\end{equation}
+
+assuming that the factor is 0 when $\rank(F_i)-\rank(F_{i-1}) = 1$. The new formula explicitly computes
+the FY-monomials corresponding to the flag $F_0\subset F_1\subset \cdots\subset F_m$ and summing over all flags gives us
+$$A = FY^0 + FY^1x + \cdots + FY^{r-1}x^{r-1}$$
+for a matroid of rank $r$.
+
+\hrulefill
+
+If a group $G$ acts on the set of atoms, then we have an induced action on the sets $\flats$ and $FY$.
+For a fixed flag $P = F_0\subset F_1\subset \cdots\subset F_m$, consider the summand of $P$ in $A$:
+    $$A_P = 
+    \prod_{i=1}^m{
+        \{F_i\}x + \{F_i^2\}x^2+ \cdots \{F_i^{\rank(F_i)-\rank(F_{i-1})-1}\}x^{\rank(F_i)-\rank(F_{i-1})-1}
+    } = P^0 + P^1x+\cdots P^{r-1}x^{r-1}.$$
+
+We have the following facts about the action of $G$ on $\flats$ and $FY$:
+\begin{enumerate}
+    \item For every monomial $m$ in $P^i\subseteq FY^i$, the stabilizer group is $G_P=
+        G_{F_0}\cap G_{F_1}\cap \cdots\cap G_{F_m}$.
+        Equivalently, the orbits of any two elements in $P^i$ under the action of $G$ are disjoint.
+    \item If $Q$ is in the orbit of the flag $P$, then $Q^i = P^i$.
+    \item The permutation representation of $G$ on the orbit $\overline{m}\in FY^i/G$ is
+        given by $\ind_{G_P}^G(1_{G_P})$ (theorem above).
+    \item From above, the permutation representation on orbits of $P^i$ equals $|P^i|\cdot\ind_{G_P}^G(1_{G_P})$.
+    \item Hence, the permutation representation on the orbits of $P$ can be decomposed as
+        \begin{align*}
+            V(A_{\overline{P}}) =& (|P^0|+|P^1|x+\cdots+|P^{r-1}|x^{r-1})\cdot\ind^G(1_{G_P})\\
+            =&\left(\prod_{i=1}^m{
+                \frac{x(1-x^{\rank(F_i)-\rank(F_{i-1})-1})}{1-x}}\right)\cdot\ind^G(1_{G_P}).
+        \end{align*}
+\end{enumerate}
+
+From (5), we have the decomposition of the permutation representation on $FY$ as follows:
+
+$$\hilbM^G = \sum_{\overline{P}\in\flags_0/G}\left(\prod_{i=1}^m{
+    \frac{x(1-x^{\rank(F_i)-\rank(F_{i-1})-1})}{1-x}}\right)\cdot\ind^G(1_{G_P})$$
+    
+where $\flags_0$ denotes the set of flags starting at $F_0=\emptyset$.
+
+\hrulefill
+
+Some computation then provides us with the following form:
+
+$$\hilbM = 1_G + \sum_{F\neq \emptyset}{\frac{x(1-x^{\rank(F)-1})}{1-x}\cdot
+\frac{|G_F|}{|G|}\cdot \ind^G(\hilbMmodF^{G_F})}$$
+
+\hrulefill
+\newpage
+\printbibliography
+
 \end{document}

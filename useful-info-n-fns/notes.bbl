@@ -1,0 +1,136 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{angarone2024chowringsmatroidspermutation}{misc}{}
+      \name{author}{3}{}{%
+        {{hash=45ffacfddc25005be0797487348e8875}{%
+           family={Angarone},
+           familyi={A\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+        {{hash=83f80d92e3e0d032165984f598d47795}{%
+           family={Nathanson},
+           familyi={N\bibinitperiod},
+           given={Anastasia},
+           giveni={A\bibinitperiod}}}%
+        {{hash=4a44edd94141e3585000862e399e7b20}{%
+           family={Reiner},
+           familyi={R\bibinitperiod},
+           given={Victor},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{b9e5960aa91696958d59a889c2096cf6}
+      \strng{fullhash}{b9e5960aa91696958d59a889c2096cf6}
+      \strng{bibnamehash}{b9e5960aa91696958d59a889c2096cf6}
+      \strng{authorbibnamehash}{b9e5960aa91696958d59a889c2096cf6}
+      \strng{authornamehash}{b9e5960aa91696958d59a889c2096cf6}
+      \strng{authorfullhash}{b9e5960aa91696958d59a889c2096cf6}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{math.CO}
+      \field{eprinttype}{arXiv}
+      \field{title}{Chow Rings of Matroids as Permutation Representations}
+      \field{year}{2024}
+      \verb{eprint}
+      \verb 2309.14312
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2309.14312
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2309.14312
+      \endverb
+    \endentry
+    \entry{collins-1990}{book}{}
+      \name{author}{1}{}{%
+        {{hash=943ee5e128de87ddf31a28ce19bc0cf8}{%
+           family={Collins},
+           familyi={C\bibinitperiod},
+           given={M.\bibnamedelimi J.},
+           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Cambridge University Press}%
+      }
+      \strng{namehash}{943ee5e128de87ddf31a28ce19bc0cf8}
+      \strng{fullhash}{943ee5e128de87ddf31a28ce19bc0cf8}
+      \strng{bibnamehash}{943ee5e128de87ddf31a28ce19bc0cf8}
+      \strng{authorbibnamehash}{943ee5e128de87ddf31a28ce19bc0cf8}
+      \strng{authornamehash}{943ee5e128de87ddf31a28ce19bc0cf8}
+      \strng{authorfullhash}{943ee5e128de87ddf31a28ce19bc0cf8}
+      \field{sortinit}{C}
+      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{chapter}{{General Representation Theory}}
+      \field{month}{3}
+      \field{title}{Representations and characters of finite groups}
+      \field{year}{1990}
+      \field{pages}{34}
+      \range{pages}{1}
+    \endentry
+    \entry{fy-2004}{article}{}
+      \name{author}{2}{}{%
+        {{hash=b6c1a4d41fc15e1f9ac505ff531a4c05}{%
+           family={Feichtner},
+           familyi={F\bibinitperiod},
+           given={Eva\bibnamedelima Maria},
+           giveni={E\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=de1e8d8b65334cfa10e71a2dba7a4d9f}{%
+           family={Yuzvinsky},
+           familyi={Y\bibinitperiod},
+           given={Sergey},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{ec9f36d4701e502b708291415f296b59}
+      \strng{fullhash}{ec9f36d4701e502b708291415f296b59}
+      \strng{bibnamehash}{ec9f36d4701e502b708291415f296b59}
+      \strng{authorbibnamehash}{ec9f36d4701e502b708291415f296b59}
+      \strng{authornamehash}{ec9f36d4701e502b708291415f296b59}
+      \strng{authorfullhash}{ec9f36d4701e502b708291415f296b59}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Inventiones mathematicae}
+      \field{month}{3}
+      \field{number}{3}
+      \field{title}{{Chow rings of toric varieties defined by atomic lattices}}
+      \field{volume}{155}
+      \field{year}{2004}
+      \field{pages}{515\bibrangedash 536}
+      \range{pages}{22}
+      \verb{doi}
+      \verb 10.1007/s00222-003-0327-2
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.1007/s00222-003-0327-2
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.1007/s00222-003-0327-2
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
