@@ -61,34 +61,6 @@
       \verb https://arxiv.org/abs/2309.14312
       \endverb
     \endentry
-    \entry{collins-1990}{book}{}
-      \name{author}{1}{}{%
-        {{hash=943ee5e128de87ddf31a28ce19bc0cf8}{%
-           family={Collins},
-           familyi={C\bibinitperiod},
-           given={M.\bibnamedelimi J.},
-           giveni={M\bibinitperiod\bibinitdelim J\bibinitperiod}}}%
-      }
-      \list{publisher}{1}{%
-        {Cambridge University Press}%
-      }
-      \strng{namehash}{943ee5e128de87ddf31a28ce19bc0cf8}
-      \strng{fullhash}{943ee5e128de87ddf31a28ce19bc0cf8}
-      \strng{bibnamehash}{943ee5e128de87ddf31a28ce19bc0cf8}
-      \strng{authorbibnamehash}{943ee5e128de87ddf31a28ce19bc0cf8}
-      \strng{authornamehash}{943ee5e128de87ddf31a28ce19bc0cf8}
-      \strng{authorfullhash}{943ee5e128de87ddf31a28ce19bc0cf8}
-      \field{sortinit}{C}
-      \field{sortinithash}{4d103a86280481745c9c897c925753c0}
-      \field{labelnamesource}{author}
-      \field{labeltitlesource}{title}
-      \field{chapter}{{General Representation Theory}}
-      \field{month}{3}
-      \field{title}{Representations and characters of finite groups}
-      \field{year}{1990}
-      \field{pages}{34}
-      \range{pages}{1}
-    \endentry
     \entry{fy-2004}{article}{}
       \name{author}{2}{}{%
         {{hash=b6c1a4d41fc15e1f9ac505ff531a4c05}{%
@@ -128,6 +100,38 @@
       \endverb
       \verb{url}
       \verb https://doi.org/10.1007/s00222-003-0327-2
+      \endverb
+    \endentry
+    \entry{liao2022stembridgecodeschowrings}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=b3d8d47f48b3efad9bd843714e5d42cb}{%
+           family={Liao},
+           familyi={L\bibinitperiod},
+           given={Hsin-Chieh},
+           giveni={H\bibinithyphendelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{b3d8d47f48b3efad9bd843714e5d42cb}
+      \strng{fullhash}{b3d8d47f48b3efad9bd843714e5d42cb}
+      \strng{bibnamehash}{b3d8d47f48b3efad9bd843714e5d42cb}
+      \strng{authorbibnamehash}{b3d8d47f48b3efad9bd843714e5d42cb}
+      \strng{authornamehash}{b3d8d47f48b3efad9bd843714e5d42cb}
+      \strng{authorfullhash}{b3d8d47f48b3efad9bd843714e5d42cb}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{math.CO}
+      \field{eprinttype}{arXiv}
+      \field{title}{Stembridge codes and Chow rings}
+      \field{year}{2022}
+      \verb{eprint}
+      \verb 2212.05362
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2212.05362
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2212.05362
       \endverb
     \endentry
   \enddatalist
