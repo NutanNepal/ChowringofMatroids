@@ -4,7 +4,7 @@
 \usepackage{amssymb,amsmath,amsfonts,verbatim, amsthm}
 \usepackage[breakable, skins]{tcolorbox}
 \usepackage{graphicx, tikz-cd, adjustbox}
-\usepackage{float}
+\usepackage{float, breqn}
 \usepackage{scalerel}
 \usepackage{stackengine,wasysym}
 \usepackage{biblatex}
@@ -24,6 +24,7 @@
 \newcommand{\ind}{\text{\normalfont Ind}}
 \newcommand{\stab}{\text{\normalfont Stab}}
 \newcommand{\hilbM}{\normalfont\text{ \underline{H}}_\text{M}}
+\newcommand{\aughilbM}{\normalfont\text{H}_\text{M}}
 \newcommand{\rank}{\normalfont\text{rk}}
 \newcommand{\flats}{\normalfont\text{Flats}}
 \newcommand{\flags}{\normalfont\text{Flags}}
@@ -58,23 +59,12 @@
     If $1_H$ denotes the trivial module for $KH$, then $\ind_H^G(1_H)$ affords the permutation representation
     of $G$ on the right (or left) cosets of $H$.
 \end{lemma}
-\begin{proof}
-    \cite{collins-1990}
-\end{proof}
 
 \begin{theorem}
     Let $X = \{x_1,\ldots, x_n\}$ be a transitive $G$-set and $G_{x_1} = \stab_G(x_1)$ denote the
     stabilizer of $x_1\in E$ under the action of $G$. Let $Y$ denote the set of left cosets of $G_{x_1}$.
     Then $X\cong Y$ as $G$-sets.
 \end{theorem}
-\begin{proof}
-    By Orbit-Stabilizer theorem, we have $[G:H] = n$.
-    Since the action is transitive, there exist $g_1,\ldots,g_n\in G$ with $g_i\cdot x_1 = x_i$ such that
-    $g_1H,\ldots,g_nH$ are the distinct left cosets of $H$ in $G$.
-    (Rotman's group theory book, section on G-sets.)
-
-    $\mathfrak{to. be. continued.(?)}$
-\end{proof}
 
 \begin{corollary}
     Let $X$ be a $G$-set and $V$ be the permutation representation of $G$ on $X$. Let $X/G$ be the set of orbits
@@ -88,9 +78,9 @@
     [\cite{fy-2004}\cite{angarone2024chowringsmatroidspermutation}]
     The Chow ring $A(\matM)$ of a matroid $\matM$
     is free as a $\bz$-module, with $\bz$-basis given by the $FY$-monomials
-            $$\text{FY}=\{x_{F_1}^{m_1}x_{F_2}^{m_2}\cdots x_{F_k}^{m_k}:\ (\emptyset = F_0)\subset
-            F_1\subset F_2\subset\cdots\subset
-            F_k,\ \text{and}\ m_i\leq\rank(F_i)-\rank(F_{i-1})-1 \}.$$
+        $$\text{FY}=\{x_{F_1}^{m_1}x_{F_2}^{m_2}\cdots x_{F_k}^{m_k}:\ (\emptyset = F_0)\subset
+        F_1\subset F_2\subset\cdots\subset
+        F_k,\ \text{and}\ m_i\leq\rank(F_i)-\rank(F_{i-1})-1 \}.$$
 \end{corollary}
 
 
@@ -103,7 +93,7 @@
 
 \hspace*{5mm}
 Given a flag $F = F_0\subset F_1\subset\ldots\subset F_m$ of strictly increasing flats, the formula in
-proposition~\ref{prop:fy-formula} essentially computes the number of degree $i$ monomials divisible
+proposition~\ref{prop:fy-formula} essentially computes the number of degree $i$ monomials formed
 precisely by $x_{F_1}x_{F_2}\cdots x_{F_m}$ as coefficients of $x^i$ and sums over all flags to obtain the
 Hilbert-Poincare series.
 
@@ -124,7 +114,7 @@ A slight modification of the formula in proposition~\ref{prop:fy-formula} is as 
     }\right)}
 \end{equation}
 
-assuming that the factor is 0 when $\rank(F_i)-\rank(F_{i-1}) = 1$. The new formula explicitly computes
+assuming that the factor is 0 when $\rank(F_i)-\rank(F_{i-1}) = 1$. This formula explicitly computes
 the FY-monomials corresponding to the flag $F_0\subset F_1\subset \cdots\subset F_m$ and summing over all flags gives us
 $$A = FY^0 + FY^1x + \cdots + FY^{r-1}x^{r-1}$$
 for a matroid of rank $r$.
@@ -143,7 +133,7 @@ We have the following facts about the action of $G$ on $\flats$ and $FY$:
     \item For every monomial $m$ in $P^i\subseteq FY^i$, the stabilizer group is $G_P=
         G_{F_0}\cap G_{F_1}\cap \cdots\cap G_{F_m}$.
         Equivalently, the orbits of any two elements in $P^i$ under the action of $G$ are disjoint.
-    \item If $Q$ is in the orbit of the flag $P$, then $Q^i = P^i$.
+    \item If $Q$ is in the orbit of the flag $P$, then $Q^i$ is in the orbit of $P^i$.
     \item The permutation representation of $G$ on the orbit $\overline{m}\in FY^i/G$ is
         given by $\ind_{G_P}^G(1_{G_P})$ (theorem above).
     \item From above, the permutation representation on orbits of $P^i$ equals $|P^i|\cdot\ind_{G_P}^G(1_{G_P})$.
@@ -170,6 +160,38 @@ $$\hilbM = 1_G + \sum_{F\neq \emptyset}{\frac{x(1-x^{\rank(F)-1})}{1-x}\cdot
 \frac{|G_F|}{|G|}\cdot \ind^G(\hilbMmodF^{G_F})}$$
 
 \hrulefill
+
+We have the following $FY$-monomials set for the augmented Chow ring
+$\widetilde{A}(M)$
+as given in \cite{liao2022stembridgecodeschowrings}
+Corollary 3.12.
+
+$\widetilde{FY} = \{x_{F_1}^{a_1}x_{F_2}^{a_2}\cdots x_{F_m}^{a_m}\ 
+|\ \emptyset\subset F_1\subset\cdots\subset F_m,\ 1\leq a_1\leq \rank(F_1)
+,\ a_i\leq\rank(F_i)-\rank(F_{i-1})-1\ \text{for } i>1\}.$
+
+The computation of equivariant Chow polynomial of $\widetilde{A}_M$
+follows exactly the same as that of $A(M)$:
+
+$$\aughilbM^G = 1_G + \sum_{P\in \flags}
+{\left(\frac{x(1-x^{\rank(F_0)})}{1-x}
+\cdot\prod_{i=1}^m{\frac{x(1-x^{\rank(F_i)-\rank(F_{i-1})-1})}{1-x}}\right)
+\cdot\frac{|G_P|}{|G|}\cdot\ind^G(1_{G_P})}$$
+
+Fixing $F=F_0$ gives us
+\begin{align*}
+    \aughilbM^G &= 1_G + \sum_{P\in \flags}
+    \left(\frac{x(1-x^{\rank(F_0)})}{1-x}
+    \cdot\prod_{i=1}^m{\frac{x(1-x^{\rank(F_i)-\rank(F_{i-1})-1})}{1-x}}\right)\cdot\frac{|G_P|}{|G|}\cdot\ind^G(1_{G_P}) \\
+    &= 1_G + \sum_{F\in \flats}
+    \frac{x(1-x^{\rank(F)})}{1-x}
+    \cdot\ind_{G_F}^G \Bigg(\sum_{P\in\flags/F}
+    \left(\prod_{i=1}^m{\frac{x(1-x^{\rank(F_i)-\rank(F_{i-1})-1})}{1-x}}\right) \cdot \\
+    &\hspace*{10mm}\frac{|G_P|}{|G_F|}\cdot\ind^G(1_{G_P})\Bigg)
+\end{align*}
+
+
+
 \newpage
 \printbibliography
 
