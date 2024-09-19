@@ -1,4 +1,4 @@
-\documentclass[11pt]{article}
+\documentclass[10pt]{article}
 \usepackage[margin = 1in]{geometry}
 \usepackage{parskip}
 \usepackage{amssymb,amsmath,amsfonts,verbatim, amsthm}
@@ -14,9 +14,6 @@
 \newtcolorbox{mybox}[2][]{
     arc=0mm, enhanced, frame hidden, breakable
 }
-\newcommand\noverline[1]{%
-  \kern\nindent\overline
-  {\kern-\nindent#1\kern-\nindent}\kern\nindent}
 
 %\newcommand{\bqed}{$\hfill\blacksquare$}
 \newcommand{\bz}{\mathbb{Z}}
@@ -154,10 +151,18 @@ where $\flags_0$ denotes the set of flags starting at $F_0=\emptyset$.
 
 \hrulefill
 
-Some computation then provides us with the following form:
-
-$$\hilbM = 1_G + \sum_{F\neq \emptyset}{\frac{x(1-x^{\rank(F)-1})}{1-x}\cdot
-\frac{|G_F|}{|G|}\cdot \ind^G(\hilbMmodF^{G_F})}$$
+For $G_P= \stab(F_0\cdots F_m) = \stab(F_0)\cap\cdots\cap\stab(F_m) = \stab(F_1)\cap\cdots\cap\stab(F_m)$,
+\begin{align*}
+    \hilbM^G &= \sum_{\emptyset = F_0\subset F_1\subset \cdots\subset F_m}\left(\prod_{i=1}^m{
+    \frac{x(1-x^{\rank(F_i)-\rank(F_{i-1})-1})}{1-x}}\right)\cdot\frac{|G_P|}{|G|}\cdot\ind^G(1_{G_P})\\
+    &= 1_G + \sum_{\emptyset \neq F}\frac{x(1-x^{\rank(F)-1})}{1-x}
+    \frac{|G_F|}{|G|}\\
+    &\hspace{20mm}\ind^G\left(\sum_{F = F_1\subset \cdots\subset F_m}\left(\prod_{i=1}^m{
+        \frac{x(1-x^{\rank(F_i)-\rank(F_{i-1})-1})}{1-x}}\right)\cdot
+    \frac{|G_P|}{|G_F|}\cdot \ind^{G_F}(1_{G_P})\right)\\
+    &= 1_G + \sum_{\emptyset \neq F}{\frac{x(1-x^{\rank(F)-1})}{1-x}
+    \frac{|G_F|}{|G|}\cdot\ind^G(\hilbMmodF^{G_F})}.
+\end{align*}
 
 \hrulefill
 
