@@ -1,0 +1,938 @@
+\documentclass[11pt]{article}
+
+    \usepackage[breakable]{tcolorbox}
+    \usepackage{parskip} % Stop auto-indenting (to mimic markdown behaviour)
+    
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % Keep aspect ratio if custom image width or height is specified
+    \setkeys{Gin}{keepaspectratio}
+    % Maintain compatibility with old templates. Remove in nbconvert 6.0
+    \let\Oldincludegraphics\includegraphics
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionFormat{nocaption}{}
+    \captionsetup{format=nocaption,aboveskip=0pt,belowskip=0pt}
+
+    \usepackage{float}
+    \floatplacement{figure}{H} % forces figures to be placed at the correct location
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+
+    \usepackage{iftex}
+    \ifPDFTeX
+        \usepackage[T1]{fontenc}
+        \IfFileExists{alphabeta.sty}{
+              \usepackage{alphabeta}
+          }{
+              \usepackage[mathletters]{ucs}
+              \usepackage[utf8x]{inputenc}
+          }
+    \else
+        \usepackage{fontspec}
+        \usepackage{unicode-math}
+    \fi
+
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics
+                         % to support a larger range
+    \makeatletter % fix for old versions of grffile with XeLaTeX
+    \@ifpackagelater{grffile}{2019/11/01}
+    {
+      % Do nothing on new versions
+    }
+    {
+      \def\Gread@@xetex#1{%
+        \IfFileExists{"\Gin@base".bb}%
+        {\Gread@eps{\Gin@base.bb}}%
+        {\Gread@@xetex@aux#1}%
+      }
+    }
+    \makeatother
+    \usepackage[Export]{adjustbox} % Used to constrain images to a maximum size
+    \adjustboxset{max size={0.9\linewidth}{0.9\paperheight}}
+
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    % The default LaTeX title has an obnoxious amount of whitespace. By default,
+    % titling removes some of it. It also provides customization options.
+    \usepackage{titling}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage{array}     % table support for pandoc >= 2.11.3
+    \usepackage{calc}      % table minipage width calculation for pandoc >= 2.11.1
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    \usepackage{soul}      % strikethrough (\st) support for pandoc >= 3.0.0
+    \usepackage{mathrsfs}
+    
+
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+    \definecolor{ansi-default-inverse-fg}{HTML}{FFFFFF}
+    \definecolor{ansi-default-inverse-bg}{HTML}{000000}
+
+    % common color for the border for error outputs.
+    \definecolor{outerrorbackground}{HTML}{FFDFDF}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+
+
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatibility definitions
+    \def\gt{>}
+    \def\lt{<}
+    \let\Oldtex\TeX
+    \let\Oldlatex\LaTeX
+    \renewcommand{\TeX}{\textrm{\Oldtex}}
+    \renewcommand{\LaTeX}{\textrm{\Oldlatex}}
+    % Document parameters
+    % Document title
+    \title{braid-6}
+    
+    
+    
+    
+    
+    
+    
+% Pygments definitions
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\@namedef{PY@tok@w}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\@namedef{PY@tok@c}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cp}{\def\PY@tc##1{\textcolor[rgb]{0.61,0.40,0.00}{##1}}}
+\@namedef{PY@tok@k}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kt}{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\@namedef{PY@tok@o}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ow}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@nb}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nf}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@nn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@ne}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.80,0.25,0.22}{##1}}}
+\@namedef{PY@tok@nv}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@no}{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\@namedef{PY@tok@nl}{\def\PY@tc##1{\textcolor[rgb]{0.46,0.46,0.00}{##1}}}
+\@namedef{PY@tok@ni}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@na}{\def\PY@tc##1{\textcolor[rgb]{0.41,0.47,0.13}{##1}}}
+\@namedef{PY@tok@nt}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@nd}{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\@namedef{PY@tok@s}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sd}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@si}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@se}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.36,0.12}{##1}}}
+\@namedef{PY@tok@sr}{\def\PY@tc##1{\textcolor[rgb]{0.64,0.35,0.47}{##1}}}
+\@namedef{PY@tok@ss}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sx}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@m}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@gh}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gu}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\@namedef{PY@tok@gd}{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\@namedef{PY@tok@gi}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.52,0.00}{##1}}}
+\@namedef{PY@tok@gr}{\def\PY@tc##1{\textcolor[rgb]{0.89,0.00,0.00}{##1}}}
+\@namedef{PY@tok@ge}{\let\PY@it=\textit}
+\@namedef{PY@tok@gs}{\let\PY@bf=\textbf}
+\@namedef{PY@tok@ges}{\let\PY@bf=\textbf\let\PY@it=\textit}
+\@namedef{PY@tok@gp}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\@namedef{PY@tok@go}{\def\PY@tc##1{\textcolor[rgb]{0.44,0.44,0.44}{##1}}}
+\@namedef{PY@tok@gt}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\@namedef{PY@tok@err}{\def\PY@bc##1{{\setlength{\fboxsep}{\string -\fboxrule}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}}
+\@namedef{PY@tok@kc}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kd}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kn}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@kr}{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@bp}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\@namedef{PY@tok@fm}{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\@namedef{PY@tok@vc}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vg}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vi}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@vm}{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\@namedef{PY@tok@sa}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sb}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sc}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@dl}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s2}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@sh}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@s1}{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\@namedef{PY@tok@mb}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mf}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mh}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mi}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@il}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@mo}{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\@namedef{PY@tok@ch}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cm}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cpf}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@c1}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+\@namedef{PY@tok@cs}{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.24,0.48,0.48}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % For linebreaks inside Verbatim environment from package fancyvrb.
+    \makeatletter
+        \newbox\Wrappedcontinuationbox
+        \newbox\Wrappedvisiblespacebox
+        \newcommand*\Wrappedvisiblespace {\textcolor{red}{\textvisiblespace}}
+        \newcommand*\Wrappedcontinuationsymbol {\textcolor{red}{\llap{\tiny$\m@th\hookrightarrow$}}}
+        \newcommand*\Wrappedcontinuationindent {3ex }
+        \newcommand*\Wrappedafterbreak {\kern\Wrappedcontinuationindent\copy\Wrappedcontinuationbox}
+        % Take advantage of the already applied Pygments mark-up to insert
+        % potential linebreaks for TeX processing.
+        %        {, <, #, %, $, ' and ": go to next line.
+        %        _, }, ^, &, >, - and ~: stay at end of broken line.
+        % Use of \textquotesingle for straight quote.
+        \newcommand*\Wrappedbreaksatspecials {%
+            \def\PYGZus{\discretionary{\char`\_}{\Wrappedafterbreak}{\char`\_}}%
+            \def\PYGZob{\discretionary{}{\Wrappedafterbreak\char`\{}{\char`\{}}%
+            \def\PYGZcb{\discretionary{\char`\}}{\Wrappedafterbreak}{\char`\}}}%
+            \def\PYGZca{\discretionary{\char`\^}{\Wrappedafterbreak}{\char`\^}}%
+            \def\PYGZam{\discretionary{\char`\&}{\Wrappedafterbreak}{\char`\&}}%
+            \def\PYGZlt{\discretionary{}{\Wrappedafterbreak\char`\<}{\char`\<}}%
+            \def\PYGZgt{\discretionary{\char`\>}{\Wrappedafterbreak}{\char`\>}}%
+            \def\PYGZsh{\discretionary{}{\Wrappedafterbreak\char`\#}{\char`\#}}%
+            \def\PYGZpc{\discretionary{}{\Wrappedafterbreak\char`\%}{\char`\%}}%
+            \def\PYGZdl{\discretionary{}{\Wrappedafterbreak\char`\$}{\char`\$}}%
+            \def\PYGZhy{\discretionary{\char`\-}{\Wrappedafterbreak}{\char`\-}}%
+            \def\PYGZsq{\discretionary{}{\Wrappedafterbreak\textquotesingle}{\textquotesingle}}%
+            \def\PYGZdq{\discretionary{}{\Wrappedafterbreak\char`\"}{\char`\"}}%
+            \def\PYGZti{\discretionary{\char`\~}{\Wrappedafterbreak}{\char`\~}}%
+        }
+        % Some characters . , ; ? ! / are not pygmentized.
+        % This macro makes them "active" and they will insert potential linebreaks
+        \newcommand*\Wrappedbreaksatpunct {%
+            \lccode`\~`\.\lowercase{\def~}{\discretionary{\hbox{\char`\.}}{\Wrappedafterbreak}{\hbox{\char`\.}}}%
+            \lccode`\~`\,\lowercase{\def~}{\discretionary{\hbox{\char`\,}}{\Wrappedafterbreak}{\hbox{\char`\,}}}%
+            \lccode`\~`\;\lowercase{\def~}{\discretionary{\hbox{\char`\;}}{\Wrappedafterbreak}{\hbox{\char`\;}}}%
+            \lccode`\~`\:\lowercase{\def~}{\discretionary{\hbox{\char`\:}}{\Wrappedafterbreak}{\hbox{\char`\:}}}%
+            \lccode`\~`\?\lowercase{\def~}{\discretionary{\hbox{\char`\?}}{\Wrappedafterbreak}{\hbox{\char`\?}}}%
+            \lccode`\~`\!\lowercase{\def~}{\discretionary{\hbox{\char`\!}}{\Wrappedafterbreak}{\hbox{\char`\!}}}%
+            \lccode`\~`\/\lowercase{\def~}{\discretionary{\hbox{\char`\/}}{\Wrappedafterbreak}{\hbox{\char`\/}}}%
+            \catcode`\.\active
+            \catcode`\,\active
+            \catcode`\;\active
+            \catcode`\:\active
+            \catcode`\?\active
+            \catcode`\!\active
+            \catcode`\/\active
+            \lccode`\~`\~
+        }
+    \makeatother
+
+    \let\OriginalVerbatim=\Verbatim
+    \makeatletter
+    \renewcommand{\Verbatim}[1][1]{%
+        %\parskip\z@skip
+        \sbox\Wrappedcontinuationbox {\Wrappedcontinuationsymbol}%
+        \sbox\Wrappedvisiblespacebox {\FV@SetupFont\Wrappedvisiblespace}%
+        \def\FancyVerbFormatLine ##1{\hsize\linewidth
+            \vtop{\raggedright\hyphenpenalty\z@\exhyphenpenalty\z@
+                \doublehyphendemerits\z@\finalhyphendemerits\z@
+                \strut ##1\strut}%
+        }%
+        % If the linebreak is at a space, the latter will be displayed as visible
+        % space at end of first line, and a continuation symbol starts next line.
+        % Stretch/shrink are however usually zero for typewriter font.
+        \def\FV@Space {%
+            \nobreak\hskip\z@ plus\fontdimen3\font minus\fontdimen4\font
+            \discretionary{\copy\Wrappedvisiblespacebox}{\Wrappedafterbreak}
+            {\kern\fontdimen2\font}%
+        }%
+
+        % Allow breaks at special characters using \PYG... macros.
+        \Wrappedbreaksatspecials
+        % Breaks at punctuation characters . , ; ? ! and / need catcode=\active
+        \OriginalVerbatim[#1,codes*=\Wrappedbreaksatpunct]%
+    }
+    \makeatother
+
+    % Exact colors from NB
+    \definecolor{incolor}{HTML}{303F9F}
+    \definecolor{outcolor}{HTML}{D84315}
+    \definecolor{cellborder}{HTML}{CFCFCF}
+    \definecolor{cellbackground}{HTML}{F7F7F7}
+
+    % prompt
+    \makeatletter
+    \newcommand{\boxspacing}{\kern\kvtcb@left@rule\kern\kvtcb@boxsep}
+    \makeatother
+    \newcommand{\prompt}[4]{
+        {\ttfamily\llap{{\color{#2}[#3]:\hspace{3pt}#4}}\vspace{-\baselineskip}}
+    }
+    
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+\begin{document}
+    
+    \section*{Chow Polynomial of Braid-6}\label{chow-polynomial-of-braid-6}
+
+    First, we initialize the matroid Braid-6 and then obtain the lattice of
+flats. We relabel the flats for simple presentation.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{15}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{n} \PY{o}{=} \PY{l+m+mi}{6}
+\PY{n}{edgelist} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{graphs}\PY{o}{.}\PY{n}{CompleteGraph}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{o}{.}\PY{n}{edges}\PY{p}{(}\PY{n}{labels}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{)}
+\PY{n}{matroid} \PY{o}{=} \PY{n}{Matroid}\PY{p}{(}\PY{n}{graph}\PY{o}{=}\PY{n}{edgelist}\PY{p}{,} \PY{n}{groundset}\PY{o}{=}\PY{n}{edgelist}\PY{p}{)}
+\PY{n}{flats} \PY{o}{=} \PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n}{matroid}\PY{o}{.}\PY{n}{flats}\PY{p}{(}\PY{n}{i}\PY{p}{)}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{]}
+\PY{n}{all\PYZus{}elements} \PY{o}{=} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{flats}\PY{p}{,} \PY{p}{[}\PY{p}{]}\PY{p}{)}  \PY{c+c1}{\PYZsh{} Flatten the list of flats}
+\PY{n}{labels} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{element}\PY{p}{:} \PY{n}{idx} \PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{element} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{all\PYZus{}elements}\PY{p}{)}\PY{p}{\PYZcb{}}
+\PY{n}{matroid}\PY{o}{.}\PY{n}{lattice\PYZus{}of\PYZus{}flats}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{plot}\PY{p}{(}
+    \PY{n}{element\PYZus{}labels} \PY{o}{=} \PY{n}{labels}\PY{p}{,} \PY{n}{element\PYZus{}color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{white}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}
+    \PY{n}{figsize}\PY{o}{=} \PY{p}{(}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{20}\PY{p}{)} \PY{p}{,}\PY{n}{cover\PYZus{}color} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{grey}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+ 
+            
+\prompt{Out}{outcolor}{15}{}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{braid-6_files/braid-6_2_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    We now generate the possible degrees that a flat can have in a monomial.
+For example, if \([x_1, x_2, x_3,x_4]\) is a chain and \([0,1,0,2]\) is
+a weight, then we say that \(x_2x_4^2\) is an fy-monomial.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{16}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{generate\PYZus{}weights}\PY{p}{(}\PY{n}{rank}\PY{p}{)}\PY{p}{:}
+    \PY{n}{weights} \PY{o}{=} \PY{n+nb}{set}\PY{p}{(}\PY{p}{)} 
+    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{rank}\PY{p}{)}\PY{p}{:}
+        \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{rank}\PY{p}{)}\PY{p}{:}
+            \PY{n}{weight} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n}{rank}
+            
+            \PY{k}{if} \PY{n}{i} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{j}\PY{p}{:}
+                \PY{n}{weight}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{j}
+                \PY{n}{weights}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n+nb}{tuple}\PY{p}{(}\PY{n}{weight}\PY{p}{)}\PY{p}{)}
+
+            \PY{k}{if} \PY{n}{rank} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)} \PY{o}{\PYZgt{}} \PY{l+m+mi}{1}\PY{p}{:}
+                \PY{c+c1}{\PYZsh{} Recursion to get the complete list of weights...}
+                \PY{n}{y} \PY{o}{=} \PY{n}{generate\PYZus{}weights}\PY{p}{(}\PY{n}{rank} \PY{o}{\PYZhy{}} \PY{p}{(}\PY{n}{i} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)} 
+                \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{y}\PY{p}{:}
+                    \PY{n}{temp\PYZus{}weight} \PY{o}{=} \PY{n}{weight}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{p}{)}
+                    \PY{n}{weights}\PY{o}{.}\PY{n}{add}\PY{p}{(}\PY{n+nb}{tuple}\PY{p}{(}\PY{n}{temp\PYZus{}weight}\PY{p}{[}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{+} \PY{n}{x}\PY{p}{)}\PY{p}{)} 
+
+    \PY{k}{return} \PY{p}{[}\PY{n+nb}{list}\PY{p}{(}\PY{n}{w}\PY{p}{)} \PY{k}{for} \PY{n}{w} \PY{o+ow}{in} \PY{n}{weights}\PY{p}{]}
+
+\PY{n}{rank} \PY{o}{=} \PY{n}{matroid}\PY{o}{.}\PY{n}{rank}\PY{p}{(}\PY{p}{)}
+\PY{n}{weights} \PY{o}{=} \PY{n}{generate\PYZus{}weights}\PY{p}{(}\PY{n}{rank}\PY{p}{)}
+\PY{n}{weights}
+\end{Verbatim}
+\end{tcolorbox}
+
+            \begin{tcolorbox}[breakable, size=fbox, boxrule=.5pt, pad at break*=1mm, opacityfill=0]
+\prompt{Out}{outcolor}{16}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+[[0, 0, 1, 0, 1],
+ [0, 0, 0, 0, 2],
+ [0, 1, 0, 0, 1],
+ [0, 0, 1, 0, 0],
+ [0, 0, 2, 0, 1],
+ [0, 0, 0, 0, 1],
+ [0, 0, 0, 3, 0],
+ [0, 1, 0, 0, 0],
+ [0, 0, 2, 0, 0],
+ [0, 0, 0, 0, 4],
+ [0, 1, 0, 1, 0],
+ [0, 0, 0, 0, 0],
+ [0, 0, 0, 1, 0],
+ [0, 0, 0, 0, 3],
+ [0, 0, 0, 2, 0],
+ [0, 1, 0, 0, 2]]
+\end{Verbatim}
+\end{tcolorbox}
+        
+    Next, we compute all the possible fy-monomials in the example matroid.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{17}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{rflats} \PY{o}{=} \PY{n}{flats}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{p}{]} \PY{c+c1}{\PYZsh{}empty flat is not required.}
+\PY{n}{fy\PYZus{}monomials\PYZus{}list} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{p}{]} \PY{k}{for} \PY{n}{\PYZus{}} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{rank}\PY{p}{)}\PY{p}{]}
+
+\PY{k}{def} \PY{n+nf}{generate\PYZus{}monomials}\PY{p}{(}\PY{n}{weight}\PY{p}{,} \PY{n}{flats}\PY{p}{)}\PY{p}{:}
+    \PY{k}{if} \PY{n+nb}{sum}\PY{p}{(}\PY{n}{weight}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:} \PY{k}{return} \PY{p}{[}\PY{p}{[}\PY{p}{]}\PY{p}{]}
+    \PY{c+c1}{\PYZsh{} Find the first non\PYZhy{}zero weight}
+    \PY{n}{start\PYZus{}index} \PY{o}{=} \PY{n+nb}{next}\PY{p}{(}\PY{n}{i} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{weight}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{weight}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{)}
+    \PY{n}{result} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+
+    \PY{k}{for} \PY{n}{initial\PYZus{}flat} \PY{o+ow}{in} \PY{n}{flats}\PY{p}{[}\PY{n}{start\PYZus{}index}\PY{p}{]}\PY{p}{:}
+        \PY{n}{initial\PYZus{}monomial} \PY{o}{=} \PY{p}{[}\PY{n}{initial\PYZus{}flat}\PY{p}{]} \PY{o}{*} \PY{n}{weight}\PY{p}{[}\PY{n}{start\PYZus{}index}\PY{p}{]}
+        \PY{n}{potential\PYZus{}combinations} \PY{o}{=} \PY{p}{[}\PY{n}{initial\PYZus{}monomial}\PY{p}{]}
+
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{start\PYZus{}index} \PY{o}{+} \PY{l+m+mi}{1}\PY{p}{,} \PY{n+nb}{len}\PY{p}{(}\PY{n}{weight}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+            \PY{k}{if} \PY{n}{weight}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{!=} \PY{l+m+mi}{0}\PY{p}{:}
+                \PY{n}{new\PYZus{}combinations} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+                \PY{k}{for} \PY{n}{flat} \PY{o+ow}{in} \PY{n}{flats}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{:}
+                    \PY{k}{for} \PY{n}{combo} \PY{o+ow}{in} \PY{n}{potential\PYZus{}combinations}\PY{p}{:}
+                        \PY{k}{if} \PY{n}{combo}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{issubset}\PY{p}{(}\PY{n}{flat}\PY{p}{)}\PY{p}{:}
+                            \PY{n}{new\PYZus{}combo} \PY{o}{=} \PY{n}{combo} \PY{o}{+} \PY{p}{[}\PY{n}{flat}\PY{p}{]} \PY{o}{*} \PY{n}{weight}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                            \PY{n}{new\PYZus{}combinations}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{new\PYZus{}combo}\PY{p}{)}
+                \PY{n}{potential\PYZus{}combinations} \PY{o}{=} \PY{n}{new\PYZus{}combinations}
+
+        \PY{n}{result}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{potential\PYZus{}combinations}\PY{p}{)}
+
+    \PY{k}{return} \PY{n}{result}
+
+\PY{k}{for} \PY{n}{weight} \PY{o+ow}{in} \PY{n}{weights}\PY{p}{:}
+    \PY{n}{fy\PYZus{}monomials\PYZus{}list}\PY{p}{[}\PY{n+nb}{sum}\PY{p}{(}\PY{n}{weight}\PY{p}{)}\PY{p}{]}\PY{o}{.}\PY{n}{extend}\PY{p}{(}\PY{n}{generate\PYZus{}monomials}\PY{p}{(}\PY{n}{weight}\PY{p}{,} \PY{n}{rflats}\PY{p}{)}\PY{p}{)}
+
+\PY{c+c1}{\PYZsh{}example fy\PYZhy{}monomial}
+\PY{n+nb}{print}\PY{p}{(}\PY{n}{fy\PYZus{}monomials\PYZus{}list}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[frozenset(\{(0, 1), (2, 3), (0, 2), (1, 2), (0, 3), (1, 3)\}), frozenset(\{(0, 1),
+(2, 4), (1, 2), (0, 4), (3, 4), (1, 5), (0, 3), (1, 4), (2, 3), (0, 2), (4, 5),
+(0, 5), (2, 5), (1, 3), (3, 5)\})]
+    \end{Verbatim}
+
+    We write some simplification functions to make fy-monomials look
+simpler. Then we write out all fy-monomials of braid-5 in this simple
+form.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{18}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{def} \PY{n+nf}{simplify}\PY{p}{(}\PY{n}{monomial}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n+nb}{tuple}\PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{p}{[}\PY{n}{labels}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{monomial}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{set\PYZus{}simplify}\PY{p}{(}\PY{n}{monomial\PYZus{}set}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n+nb}{set}\PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{p}{[}\PY{n}{simplify}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{monomial\PYZus{}set}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    The symmetric group \(G=S_6\) acts on the example matroid. We now set up
+the appropriate functions required to compute the actions on the vertex
+set and obtain the set of orbits and their stabilizer groups.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{19}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{G} \PY{o}{=} \PY{n}{SymmetricGroup}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{n}{n}\PY{p}{)}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{action\PYZus{}on\PYZus{}flats}\PY{p}{(}\PY{n}{g}\PY{p}{,} \PY{n}{m}\PY{p}{)}\PY{p}{:}
+    \PY{k}{def} \PY{n+nf}{action\PYZus{}on\PYZus{}groundset}\PY{p}{(}\PY{n}{g}\PY{p}{,} \PY{n}{x}\PY{p}{)}\PY{p}{:}
+        \PY{k}{return} \PY{n+nb}{tuple}\PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{g}\PY{p}{(}\PY{n}{y}\PY{p}{)} \PY{k}{for} \PY{n}{y} \PY{o+ow}{in} \PY{n}{x}\PY{p}{)}\PY{p}{)}
+    \PY{k}{return} \PY{n+nb}{frozenset}\PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{p}{[}\PY{n}{action\PYZus{}on\PYZus{}groundset}\PY{p}{(}\PY{n}{g}\PY{p}{,}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{m}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{action\PYZus{}on\PYZus{}braidfymonomials}\PY{p}{(}\PY{n}{g}\PY{p}{,} \PY{n}{monomial}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n+nb}{tuple}\PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{p}{[}\PY{n}{action\PYZus{}on\PYZus{}flats}\PY{p}{(}\PY{n}{g}\PY{p}{,}\PY{n}{m}\PY{p}{)} \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n}{monomial}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{stab}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{m}\PY{p}{,} \PY{n}{action}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n}{G}\PY{o}{.}\PY{n}{subgroup}\PY{p}{(}\PY{n+nb}{set}\PY{p}{(}\PY{n}{g} \PY{k}{for} \PY{n}{g} \PY{o+ow}{in} \PY{n}{G} \PY{k}{if} \PY{n}{action}\PY{p}{(}\PY{n}{g}\PY{p}{,} \PY{n}{m}\PY{p}{)} \PY{o}{==} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{m}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+
+\PY{k}{def} \PY{n+nf}{orbit}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{m}\PY{p}{,} \PY{n}{action}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n+nb}{frozenset}\PY{p}{(}\PY{n+nb}{sorted}\PY{p}{(}\PY{n}{action}\PY{p}{(}\PY{n}{g}\PY{p}{,} \PY{n}{m}\PY{p}{)} \PY{k}{for} \PY{n}{g} \PY{o+ow}{in} \PY{n}{G}\PY{p}{)}\PY{p}{)}
+    
+\PY{k}{def} \PY{n+nf}{orbits}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{X}\PY{p}{,} \PY{n}{action}\PY{p}{)}\PY{p}{:}
+    \PY{k}{return} \PY{n+nb}{set}\PY{p}{(}\PY{n}{orbit}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{x}\PY{p}{,} \PY{n}{action}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{X}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    Finally, we compute the orbits of the fy-monomials under the action of
+\(G\).
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{20}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{n}{fy\PYZus{}monomials\PYZus{}orbits} \PY{o}{=} \PY{p}{[}\PY{n}{orbits}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n}{fy\PYZus{}monomials\PYZus{}list}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,} \PY{n}{action\PYZus{}on\PYZus{}braidfymonomials}\PY{p}{)}
+    \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{rank}\PY{p}{)}
+    \PY{p}{]}
+    
+\PY{n}{orbits\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+\PY{k}{for} \PY{n}{idx}\PY{p}{,} \PY{n}{orbit\PYZus{}set} \PY{o+ow}{in} \PY{n+nb}{enumerate}\PY{p}{(}\PY{n}{fy\PYZus{}monomials\PYZus{}orbits}\PY{p}{)}\PY{p}{:}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{rank: }\PY{l+s+si}{\PYZob{}}\PY{n}{idx}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{orbit\PYZus{}set}\PY{p}{:}
+        \PY{n}{orbits\PYZus{}dict}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{o}{=} \PY{n+nb}{len}\PY{p}{(}\PY{n}{orbits\PYZus{}dict}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}}\PY{n}{orbits\PYZus{}dict}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{: }\PY{l+s+si}{\PYZob{}}\PY{n}{set\PYZus{}simplify}\PY{p}{(}\PY{n}{x}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+rank: 0
+0: \{()\}
+
+
+rank: 1
+1: \{(176,), (182,), (185,), (175,), (188,), (194,), (197,), (187,), (200,),
+(190,), (180,), (193,), (199,), (173,), (179,)\}
+
+2: \{(202,)\}
+
+3: \{(118,), (121,), (127,), (124,), (130,), (133,), (139,), (142,), (145,),
+(84,), (90,), (148,), (93,), (99,), (160,), (96,), (102,), (108,), (166,),
+(105,), (169,), (114,), (117,), (126,), (132,), (129,), (135,), (138,), (89,),
+(141,), (86,), (150,), (95,), (98,), (165,), (162,), (168,), (113,), (110,),
+(116,), (119,), (128,), (131,), (140,), (85,), (143,), (149,), (94,), (152,),
+(91,), (97,), (158,), (155,), (161,), (100,), (164,), (109,), (115,), (167,),
+(112,)\}
+
+4: \{(186,), (172,), (201,), (178,), (171,), (174,)\}
+
+5: \{(57,), (63,), (75,), (17,), (26,), (35,), (56,), (62,), (16,), (74,), (80,),
+(19,), (77,), (28,), (43,), (58,), (67,), (18,), (27,), (36,)\}
+
+6: \{(192,), (198,), (195,), (191,), (184,), (181,), (177,), (196,), (183,),
+(189,)\}
+
+7: \{(51,), (60,), (66,), (69,), (72,), (78,), (23,), (20,), (29,), (32,), (38,),
+(44,), (41,), (47,), (50,), (53,), (59,), (68,), (65,), (71,), (25,), (22,),
+(31,), (37,), (34,), (40,), (49,), (46,), (52,), (55,), (61,), (64,), (70,),
+(73,), (76,), (21,), (79,), (24,), (30,), (33,), (42,), (39,), (45,), (48,),
+(54,)\}
+
+8: \{(147,), (153,), (137,), (101,), (146,), (120,), (104,), (154,), (123,),
+(136,), (151,), (103,), (144,), (122,), (134,)\}
+
+9: \{(163,), (92,), (82,), (111,), (156,), (170,), (159,), (88,), (107,), (81,),
+(87,), (106,), (125,), (83,), (157,)\}
+
+
+rank: 2
+10: \{(31, 191), (70, 183), (78, 196), (50, 198), (61, 198), (30, 192), (33,
+191), (76, 189), (71, 184), (76, 198), (20, 184), (22, 181), (40, 196), (47,
+183), (66, 181), (51, 192), (49, 183), (73, 195), (78, 191), (33, 177), (70,
+196), (42, 189), (68, 189), (29, 191), (23, 184), (61, 177), (37, 195), (30,
+189), (41, 195), (32, 192), (46, 191), (23, 177), (38, 196), (72, 191), (55,
+184), (21, 181), (47, 198), (25, 177), (51, 198), (38, 189), (72, 184), (22,
+183), (53, 198), (65, 181), (41, 181), (24, 183), (66, 198), (44, 195), (49,
+191), (79, 192), (21, 184), (48, 195), (59, 177), (64, 191), (60, 196), (52,
+192), (53, 184), (34, 189), (45, 198), (69, 183), (69, 192), (20, 183), (45,
+191), (37, 196), (52, 196), (48, 183), (46, 195), (39, 189), (54, 196), (32,
+177), (59, 195), (25, 181), (65, 192), (73, 184), (64, 181), (40, 181), (34,
+177), (60, 177), (42, 181), (71, 189), (29, 192), (31, 189), (55, 192), (24,
+177), (50, 196), (44, 198), (68, 183), (79, 195), (54, 184), (39, 195)\}
+
+11: \{(187, 187), (200, 200), (180, 180), (194, 194), (197, 197), (190, 190),
+(179, 179), (199, 199), (176, 176), (173, 173), (193, 193), (182, 182), (175,
+175), (188, 188), (185, 185)\}
+
+12: \{(21, 202), (54, 202), (23, 202), (34, 202), (45, 202), (78, 202), (60,
+202), (47, 202), (69, 202), (51, 202), (25, 202), (38, 202), (49, 202), (71,
+202), (29, 202), (40, 202), (73, 202), (55, 202), (20, 202), (31, 202), (53,
+202), (64, 202), (22, 202), (42, 202), (33, 202), (44, 202), (66, 202), (24,
+202), (46, 202), (68, 202), (79, 202), (72, 202), (48, 202), (39, 202), (37,
+202), (59, 202), (70, 202), (50, 202), (61, 202), (30, 202), (41, 202), (52,
+202), (65, 202), (76, 202), (32, 202)\}
+
+13: \{(36, 196), (28, 192), (43, 198), (77, 181), (80, 177), (67, 189), (56,
+198), (58, 195), (16, 177), (57, 196), (18, 183), (63, 191), (62, 192), (17,
+181), (19, 184), (27, 191), (74, 184), (75, 183), (26, 189), (35, 195)\}
+
+14: \{(87, 87), (107, 107), (125, 125), (106, 106), (156, 156), (81, 81), (163,
+163), (83, 83), (92, 92), (170, 170), (157, 157), (82, 82), (159, 159), (111,
+111), (88, 88)\}
+
+15: \{(164, 202), (142, 202), (100, 202), (133, 202), (109, 202), (155, 202),
+(166, 202), (91, 202), (89, 202), (102, 202), (124, 202), (135, 202), (93, 202),
+(126, 202), (148, 202), (161, 202), (168, 202), (113, 202), (160, 202), (95,
+202), (117, 202), (115, 202), (128, 202), (139, 202), (86, 202), (97, 202), (84,
+202), (119, 202), (141, 202), (150, 202), (110, 202), (143, 202), (152, 202),
+(121, 202), (108, 202), (130, 202), (132, 202), (90, 202), (112, 202), (99,
+202), (145, 202), (165, 202), (167, 202), (114, 202), (169, 202), (158, 202),
+(116, 202), (127, 202), (138, 202), (149, 202), (85, 202), (96, 202), (94, 202),
+(105, 202), (118, 202), (129, 202), (98, 202), (131, 202), (140, 202), (162,
+202)\}
+
+16: \{(146, 202), (134, 202), (137, 202), (153, 202), (154, 202), (144, 202),
+(120, 202), (104, 202), (101, 202), (123, 202), (151, 202), (103, 202), (136,
+202), (147, 202), (122, 202)\}
+
+17: \{(22, 176), (54, 190), (64, 200), (34, 190), (47, 187), (55, 194), (42,
+194), (46, 182), (60, 199), (33, 188), (79, 185), (68, 200), (40, 187), (73,
+193), (37, 173), (71, 199), (72, 197), (49, 194), (50, 176), (44, 175), (52,
+182), (51, 180), (59, 200), (41, 188), (61, 197), (66, 193), (76, 185), (23,
+179), (45, 179), (48, 190), (78, 185), (30, 175), (65, 199), (70, 193), (69,
+197), (25, 182), (24, 180), (32, 187), (29, 173), (38, 179), (21, 175), (20,
+173), (39, 180), (31, 176), (53, 188)\}
+
+18: \{(202, 202)\}
+
+19: \{(123, 123), (136, 136), (134, 134), (154, 154), (103, 103), (151, 151),
+(144, 144), (153, 153), (137, 137), (146, 146), (147, 147), (122, 122), (120,
+120), (104, 104), (101, 101)\}
+
+20: \{(163, 202), (159, 202), (170, 202), (92, 202), (87, 202), (82, 202), (106,
+202), (88, 202), (83, 202), (107, 202), (81, 202), (111, 202), (125, 202), (156,
+202), (157, 202)\}
+
+21: \{(178, 178), (171, 171), (174, 174), (201, 201), (186, 186), (172, 172)\}
+
+22: \{(198, 198), (196, 196), (177, 177), (181, 181), (183, 183), (192, 192),
+(189, 189), (191, 191), (195, 195), (184, 184)\}
+
+23: \{(98, 98), (162, 162), (139, 139), (84, 84), (116, 116), (126, 126), (112,
+112), (167, 167), (89, 89), (135, 135), (121, 121), (130, 130), (131, 131),
+(140, 140), (117, 117), (85, 85), (94, 94), (149, 149), (158, 158), (145, 145),
+(168, 168), (90, 90), (99, 99), (108, 108), (164, 164), (86, 86), (141, 141),
+(150, 150), (118, 118), (127, 127), (95, 95), (113, 113), (114, 114), (169,
+169), (91, 91), (155, 155), (132, 132), (100, 100), (109, 109), (110, 110),
+(119, 119), (160, 160), (96, 96), (105, 105), (128, 128), (124, 124), (165,
+165), (133, 133), (142, 142), (143, 143), (152, 152), (129, 129), (138, 138),
+(97, 97), (115, 115), (161, 161), (93, 93), (148, 148), (166, 166), (102, 102)\}
+
+24: \{(34, 193), (47, 199), (79, 179), (49, 199), (31, 193), (78, 180), (59,
+176), (61, 173), (64, 190), (41, 179), (33, 175), (59, 194), (76, 173), (76,
+182), (66, 190), (46, 187), (40, 180), (72, 187), (21, 185), (69, 179), (69,
+188), (54, 200), (25, 173), (72, 180), (78, 175), (42, 173), (45, 190), (55,
+200), (45, 199), (68, 182), (48, 179), (21, 180), (39, 197), (37, 197), (65,
+179), (32, 176), (52, 188), (50, 200), (41, 197), (33, 193), (64, 180), (70,
+175), (47, 182), (30, 193), (60, 194), (51, 200), (73, 176), (53, 182), (22,
+185), (53, 200), (66, 173), (49, 175), (79, 176), (68, 188), (24, 185), (73,
+187), (29, 193), (37, 194), (44, 199), (34, 173), (39, 187), (48, 199), (32,
+193), (65, 190), (55, 176), (20, 185), (40, 197), (60, 175), (51, 190), (42,
+197), (44, 194), (71, 187), (54, 180), (29, 190), (31, 187), (70, 188), (24,
+175), (50, 194), (61, 194), (30, 188), (52, 200), (46, 199), (23, 176), (23,
+185), (25, 185), (71, 182), (38, 188), (20, 182), (22, 179), (38, 197)\}
+
+25: \{(63, 202), (80, 202), (56, 202), (67, 202), (36, 202), (58, 202), (27,
+202), (16, 202), (18, 202), (62, 202), (77, 202), (75, 202), (35, 202), (57,
+202), (26, 202), (17, 202), (28, 202), (19, 202), (74, 202), (43, 202)\}
+
+26: \{(60, 172), (72, 201), (30, 174), (41, 186), (59, 201), (70, 201), (25,
+178), (22, 172), (21, 174), (23, 171), (55, 178), (34, 186), (42, 178), (24,
+172), (46, 178), (39, 172), (29, 171), (40, 171), (22, 174), (70, 178), (41,
+172), (64, 201), (68, 171), (48, 186), (66, 201), (59, 171), (52, 174), (30,
+171), (51, 178), (71, 172), (76, 186), (38, 178), (49, 178), (31, 172), (20,
+172), (21, 171), (69, 174), (34, 174), (47, 171), (78, 186), (54, 186), (33,
+172), (66, 178), (38, 171), (60, 201), (31, 174), (40, 186), (64, 171), (50,
+172), (37, 172), (55, 186), (73, 201), (65, 172), (48, 174), (33, 186), (79,
+201), (45, 178), (61, 174), (32, 171), (29, 172), (73, 178), (54, 174), (45,
+171), (47, 186), (69, 201), (24, 178), (39, 178), (53, 186), (71, 201), (52,
+178), (46, 174), (44, 174), (42, 186), (72, 174), (37, 171), (51, 172), (50,
+174), (32, 186), (61, 201), (53, 172), (65, 201), (76, 201), (78, 201), (25,
+174), (20, 171), (49, 186), (44, 171), (79, 186), (68, 201), (23, 178)\}
+
+27: \{(62, 200), (63, 193), (63, 199), (27, 175), (67, 193), (77, 185), (17,
+180), (77, 197), (80, 193), (19, 180), (27, 187), (56, 199), (27, 190), (35,
+179), (58, 199), (75, 185), (16, 175), (26, 173), (75, 188), (18, 175), (35,
+194), (63, 180), (57, 200), (26, 188), (57, 197), (62, 193), (17, 173), (36,
+180), (77, 190), (28, 176), (17, 179), (19, 176), (19, 182), (28, 188), (43,
+182), (57, 175), (74, 185), (74, 200), (35, 187), (43, 194), (75, 199), (26,
+187), (56, 173), (67, 182), (58, 176), (56, 200), (80, 185), (36, 188), (36,
+194), (67, 197), (80, 194), (28, 190), (58, 197), (74, 187), (16, 173), (16,
+176), (18, 179), (43, 190), (62, 179), (18, 182)\}
+
+28: \{(67, 178), (17, 171), (36, 178), (80, 178), (28, 174), (74, 171), (43,
+174), (19, 174), (28, 186), (74, 186), (43, 186), (16, 172), (74, 201), (18,
+178), (62, 178), (67, 174), (56, 171), (58, 174), (27, 174), (63, 201), (27,
+171), (36, 186), (75, 172), (80, 186), (27, 186), (56, 201), (67, 201), (26,
+172), (58, 201), (16, 171), (35, 178), (80, 201), (16, 174), (18, 171), (62,
+171), (18, 174), (77, 174), (17, 172), (28, 172), (77, 186), (19, 172), (62,
+201), (17, 178), (19, 178), (75, 186), (57, 174), (77, 201), (35, 171), (43,
+178), (57, 171), (26, 171), (35, 186), (63, 172), (75, 201), (26, 186), (63,
+178), (56, 172), (57, 201), (36, 172), (58, 172)\}
+
+
+rank: 3
+29: \{(195, 195, 195), (198, 198, 198), (196, 196, 196), (189, 189, 189), (184,
+184, 184), (177, 177, 177), (191, 191, 191), (183, 183, 183), (192, 192, 192),
+(181, 181, 181)\}
+
+30: \{(82, 82, 202), (163, 163, 202), (81, 81, 202), (107, 107, 202), (125, 125,
+202), (88, 88, 202), (92, 92, 202), (159, 159, 202), (111, 111, 202), (157, 157,
+202), (156, 156, 202), (83, 83, 202), (87, 87, 202), (106, 106, 202), (170, 170,
+202)\}
+
+31: \{(98, 98, 202), (124, 124, 202), (143, 143, 202), (105, 105, 202), (85, 85,
+202), (155, 155, 202), (133, 133, 202), (89, 89, 202), (115, 115, 202), (160,
+160, 202), (84, 84, 202), (129, 129, 202), (148, 148, 202), (126, 126, 202),
+(152, 152, 202), (90, 90, 202), (135, 135, 202), (116, 116, 202), (94, 94, 202),
+(142, 142, 202), (161, 161, 202), (139, 139, 202), (165, 165, 202), (86, 86,
+202), (112, 112, 202), (131, 131, 202), (95, 95, 202), (138, 138, 202), (118,
+118, 202), (121, 121, 202), (99, 99, 202), (110, 110, 202), (91, 91, 202), (117,
+117, 202), (162, 162, 202), (114, 114, 202), (140, 140, 202), (166, 166, 202),
+(130, 130, 202), (108, 108, 202), (168, 168, 202), (149, 149, 202), (127, 127,
+202), (100, 100, 202), (141, 141, 202), (97, 97, 202), (164, 164, 202), (167,
+167, 202), (145, 145, 202), (96, 96, 202), (93, 93, 202), (119, 119, 202), (158,
+158, 202), (102, 102, 202), (169, 169, 202), (109, 109, 202), (150, 150, 202),
+(128, 128, 202), (132, 132, 202), (113, 113, 202)\}
+
+32: \{(69, 202, 202), (47, 202, 202), (29, 202, 202), (41, 202, 202), (31, 202,
+202), (53, 202, 202), (70, 202, 202), (42, 202, 202), (54, 202, 202), (66, 202,
+202), (78, 202, 202), (44, 202, 202), (38, 202, 202), (50, 202, 202), (65, 202,
+202), (55, 202, 202), (39, 202, 202), (45, 202, 202), (68, 202, 202), (52, 202,
+202), (30, 202, 202), (34, 202, 202), (40, 202, 202), (24, 202, 202), (46, 202,
+202), (51, 202, 202), (25, 202, 202), (64, 202, 202), (48, 202, 202), (20, 202,
+202), (59, 202, 202), (71, 202, 202), (37, 202, 202), (49, 202, 202), (61, 202,
+202), (76, 202, 202), (21, 202, 202), (32, 202, 202), (22, 202, 202), (72, 202,
+202), (73, 202, 202), (79, 202, 202), (33, 202, 202), (60, 202, 202), (23, 202,
+202)\}
+
+33: \{(194, 194, 194), (179, 179, 179), (187, 187, 187), (175, 175, 175), (200,
+200, 200), (193, 193, 193), (180, 180, 180), (182, 182, 182), (176, 176, 176),
+(185, 185, 185), (188, 188, 188), (173, 173, 173), (190, 190, 190), (197, 197,
+197), (199, 199, 199)\}
+
+34: \{(174, 174, 174), (201, 201, 201), (172, 172, 172), (178, 178, 178), (171,
+171, 171), (186, 186, 186)\}
+
+35: \{(202, 202, 202)\}
+
+36: \{(19, 202, 202), (43, 202, 202), (56, 202, 202), (77, 202, 202), (16, 202,
+202), (28, 202, 202), (27, 202, 202), (63, 202, 202), (74, 202, 202), (62, 202,
+202), (18, 202, 202), (75, 202, 202), (80, 202, 202), (58, 202, 202), (36, 202,
+202), (26, 202, 202), (57, 202, 202), (35, 202, 202), (67, 202, 202), (17, 202,
+202)\}
+
+37: \{(104, 104, 202), (123, 123, 202), (120, 120, 202), (101, 101, 202), (136,
+136, 202), (147, 147, 202), (154, 154, 202), (146, 146, 202), (153, 153, 202),
+(137, 137, 202), (151, 151, 202), (122, 122, 202), (103, 103, 202), (134, 134,
+202), (144, 144, 202)\}
+
+
+rank: 4
+38: \{(202, 202, 202, 202)\}
+
+    \end{Verbatim}
+
+    Now, we compute the stabilizer of each orbit fy\_monomials\_orbits(rank)
+for all ranks.
+
+    \begin{tcolorbox}[breakable, size=fbox, boxrule=1pt, pad at break*=1mm,colback=cellbackground, colframe=cellborder]
+\prompt{In}{incolor}{21}{\boxspacing}
+\begin{Verbatim}[commandchars=\\\{\}]
+\PY{k}{for} \PY{n}{orbits} \PY{o+ow}{in} \PY{n}{fy\PYZus{}monomials\PYZus{}orbits}\PY{p}{:}
+    \PY{n}{fn} \PY{o}{=} \PY{n}{ClassFunction}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{*} \PY{n+nb}{len}\PY{p}{(}\PY{n}{G}\PY{o}{.}\PY{n}{conjugacy\PYZus{}classes}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+    \PY{n}{orbits\PYZus{}simplify} \PY{o}{=} \PY{p}{\PYZob{}}\PY{n}{orbits\PYZus{}dict}\PY{p}{[}\PY{n}{orbit}\PY{p}{]} \PY{k}{for} \PY{n}{orbit} \PY{o+ow}{in} \PY{n}{orbits}\PY{p}{\PYZcb{}}
+
+    \PY{k}{for} \PY{n}{orbit} \PY{o+ow}{in} \PY{n}{orbits}\PY{p}{:}
+        \PY{n}{orbit\PYZus{}num} \PY{o}{=} \PY{n}{orbits\PYZus{}dict}\PY{p}{[}\PY{n}{orbit}\PY{p}{]}
+        \PY{n}{orbit\PYZus{}stab} \PY{o}{=} \PY{n}{stab}\PY{p}{(}\PY{n}{G}\PY{p}{,} \PY{n+nb}{tuple}\PY{p}{(}\PY{n}{orbit}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{action\PYZus{}on\PYZus{}braidfymonomials}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Orbit }\PY{l+s+si}{\PYZob{}}\PY{n}{orbit\PYZus{}num}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ is stabilized by a subgroup of order }\PY{l+s+si}{\PYZob{}}\PY{n}{orbit\PYZus{}stab}\PY{o}{.}\PY{n}{order}\PY{p}{(}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{fn} \PY{o}{+}\PY{o}{=} \PY{n}{orbit\PYZus{}stab}\PY{o}{.}\PY{n}{trivial\PYZus{}character}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{induct}\PY{p}{(}\PY{n}{G}\PY{p}{)}
+
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{The permutation representation for }\PY{l+s+si}{\PYZob{}}\PY{n}{orbits\PYZus{}simplify}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ is}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{k}{for} \PY{n}{x}\PY{p}{,} \PY{n}{y} \PY{o+ow}{in} \PY{n}{fn}\PY{o}{.}\PY{n}{decompose}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+sa}{f}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+si}{\PYZob{}}\PY{n}{x}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{ copies of }\PY{l+s+si}{\PYZob{}}\PY{n+nb}{list}\PY{p}{(}\PY{n}{y}\PY{o}{.}\PY{n}{values}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{l+s+si}{\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+    \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+\end{tcolorbox}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Orbit 0 is stabilized by a subgroup of order 720
+
+The permutation representation for \{0\} is
+1 copies of [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+
+Orbit 1 is stabilized by a subgroup of order 48
+Orbit 2 is stabilized by a subgroup of order 720
+Orbit 3 is stabilized by a subgroup of order 12
+Orbit 4 is stabilized by a subgroup of order 120
+Orbit 5 is stabilized by a subgroup of order 36
+Orbit 6 is stabilized by a subgroup of order 72
+Orbit 7 is stabilized by a subgroup of order 16
+Orbit 8 is stabilized by a subgroup of order 48
+Orbit 9 is stabilized by a subgroup of order 48
+
+The permutation representation for \{1, 2, 3, 4, 5, 6, 7, 8, 9\} is
+9 copies of [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+2 copies of [5, -1, 1, 3, -1, -1, 2, 1, -1, 0, 0]
+2 copies of [5, 1, 1, -3, -1, 1, 2, -1, -1, 0, 0]
+7 copies of [5, 3, 1, -1, 2, 0, -1, 1, -1, 0, -1]
+9 copies of [9, 3, 1, 3, 0, 0, 0, -1, 1, -1, 0]
+1 copies of [10, 2, -2, -2, 1, -1, 1, 0, 0, 0, 1]
+2 copies of [16, 0, 0, 0, -2, 0, -2, 0, 0, 1, 0]
+
+
+Orbit 10 is stabilized by a subgroup of order 8
+Orbit 11 is stabilized by a subgroup of order 48
+Orbit 12 is stabilized by a subgroup of order 16
+Orbit 13 is stabilized by a subgroup of order 36
+Orbit 14 is stabilized by a subgroup of order 48
+Orbit 15 is stabilized by a subgroup of order 12
+Orbit 16 is stabilized by a subgroup of order 48
+Orbit 17 is stabilized by a subgroup of order 16
+Orbit 18 is stabilized by a subgroup of order 720
+Orbit 19 is stabilized by a subgroup of order 48
+Orbit 20 is stabilized by a subgroup of order 48
+Orbit 21 is stabilized by a subgroup of order 120
+Orbit 22 is stabilized by a subgroup of order 72
+Orbit 23 is stabilized by a subgroup of order 12
+Orbit 24 is stabilized by a subgroup of order 8
+Orbit 25 is stabilized by a subgroup of order 36
+Orbit 26 is stabilized by a subgroup of order 8
+Orbit 27 is stabilized by a subgroup of order 12
+Orbit 28 is stabilized by a subgroup of order 12
+
+The permutation representation for \{10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
+21, 22, 23, 24, 25, 26, 27, 28\} is
+19 copies of [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+7 copies of [5, -1, 1, 3, -1, -1, 2, 1, -1, 0, 0]
+8 copies of [5, 1, 1, -3, -1, 1, 2, -1, -1, 0, 0]
+21 copies of [5, 3, 1, -1, 2, 0, -1, 1, -1, 0, -1]
+1 copies of [9, -3, 1, -3, 0, 0, 0, 1, 1, -1, 0]
+28 copies of [9, 3, 1, 3, 0, 0, 0, -1, 1, -1, 0]
+1 copies of [10, -2, -2, 2, 1, 1, 1, 0, 0, 0, -1]
+7 copies of [10, 2, -2, -2, 1, -1, 1, 0, 0, 0, 1]
+12 copies of [16, 0, 0, 0, -2, 0, -2, 0, 0, 1, 0]
+
+
+Orbit 29 is stabilized by a subgroup of order 72
+Orbit 30 is stabilized by a subgroup of order 48
+Orbit 31 is stabilized by a subgroup of order 12
+Orbit 32 is stabilized by a subgroup of order 16
+Orbit 33 is stabilized by a subgroup of order 48
+Orbit 34 is stabilized by a subgroup of order 120
+Orbit 35 is stabilized by a subgroup of order 720
+Orbit 36 is stabilized by a subgroup of order 36
+Orbit 37 is stabilized by a subgroup of order 48
+
+The permutation representation for \{32, 33, 34, 35, 36, 37, 29, 30, 31\} is
+9 copies of [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+2 copies of [5, -1, 1, 3, -1, -1, 2, 1, -1, 0, 0]
+2 copies of [5, 1, 1, -3, -1, 1, 2, -1, -1, 0, 0]
+7 copies of [5, 3, 1, -1, 2, 0, -1, 1, -1, 0, -1]
+9 copies of [9, 3, 1, 3, 0, 0, 0, -1, 1, -1, 0]
+1 copies of [10, 2, -2, -2, 1, -1, 1, 0, 0, 0, 1]
+2 copies of [16, 0, 0, 0, -2, 0, -2, 0, 0, 1, 0]
+
+
+Orbit 38 is stabilized by a subgroup of order 720
+
+The permutation representation for \{38\} is
+1 copies of [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+\end{document}
