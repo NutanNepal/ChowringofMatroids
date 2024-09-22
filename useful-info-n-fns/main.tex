@@ -1,0 +1,293 @@
+\pdfoutput=1 
+\documentclass[10pt, a4paper, english]{amsart}
+\usepackage{amsmath} % utilities for mathematics
+\usepackage{amsthm} % utilities for theorem environment
+\usepackage{amssymb} % loads mathematical fonts
+\usepackage[dvipsnames]{xcolor}
+\usepackage{amscd} % utilities for commutative diagrams
+\usepackage{mathtools}
+
+\usepackage{subcaption}% <-- added
+
+\usepackage{array} % core package
+\usepackage{newtxtext,newtxmath} %fuente
+
+\usepackage[cal=boondoxo,scr=euler]{mathalfa}
+\usepackage[backref=page,linktocpage]{hyperref} % permits navigating on the pdf
+\usepackage{cleveref} % smart referencing
+\usepackage{caption} %
+\usepackage{graphics,graphicx} % permits putting images
+\usepackage{tikz,tikz-cd} % tool for diagrams
+
+%\usetikzlibrary{graphdrawing.force}% quotes library is for the [""] edges
+\usetikzlibrary{graphs,graphs.standard,calc}
+
+\usetikzlibrary{decorations.pathreplacing,}%angles,quotes
+
+\usepackage{enumerate} % permits enumerating using letters or other symbols
+
+\DeclareMathAlphabet{\mathsf}{OT1}{\sfdefault}{m}{n}
+
+\newcommand{\nocontentsline}[3]{}
+\newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
+
+
+\usepackage[margin=1.20in]{geometry}
+%\usepackage[textwidth=360pt,textheight=615pt]{geometry}
+\linespread{1.08}
+%\setlength\parindent{0.3in}
+
+\usepackage{verbatim}
+
+
+\usepackage{scalerel}
+
+\makeatletter
+\def\dual#1{\expandafter\dual@aux#1\@nil}
+\def\dual@aux#1/#2\@nil{\begin{tabular}{@{}c@{}}#1\\#2\end{tabular}}
+\makeatother
+
+\makeatletter
+\@namedef{subjclassname@2020}{\textup{2020} Mathematics Subject Classification}
+\makeatother
+
+
+\newcommand{\stirlingtwo}[2]{\biggl\{\genfrac{}{}{0pt}{}{#1}{#2}\biggr\}}
+\newcommand{\tstirlingtwo}[2]{\left\{\genfrac{}{}{0pt}{}{#1}{#2}\right\}}
+%\renewcommand{\tilde}{\widetilde}
+%\renewcommand{\widetilde}{\wwtilde}
+
+\DeclareMathAlphabet{\amathbb}{U}{bbold}{m}{n}
+
+
+\newcommand{\mfrak}[1]{\scaleobj{0.93}{\mathfrak{#1}}}
+
+\hypersetup{
+    colorlinks = true,
+    linkbordercolor = {white},
+    linkcolor = {BrickRed},
+    anchorcolor = {black},
+    citecolor = {BrickRed},
+    filecolor = {cyan},
+    menucolor = {BrickRed},
+    runcolor = {cyan},
+    urlcolor = {black}
+}
+
+\usetikzlibrary{automata}
+
+
+\newtheoremstyle{teoremas}% <name>
+{11pt}% <Space above>
+{11pt}% <Space below>
+{\itshape}% <Body font>
+{}% <Indent amount>
+{\bfseries}% <Theorem head font>
+{}% <Punctuation after theorem head>
+{.5em}% <Space after theorem headi>
+{}% <Theorem head spec (can be left empty, meaning `normal')>
+
+
+
+\theoremstyle{teoremas}
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+
+\newtheoremstyle{definition}% <name>
+{11pt}% <Space above>
+{11pt}% <Space below>
+{}% <Body font>
+{}% <Indent amount>
+{\bfseries}% <Theorem head font>
+{}% <Punctuation after theorem head>
+{.5em}% <Space after theorem headi>
+{}% <Theorem head spec (can be left empty, meaning `normal')>
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{openproblem}[theorem]{Open Problem}
+\newtheorem{problem}[theorem]{Problem}
+\newtheorem{question}[theorem]{Question}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{remark}[theorem]{Remark}
+
+\crefname{theorem}{theorem}{theorems}
+\Crefname{theorem}{Theorem}{Theorems}
+\crefname{lemma}{lemma}{lemmas}
+\Crefname{lemma}{Lemma}{Lemmas}
+\crefname{proposition}{proposition}{propositions}
+\Crefname{proposition}{Proposition}{Propositions}
+
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\cusp}{cusp}
+\DeclareMathOperator{\Rel}{Rel}
+\DeclareMathOperator{\Poin}{Poin}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Ext}{Ext}
+
+\newcommand{\M}{\mathsf{M}}
+\newcommand{\grp}{\mathsf{G}}
+\newcommand{\stab}{\mathsf{Stab}}
+%\newcommand{\B}{\mathsf{B}} let us only write \U_{n,n} for boolean matroids
+\newcommand{\N}{\mathsf{N}}
+\newcommand{\U}{\mathsf{U}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\symm}{\mathfrak{S}}
+\newcommand{\A}{\mathrm{A}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\newcommand{\LL}{\mathsf{\Lambda}}
+\newcommand{\Hilb}{\operatorname{Hilb}}
+\newcommand{\rank}{\operatorname{rk}}
+\newcommand{\cl}{\operatorname{cl}}
+\renewcommand{\H}{\mathrm{H}}
+\newcommand{\CH}{\mathrm{CH}}
+\newcommand{\aug}{\operatorname{aug}}
+\newcommand{\IH}{\mathrm{IH}}
+\newcommand{\uH}{\underline{\mathrm{H}}}
+\newcommand{\uCH}{\underline{\mathrm{CH}}}
+\newcommand\size[1]{|#1|}
+\DeclareMathOperator{\Pal}{\mathrm{Pal}}
+\DeclareMathOperator{\Poly}{\mathrm{Poly}}
+
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\Rep}{\operatorname{Rep}}
+\newcommand{\gr}{\operatorname{gr}}
+\newcommand{\VRep}{\operatorname{VRep}}
+\newcommand{\Ind}{\operatorname{Ind}}
+\newcommand{\Res}{\operatorname{Res}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\col}{\operatorname{col}}
+\newcommand{\asc}{\operatorname{asc}}
+\newcommand{\bad}{\operatorname{bad}}
+\newcommand{\des}{\operatorname{des}}
+
+\AtBeginDocument{%
+   \def\MR#1{}
+}
+
+
+%% preliminary version only
+\begin{comment}
+ \usepackage{prelim2e}
+ \renewcommand{\PrelimText}{\sf\scriptsize --- INCOMPLETE DRAFT of \today ---}
+ \marginparwidth=0.75in
+ \usepackage[notcite,notref]{showkeys}
+ \usepackage[colorinlistoftodos,bordercolor=orange,backgroundcolor=orange!20,linecolor=orange,textsize=scriptsize]{todonotes}
+
+ \usepackage{prelim2e}
+ \usepackage[us,24hr]{datetime}
+ \renewcommand{\PrelimText}{\sf\scriptsize ---\,Version of \today \,-\,\currenttime\,---}
+\end{comment}
+
+\title[Equivariant Chow Polynomials of Matroids]{Equivariant Chow Polynomials of Matroids}
+
+\author[N. Nepal]{Nutan Nepal}
+
+\address{(N. Nepal)
+    North Carolina State University
+}
+\email{nnepal2@ncsu.edu}
+
+
+\begin{document}
+
+\begin{abstract}
+    beeboop beeboop\dots
+\end{abstract}
+
+\maketitle
+
+\section{Introduction}\label{sec:introduction}
+
+\subsection{Overview}
+Given a matroid $\M = (E, \cI)$, we can define its Chow ring $\uCH$ and augmented Chow ring $\CH$ for which the bases are given by:
+    $$\text{FY}=\{x_{F_1}^{m_1}x_{F_2}^{m_2}\cdots x_{F_k}^{m_k}:\ (\emptyset = F_0)\subset
+        F_1\subset F_2\subset\cdots\subset
+        F_k,\ \text{and}\ m_i\leq\rank(F_i)-\rank(F_{i-1})-1 \},$$
+and
+    $$\widetilde{FY} = \{x_{F_1}^{a_1}x_{F_2}^{a_2}\cdots x_{F_m}^{a_m}\ 
+    |\ \emptyset\subset F_1\subset\cdots\subset F_m,\ 1\leq a_1\leq \rank(F_1)
+    ,\ a_i\leq\rank(F_i)-\rank(F_{i-1})-1\ \text{for } i>1\}$$
+respectively. Here $\emptyset\subset F_1\subset\cdots\subset F_m$ is a strictly increasing chain of flats of the matroid $\M$.
+The following theorems were proved in~\cite{fmsv24}:.
+
+\begin{theorem}\label{thm:main-recursion-defi-H-and-uH}
+    There is a unique way to assign to each loopless matroid $\M$ a palindromic polynomial $\uH_{\M}(x) \in \Z[x]$ such that the following properties hold:
+    \begin{enumerate}[\normalfont(i)]
+        \item If $\rk(\M) = 0$, then $\uH_{\M}(x) = 1$.\label{it:mainfirst}\
+        \item If $\rk(\M) > 0$, then $\deg \uH_{\M}(x) = \rk(\M) - 1$.\label{it:mainsecond}
+        \item For every matroid $\M$, the polynomial
+            \[ \H_{\M}(x) := \sum_{F\in \mathcal{L}(\M)} x^{\rk(F)}\, \uH_{\M/F}(x)\]
+        is palindromic.\label{it:mainthird}
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}\label{thm:intro-main0}
+    There is a unique way to assign to each loopless matroid $\M$  a polynomial $\uH_{\M}(x)\in \mathbb{Z}[x]$ such that the following conditions hold:
+    \begin{enumerate}[\normalfont(i)]
+        \item If $\rk(\M) = 0$, then $\uH_{\M}(x) = 1$.
+        \item For every matroid $\M$, the following recursion holds:
+            \[ \uH_{\M}(x) = \sum_{\substack{F\in\mathcal{L}(\M)\\ F\neq\varnothing}} \overline{\chi}_{\M|_F}(x)\, \uH_{\M/F}(x).\]
+    \end{enumerate}
+\end{theorem}
+
+It was shown in \cite{fmsv24} that these polynomials $\H_\M$ and $\uH_\M$ are the Hilbert-Poincare series
+for the augmented Chow ring $\CH$ and the Chow ring $\uCH$ respectively. In other words,
+$$\uH_\M(x) = |FY^0| + |FY^1|x +\cdots + |FY^{r-1}|x^{r-1}$$
+where $|FY^i|$ denotes the number of fy-monomials of degree $i$ (which equals the dimension of the degree $i$ piece of the Chow ring).
+
+\section{Matroids}\label{sec:matroids}
+\subsection{Action}
+Given a finite set $E$ with $n$ elements, the symmetric group $\symm_n$ can always act on $E$ by permutation and this induces an
+action on the power set $2^E$. If $\M = (E, \cI)$ is a matroid, let $G$ be the stabilizer subgroup $\stab_{\symm_n}(\cI)$ of $\symm_n$ that
+stabiizes the set $\cI\subseteq 2^E$. Then, we say that the group $G$ acts on the matroid $\M$.
+
+The action of $G$ on $\M$ induces an action on the Chow ring and the augmented Chow ring of $\M$ by permuting the fy-monomials. Since the action doesn't
+affect the degree of the monomials, it is clear that $G$ acts on the Chow ring by acting separately on each graded piece of $\CH$.
+
+Let $V^i$ denote the permutation representation of $G$ on the set $FY^i$. Then $\dim(V^i) = |FY^i|$, the dimension of the $ith$ piece. In this paper,
+we will prove the following theorems:
+
+\begin{theorem}\label{thm:main-recursion-defi-H-and-uH}
+    Let $\M$ be a loopless matroid and $\uH_{\M}^G$ be its equivariant Chow polynomial. Then $\uH_{\M}^G$ is given by
+    \begin{equation}
+        \uH_{\M}^G(x) = \sum_{\emptyset = F_0\subset F_1\subset\cdots\subset F_m}{\frac{|G_{F_0\cdots F_m|}}{|G|}
+        \left(\prod_{i=1}^{m}{\frac{x(1-x^{\rk(F_i)-\rk(F_{i-1})-1})}{1-x}}\right)
+        \Ind^G(1_{G_{F_0\cdots F_m}})}.
+    \end{equation}
+    Here, $G_{F_0\cdots F_m} = G_{F_0}\cap\cdots\cap G_{F_m}$ denotes the stabilizer of the chain $(F_0\subset F_1\subset\cdots\subset F_m)$
+    and the sum is taken over all nonempty chains of flats starting at $\emptyset$.
+\end{theorem}
+
+\begin{theorem}\label{thm:main-recursion-defi-H-and-uH}
+    There is a unique way to assign to each loopless matroid $\M$ a palindromic polynomial $\uH_{\M}^G(x) \in \VRep_G[x]$ such that the following properties hold:
+    \begin{enumerate}[\normalfont(i)]
+        \item If $\rk(\M) = 0$, then $\uH_{\M}^G(x) = 1_G$.\label{it:mainfirst}\
+        \item If $\rk(\M) > 0$, then $\deg \uH_{\M}^G(x) = \rk(\M) - 1$.\label{it:mainsecond}
+        \item For every matroid $\M$, the polynomial
+            \[ \H_{\M}^G(x) := \sum_{F\in \mathcal{L}(\M)} x^{\rk(F)}\, \frac{|G_F|}{|G|}\Ind^G\left(\uH_{\M/F}^{G_F}(x)\right)\]
+        is palindromic.\label{it:mainthird}
+    \end{enumerate}
+\end{theorem}
+
+\begin{theorem}\label{thm:intro-main0}
+    There is a unique way to assign to each loopless matroid $\M$  a polynomial $\uH_{\M}^G(x)\in \VRep_G[x]$ such that the following conditions hold:
+    \begin{enumerate}[\normalfont(i)]
+        \item If $\rk(\M) = 0$, then $\uH_{\M}^G(x) = 1$.
+        \item For every matroid $\M$, the following recursion holds:
+            \[ \uH_{\M}^G(x) = \sum_{\substack{F\in\mathcal{L}(\M)\\ F\neq\varnothing}} \frac{|G_F|}{|G|}\Ind^G\left(\overline{\chi}_{\M|_F}^{G_F}(x)\otimes \uH_{\M/F}^{G_F}(x)\right).\]
+    \end{enumerate}
+\end{theorem}
+
+\section{Proofs}
+
+
+\bibliographystyle{amsalpha}
+\bibliography{bibliography}
+\end{document}
