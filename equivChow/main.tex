@@ -1,5 +1,5 @@
 \pdfoutput=1 
-\documentclass[10pt, a4paper, english]{amsart}
+\documentclass[11pt, a4paper, english]{amsart}
 \usepackage{amsmath} % utilities for mathematics
 \usepackage{amsthm} % utilities for theorem environment
 \usepackage{amssymb} % loads mathematical fonts
@@ -257,8 +257,8 @@ we will prove the following theorems:
 
 \begin{theorem}\label{thm:main-perm-rep}
     Let $\M$ be a loopless matroid and $\uH_{\M}^G$ be its equivariant Chow polynomial. Then $\uH_{\M}^G$ is given by
-    \begin{equation}
-        \uH_{\M}^G(x) = \sum_{\varnothing = F_0\subset F_1\subset\cdots\subset F_m}{\frac{|G_{F_0\cdots F_m|}}{|G|}
+    \begin{equation}\label{eqn:main-perm-rep}
+        \uH_{\M}^G(x) = \sum_{\varnothing = F_0\subset F_1\subset\cdots\subset F_m}{\frac{|G_{F_0\cdots F_m}|}{|G|}
         \left(\prod_{i=1}^{m}{\frac{x(1-x^{\rk(F_i)-\rk(F_{i-1})-1})}{1-x}}\right)
         \Ind^G(1_{G_{F_0\cdots F_m}})}.
     \end{equation}
@@ -269,10 +269,10 @@ we will prove the following theorems:
 \begin{theorem}\label{thm:main-perm-rep-augmented}
     Let $\M$ be a loopless matroid and $\H_{\M}^G$ be its equivariant augmented Chow polynomial. Then $\H_{\M}^G$ is given by
     \begin{equation}
-        \H_{\M}^G(x) = 1_G + \sum_{F_0\subset F_1\subset\cdots\subset F_m}{\frac{|G_{F_0\cdots F_m|}}{|G|}
-        \frac{x(1-x^{\rk(F_0))})}{1-x}
+        \H_{\M}^G(x) = 1_G + \sum_{F_0\subset F_1\subset\cdots\subset F_m}\frac{|G_{F_0\cdots F_m}|}{|G|}
+        \frac{x(1-x^{\rk(F_0)})}{1-x}
         \left(\prod_{i=1}^{m}{\frac{x(1-x^{\rk(F_i)-\rk(F_{i-1})-1})}{1-x}}\right)
-        \Ind^G(1_{G_{F_0\cdots F_m}})}.
+        \Ind^G(1_{G_{F_0\cdots F_m}}).
     \end{equation}
     Here, $G_{F_0\cdots F_m} = G_{F_0}\cap\cdots\cap G_{F_m}$ denotes the stabilizer of the chain $(F_0\subset F_1\subset\cdots\subset F_m)$
     and the sum is taken over all nonempty chains of flats.
@@ -326,9 +326,75 @@ $$S_0+S_1x+\cdots+S_rx^r = \sum_{i\in I}{\sum_{j=0}^{r}{T_{ij}x^j}}$$
 $$S_k = \sum_{i\in I}{T_{ik}}$$
 $$|S_0|+|S_1|x+\cdots+|S_r|x^r =\sum_{i\in I}{p_i(x)}$$
 
+\subsection{Continuing without the proof of \ref{thm:main-perm-rep} and
+\ref{thm:main-perm-rep-augmented}}
+
+The transitivity of the $\Ind$ functor allows us to carry on analogously to
+the non-equivariant proof of Proposition 3.7 in \cite{fmsv24}. Using $G_{F_0}=G$, we can rewrite the equation~\ref{eqn:main-perm-rep} in theorem \ref{thm:main-perm-rep} as:
+
+\begin{align*}
+    \uH_{\M}^G(x) &= \sum_{\varnothing = F_0\subset F_1\subset\cdots\subset F_m}\frac{|G_{F_0\cdots F_m}|}{|G|}
+        \left(\prod_{i=1}^{m}{\frac{x(1-x^{\rk(F_i)-\rk(F_{i-1})-1})}{1-x}}\right)
+        \Ind^G\left(1_{G_{F_0\cdots F_m}}\right)\\
+        &= 1_G +
+        \sum_{\varnothing = F_0\subset F_1\subset\cdots\subset F_m}\frac{|G_{F_0F_1}|}{|G|}
+        \frac{x(1-x^{\rk(F_1)-1})}{1-x}\\
+        &\qquad\Ind^G_{G_{F_0F_1}}\left(
+        \frac{|G_{F_0\cdots F_m}|}{|G_{F_0F_1}|}
+        \prod_{i=2}^{m}{\frac{x(1-x^{\rk(F_i)-\rk(F_{i-1})-1})}{1-x}}
+        \Ind^{G_{F_0F_1}}\left(1_{G_{F_0\cdots F_m}}\right)
+        \right)\\
+        &= 1_G +
+        \sum_{F\neq \varnothing}
+        \frac{|G_{F}|}{|G|}\frac{x(1-x^{\rk(F)-1})}{1-x}\\
+        &\qquad\Ind^G_{G_{F}}\left(
+        \sum_{F = F_1\subset\cdots\subset F_m}
+        \frac{|G_{F_1\cdots F_m}|}{|G_F|}
+        \left(\prod_{i=2}^{m}{\frac{x(1-x^{\rk(F_i)-\rk(F_{i-1})-1})}{1-x}}\right)
+        \Ind^{G}\left(1_{G_{F_1\cdots F_m}}\right)
+        \right)\\
+        &= 1_G +
+        \sum_{F\neq \varnothing}
+        \frac{|G_{F}|}{|G|}\frac{x(1-x^{\rk(F)-1})}{1-x}\Ind^G_{G_F}
+        \left(\uH_{\M/F}^{G_F}\right)
+\end{align*}
+
+Analogously, fixing a flat $F=F_0$ in the formula in theorem \ref{thm:main-perm-rep-augmented}
+we get,
+
+\begin{align*}
+    \H_{\M}^G(x) &= 1_G + \sum_{F\in\cL}\frac{|G_{F}|}{|G|}
+        \frac{x(1-x^{\rk(F)})}{1-x}\\
+        &\qquad\left(\sum_{F\subset F_1\subset \cdots \subset F_m}\frac{|G_{F_0\cdots F_m}|}{|G_F|}
+        \prod_{i=1}^{m}{\frac{x(1-x^{\rk(F_i)-\rk(F_{i-1})-1})}{1-x}}\right)
+        \Ind^G\left(1_{G_{F_0\cdots F_m}}\right)\\
+        &= 1_G + \sum_{F\in\cL}\frac{|G_{F}|}{|G|}\frac{x(1-x^{\rk(F)})}{1-x}\\
+        &\qquad
+        \Ind^G_{G_F}\left(\sum_{F\subset F_1\subset \cdots \subset F_m}\frac{|G_{F_0\cdots F_m}|}{|G_F|}
+        \left(\prod_{i=1}^{m}{\frac{x(1-x^{\rk(F_i)-\rk(F_{i-1})-1})}{1-x}}\right)
+        \Ind^{G_F}\left(1_{G_{F_0\cdots F_m}}\right)\right)\\
+        &= 1_G + \sum_{F\in\cL}\frac{|G_{F}|}{|G|}\frac{x(1-x^{\rk(F)})}{1-x}
+        \Ind^G_{G_F}\left(\uH_{\M/F}^{G_F}\right)\\
+        &= 1_G + \sum_{F\neq\varnothing}\frac{|G_{F}|}{|G|}\frac{x(1-x^{\rk(F)})}{1-x}
+        \Ind^G_{G_F}\left(\uH_{\M/F}^{G_F}\right).
+\end{align*}
+
+From these two equations we get:
+\[\H_\M(x) = \sum_{F\in\cL}x^{\rk(F)}\,\frac{|G_{F}|}{|G|}\Ind^G\left(\uH_{\M/F}^{G_F}(x)
+\right).\]
+
+We now restate the following lemma from \cite{fmsv24} that will help us prove
+theorem \ref{thm:equiv-main-recursion-defi-H-and-uH}.
+
+\begin{lemma}\label{lem:stapledon}
+    Let $p(x)$ be a polynomial of degree $d$. There exist unique polynomials $a(x)$ of degree
+$d$ and $b(x)$ of degree at most $d-1$ with the properties that $a(x)=x^da(x^{-1})$ and
+$b(x) = x^{d-1}b(x^{-1})$, and that satisfy
+\[p(x)=a(x)+b(x).\]
+\end{lemma}
+We note that this lemma is true for polynomials over any ring. In particular,
+it is true for polynomials over $\VRep_G$.
 \section{Going on a tangent}
-
-
 
 \bibliographystyle{amsalpha}
 \bibliography{bibliography}
