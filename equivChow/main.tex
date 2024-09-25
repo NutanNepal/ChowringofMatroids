@@ -207,28 +207,28 @@
 
 \subsection{Overview}
 Given a matroid $\M = (E, \cI)$, we can define its Chow ring $\uCH$ and augmented Chow ring $\CH$ for which the bases are given by:
-    $$\text{FY}=\{x_{F_1}^{m_1}x_{F_2}^{m_2}\cdots x_{F_k}^{m_k}:\ (\emptyset = F_0)\subset
+    $$\text{FY}=\{x_{F_1}^{m_1}x_{F_2}^{m_2}\cdots x_{F_k}^{m_k}:\ (\varnothing = F_0)\subset
         F_1\subset F_2\subset\cdots\subset
         F_k,\ \text{and}\ m_i\leq\rank(F_i)-\rank(F_{i-1})-1 \},$$
 and
     $$\widetilde{FY} = \{x_{F_1}^{a_1}x_{F_2}^{a_2}\cdots x_{F_m}^{a_m}\ 
-    |\ \emptyset\subset F_1\subset\cdots\subset F_m,\ 1\leq a_1\leq \rank(F_1)
+    |\ \varnothing\subset F_1\subset\cdots\subset F_m,\ 1\leq a_1\leq \rank(F_1)
     ,\ a_i\leq\rank(F_i)-\rank(F_{i-1})-1\ \text{for } i>1\}$$
-respectively. Here $\emptyset\subset F_1\subset\cdots\subset F_m$ is a strictly increasing chain of flats of the matroid $\M$.
+respectively. Here $\varnothing\subset F_1\subset\cdots\subset F_m$ is a strictly increasing chain of flats of the matroid $\M$.
 The following theorems were proved in~\cite{fmsv24}:.
 
-\begin{theorem}\label{thm:main-recursion-defi-H-and-uH}
+\begin{theorem}\label{thm:fmsv-main-recursion-defi-H-and-uH}
     There is a unique way to assign to each loopless matroid $\M$ a palindromic polynomial $\uH_{\M}(x) \in \Z[x]$ such that the following properties hold:
     \begin{enumerate}[\normalfont(i)]
-        \item If $\rk(\M) = 0$, then $\uH_{\M}(x) = 1$.\label{it:mainfirst}\
-        \item If $\rk(\M) > 0$, then $\deg \uH_{\M}(x) = \rk(\M) - 1$.\label{it:mainsecond}
+        \item If $\rk(\M) = 0$, then $\uH_{\M}(x) = 1$.\label{it:fmsv-mainfirst}\
+        \item If $\rk(\M) > 0$, then $\deg \uH_{\M}(x) = \rk(\M) - 1$.\label{it:fmsv-mainsecond}
         \item For every matroid $\M$, the polynomial
             \[ \H_{\M}(x) := \sum_{F\in \mathcal{L}(\M)} x^{\rk(F)}\, \uH_{\M/F}(x)\]
-        is palindromic.\label{it:mainthird}
+        is palindromic.\label{it:fmsv-mainthird}
     \end{enumerate}
 \end{theorem}
 
-\begin{theorem}\label{thm:intro-main0}
+\begin{theorem}\label{thm:fmsv-intro-main0}
     There is a unique way to assign to each loopless matroid $\M$  a polynomial $\uH_{\M}(x)\in \mathbb{Z}[x]$ such that the following conditions hold:
     \begin{enumerate}[\normalfont(i)]
         \item If $\rk(\M) = 0$, then $\uH_{\M}(x) = 1$.
@@ -251,41 +251,83 @@ stabiizes the set $\cI\subseteq 2^E$. Then, we say that the group $G$ acts on th
 The action of $G$ on $\M$ induces an action on the Chow ring and the augmented Chow ring of $\M$ by permuting the fy-monomials. Since the action doesn't
 affect the degree of the monomials, it is clear that $G$ acts on the Chow ring by acting separately on each graded piece of $\CH$.
 
-Let $V^i$ denote the permutation representation of $G$ on the set $FY^i$. Then $\dim(V^i) = |FY^i|$, the dimension of the $ith$ piece. In this paper,
+Let $V^i$ denote the permutation representation of $G$ on the set $FY^i$. Then $\dim(V^i) = |FY^i|$, the dimension of the $i$-th piece.
+We define the polynomial $V^0+V^1x+\cdots V^{r-1}x^{r-1}\in\VRep_G[x]$ to be the equivariant Chow polynomial of the matroid $\M$. In this paper,
 we will prove the following theorems:
 
-\begin{theorem}\label{thm:main-recursion-defi-H-and-uH}
+\begin{theorem}\label{thm:main-perm-rep}
     Let $\M$ be a loopless matroid and $\uH_{\M}^G$ be its equivariant Chow polynomial. Then $\uH_{\M}^G$ is given by
     \begin{equation}
-        \uH_{\M}^G(x) = \sum_{\emptyset = F_0\subset F_1\subset\cdots\subset F_m}{\frac{|G_{F_0\cdots F_m|}}{|G|}
+        \uH_{\M}^G(x) = \sum_{\varnothing = F_0\subset F_1\subset\cdots\subset F_m}{\frac{|G_{F_0\cdots F_m|}}{|G|}
         \left(\prod_{i=1}^{m}{\frac{x(1-x^{\rk(F_i)-\rk(F_{i-1})-1})}{1-x}}\right)
         \Ind^G(1_{G_{F_0\cdots F_m}})}.
     \end{equation}
     Here, $G_{F_0\cdots F_m} = G_{F_0}\cap\cdots\cap G_{F_m}$ denotes the stabilizer of the chain $(F_0\subset F_1\subset\cdots\subset F_m)$
-    and the sum is taken over all nonempty chains of flats starting at $\emptyset$.
+    and the sum is taken over all nonempty chains of flats starting at $\varnothing$.
 \end{theorem}
 
-\begin{theorem}\label{thm:main-recursion-defi-H-and-uH}
+\begin{theorem}\label{thm:main-perm-rep-augmented}
+    Let $\M$ be a loopless matroid and $\H_{\M}^G$ be its equivariant augmented Chow polynomial. Then $\H_{\M}^G$ is given by
+    \begin{equation}
+        \H_{\M}^G(x) = 1_G + \sum_{F_0\subset F_1\subset\cdots\subset F_m}{\frac{|G_{F_0\cdots F_m|}}{|G|}
+        \frac{x(1-x^{\rk(F_0))})}{1-x}
+        \left(\prod_{i=1}^{m}{\frac{x(1-x^{\rk(F_i)-\rk(F_{i-1})-1})}{1-x}}\right)
+        \Ind^G(1_{G_{F_0\cdots F_m}})}.
+    \end{equation}
+    Here, $G_{F_0\cdots F_m} = G_{F_0}\cap\cdots\cap G_{F_m}$ denotes the stabilizer of the chain $(F_0\subset F_1\subset\cdots\subset F_m)$
+    and the sum is taken over all nonempty chains of flats.
+\end{theorem}
+
+\begin{theorem}\label{thm:equiv-main-recursion-defi-H-and-uH}
     There is a unique way to assign to each loopless matroid $\M$ a palindromic polynomial $\uH_{\M}^G(x) \in \VRep_G[x]$ such that the following properties hold:
     \begin{enumerate}[\normalfont(i)]
         \item If $\rk(\M) = 0$, then $\uH_{\M}^G(x) = 1_G$.\label{it:mainfirst}\
         \item If $\rk(\M) > 0$, then $\deg \uH_{\M}^G(x) = \rk(\M) - 1$.\label{it:mainsecond}
         \item For every matroid $\M$, the polynomial
             \[ \H_{\M}^G(x) := \sum_{F\in \mathcal{L}(\M)} x^{\rk(F)}\, \frac{|G_F|}{|G|}\Ind^G\left(\uH_{\M/F}^{G_F}(x)\right)\]
-        is palindromic.\label{it:mainthird}
+        is palindromic.\label{it:main-equiv-third}
     \end{enumerate}
 \end{theorem}
 
-\begin{theorem}\label{thm:intro-main0}
+\begin{theorem}\label{thm:equiv-main}
     There is a unique way to assign to each loopless matroid $\M$  a polynomial $\uH_{\M}^G(x)\in \VRep_G[x]$ such that the following conditions hold:
     \begin{enumerate}[\normalfont(i)]
-        \item If $\rk(\M) = 0$, then $\uH_{\M}^G(x) = 1$.
+        \item If $\rk(\M) = 0$, then $\uH_{\M}^G(x) = 1_G$.
         \item For every matroid $\M$, the following recursion holds:
             \[ \uH_{\M}^G(x) = \sum_{\substack{F\in\mathcal{L}(\M)\\ F\neq\varnothing}} \frac{|G_F|}{|G|}\Ind^G\left(\overline{\chi}_{\M|_F}^{G_F}(x)\otimes \uH_{\M/F}^{G_F}(x)\right).\]
     \end{enumerate}
 \end{theorem}
 
-\section{Proofs}
+\section{Scratch}
+
+\begin{proposition}\label{prop:fy-main}
+    Let $\M$ be a loopless matroid. The Hilbert--Poincare series of the Chow ring $\uCH(M)$ is given by
+    \begin{equation}\label{eqn:fy-main}
+        \uH_{\M}(x) = \sum_{\varnothing = F_0\subset F_1\subset\cdots\subset F_m}
+        \left(\prod_{i=1}^{m}{\frac{x(1-x^{\rk(F_i)-\rk(F_{i-1})-1})}{1-x}}\right).
+    \end{equation}
+    Here, the sum is taken over all nonempty chains of flats starting at $\varnothing$.
+\end{proposition}
+We notice a few things about the formula in \ref*{prop:fy-main}:
+\begin{enumerate}[(i)]
+    \item The chain corresponding to just the empty flat gives an empty product which equals 1.
+    \item If $\rk(F_i)-\rk(F_{i-1})-1 = 0$ for some $i$ in the chain $F_0\subset F_1\subset\cdots\subset F_m$, then the product is 0.
+    \item So, given a chain $F_0\subset F_1\subset\cdots\subset F_m$ with $\rk(F_i)-\rk(F_{i-1})-1 > 0$ for all $i$, we can write the product as
+        $a_1x+\cdots+a_{r-1}x^{r-1}$ for some positive integers $a_j$'s.
+\end{enumerate}
+
+In particular, we can restate the equation \ref*{eqn:fy-main} as
+    $$\uH_{\M}(x) = 1 + \sum_{P_\varnothing}
+    {a_1(P_\varnothing)x+\cdots+a_{r-1}(P_\varnothing)x^{r-1}},$$
+where the sum is taken over all chains $P_\varnothing = (F_0\subset F_1\subset\cdots\subset F_m)$ starting at $\varnothing$ with $\rk(F_i)-\rk(F_{i-1})-1 > 0$ for all $i$ and
+$a_j(P_\varnothing)$ are some integers depending on the chain.
+
+$$S_0+S_1x+\cdots+S_rx^r = \sum_{i\in I}{\sum_{j=0}^{r}{T_{ij}x^j}}$$
+$$S_k = \sum_{i\in I}{T_{ik}}$$
+$$|S_0|+|S_1|x+\cdots+|S_r|x^r =\sum_{i\in I}{p_i(x)}$$
+
+\section{Going on a tangent}
+
 
 
 \bibliographystyle{amsalpha}
