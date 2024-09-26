@@ -258,9 +258,9 @@ we will prove the following theorems:
 \begin{theorem}\label{thm:main-perm-rep}
     Let $\M$ be a loopless matroid and $\uH_{\M}^G$ be its equivariant Chow polynomial. Then $\uH_{\M}^G$ is given by
     \begin{equation}\label{eqn:main-perm-rep}
-        \uH_{\M}^G(x) = \sum_{\varnothing = F_0\subset F_1\subset\cdots\subset F_m}{\frac{|G_{F_0\cdots F_m}|}{|G|}
+        \uH_{\M}^G(x) = \sum_{\varnothing = F_0\subset F_1\subset\cdots\subset F_m}\frac{|G_{F_0\cdots F_m}|}{|G|}
         \left(\prod_{i=1}^{m}{\frac{x(1-x^{\rk(F_i)-\rk(F_{i-1})-1})}{1-x}}\right)
-        \Ind^G(1_{G_{F_0\cdots F_m}})}.
+        \Ind^G\left(1_{G_{F_0\cdots F_m}}\right).
     \end{equation}
     Here, $G_{F_0\cdots F_m} = G_{F_0}\cap\cdots\cap G_{F_m}$ denotes the stabilizer of the chain $(F_0\subset F_1\subset\cdots\subset F_m)$
     and the sum is taken over all nonempty chains of flats starting at $\varnothing$.
@@ -272,7 +272,7 @@ we will prove the following theorems:
         \H_{\M}^G(x) = 1_G + \sum_{F_0\subset F_1\subset\cdots\subset F_m}\frac{|G_{F_0\cdots F_m}|}{|G|}
         \frac{x(1-x^{\rk(F_0)})}{1-x}
         \left(\prod_{i=1}^{m}{\frac{x(1-x^{\rk(F_i)-\rk(F_{i-1})-1})}{1-x}}\right)
-        \Ind^G(1_{G_{F_0\cdots F_m}}).
+        \Ind^G\left(1_{G_{F_0\cdots F_m}}\right).
     \end{equation}
     Here, $G_{F_0\cdots F_m} = G_{F_0}\cap\cdots\cap G_{F_m}$ denotes the stabilizer of the chain $(F_0\subset F_1\subset\cdots\subset F_m)$
     and the sum is taken over all nonempty chains of flats.
@@ -394,6 +394,46 @@ $b(x) = x^{d-1}b(x^{-1})$, and that satisfy
 \end{lemma}
 We note that this lemma is true for polynomials over any ring. In particular,
 it is true for polynomials over $\VRep_G$.
+
+\begin{proof}[Proof of Theorem \ref{thm:main-perm-rep-augmented}]
+    We prove the theorem by induction on the size of the ground set of $\M$. When
+    the ground set has cardinality 0, $\rk(\M)=0$ and the polynomial $\uH_{\M}^G(x)$ is unique
+    and equals $1_G$ by the first property. We now assume that the uniqueness has been established
+    for all the matroids with cardinality less than $n$ and consider the matroid of cardinality
+    $n$. The polynomial
+    \[S_\M^G(x) = \sum_{F\neq\varnothing}x^{\rk(F)}\,\frac{|G_{F}|}{|G|}\Ind^G\left(\uH_{\M/F}^{G_F}(x)
+    \right)\]
+    is uniquely determined since $\uH$ is unique for all the matroids $\M/F$ by the inductive
+    step. We have a summand of degree $\rk(M)$ which we get when $F=E$. For all other flats, the
+    summands have degree $\rk(F)+\rk(\M/F)-1=\rk(\M)-1$.
+
+    Hence the degree of $S_\M^G(x)$ is $\rk(\M)$ and we can decompose it into unique polynomials
+    $a(x)$ and $b(x)\in\VRep_G[x]$ such that $a$ is palindromic and $b$ has degree at most
+    $\rk(\M)-1$.
+\end{proof}
+\begin{theorem}\label{thm:equiv-main-part2}
+    Let $\M$ be a loopless matroid. The equivariannt Hilbert series of the Chow ring of $\M$ satisfies:
+        \[ \uH_{\M}^G(x) = \sum_{\substack{F\in\mathcal{L}(\M)\\ F\neq\varnothing}} \frac{|G_F|}{|G|}\Ind^G\left(\overline{\chi}_{\M|_F}^{G_F}(x)\otimes \uH_{\M/F}^{G_F}(x)\right).\]
+\end{theorem}
+\begin{proof}
+    To prove this, we define the polynomials
+    \[ \widetilde{\uH}_{\M}^G(x) := 
+    \begin{cases} 1_G & \text{if $\M$ is empty,}\\ \displaystyle\sum_{\substack{F\in\mathcal{L}(\M)\\ F\neq\varnothing}} \frac{|G_F|}{|G|}\Ind^G\left(\overline{\chi}_{\M|_F}^{G_F}(x)\otimes \uH_{\M/F}^{G_F}(x)\right) & \text{if $\M$ is nonempty}
+    \end{cases}\]
+    satisfy all the properties of that statement. The first two conditions are immediate to check, and for the last, it will suffice to verify that $\widetilde{\uH}_{\M}(x)$ satisfies the recursion of Remark \dots. We have a chain of equalities:
+    \begin{align}
+        &1_G + x\sum_{\substack{F\in\mathcal{L}(\M)\\ F\neq E}}\,\frac{|G_{F}|}{|G|}\Ind^G\left(\widetilde{\uH}_{\M/F}^{G_F}(x)\right)\nonumber\\ 
+        =\quad &1_G + x\sum_{\substack{F\in \mathcal{L}(\M)\\F\neq E}}\frac{|G_{F}|}{|G|}\Ind^G\left(\sum_{\substack{F'\in \mathcal{L}(\M/F)\\F'\neq \varnothing}}\frac{|G_{FF'}|}{|G_F|}\Ind_{G_{FF'}}^{G_F}\left(\overline{\chi}_{(\M/F)|_{F'}}^{G_{FF'}}(x)\otimes \uH_{\M/F/F'}^{G_{FF'}}(x)\right)\right) \nonumber\\
+        =\quad &1_G + x\sum_{\substack{F\in \mathcal{L}(\M)\\F\neq E}} \sum_{\substack{F'\in \mathcal{L}(\M)\\F'\supset F}} \frac{|G_{FF'}|}{|G|}\Ind_{G_{FF'}}^G\left(\overline{\chi}_{(\M|_{F'})/F}^{G_{FF'}}(x)\,\otimes\, \uH_{\M/F'}^{G_{FF'}}(x)\right)\nonumber\\
+        =\quad &1_G + x\sum_{\substack{F'\in \mathcal{L}(\M)\\F'\neq \varnothing}} \sum_{\substack{F\in \mathcal{L}(\M)\\F\subset F'}} \frac{|G_{FF'}|}{|G|}\Ind_{G_{F'}}^G\left(\Ind_{G_{FF'}}^{G_{F'}}\left(\overline{\chi}_{(\M|_{F'})/F}^{G_{FF'}}(x)\,\otimes\, \uH_{\M/F'}^{G_{FF'}}(x)\right)\right)\nonumber\\
+        =\quad &1_G + x\sum_{\substack{F'\in \mathcal{L}(\M)\\F'\neq \varnothing}} \Ind_{G_{F'}}^G\left( \sum_{\substack{F\in \mathcal{L}(\M)\\F\subset F'}} \frac{|G_{FF'}|}{|G|}\Ind_{G_{FF'}}^{G_{F'}}\left(\overline{\chi}_{(\M|_{F'})/F}^{G_{FF'}}(x)\right)\otimes\, \uH_{\M/F'}^{G_{F'}}(x)\right)\nonumber\\
+        =\quad &1_G + x\sum_{\substack{F'\in \mathcal{L}(\M)\\F'\neq \varnothing}} \frac{|G_{F'}|}{|G|}\Ind_{G_{F'}}^G\left(\uH_{\M/F'}^{G_{F'}}(x) \otimes\sum_{\substack{F\in \mathcal{L}(\M)\\F\subset F'}} \frac{|G_{FF'}|}{|G_{F'}|}\Ind_{G_{FF'}}^{G_{F'}}\left(\overline{\chi}_{(\M|_{F'})/F}^{G_{FF'}}(x)\right)\right)\nonumber\\
+        =\quad &1_G + x\sum_{\substack{F'\in \mathcal{L}(\M)\\F'\neq \varnothing}} \frac{|G_{F'}|}{|G|}\Ind_{G_{F'}}^G\left(\uH_{\M/F'}^{G_{F'}}(x) \otimes \left(1_{F'} + 1_{F'}x +\cdots + 1_{F'}x^{\rk(F')-1}\right)\right)\\
+        =\quad &1_G + x\sum_{\substack{F'\in \mathcal{L}(\M)\\F'\neq \varnothing}} \frac{|G_{F'}|}{|G|}\Ind_{G_{F'}}^G\left(\uH_{\M/F'}^{G_{F'}}(x)\right) \cdot \frac{1-x^{\rk(\M|_{F'})}}{1-x} \label{eq:sum-char-poly}\\
+        =\quad &\H_{\M}^G(x),\nonumber
+    \end{align}
+\end{proof}
+
 \section{Going on a tangent}
 
 \bibliographystyle{amsalpha}
