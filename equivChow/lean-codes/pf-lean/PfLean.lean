@@ -5,7 +5,7 @@ import Mathlib
 import Mathlib.Data.Matroid.Basic
 import Mathlib.Data.Set.Basic
 
-
+-- note: this linter can be disabled with `set_option linter.docPrime false`
 -- Define the structure of a matroid on a ground set E, with flats as subsets of E
 structure MatroidF (E : Type) where
   flats : Set (Set E)                 -- Set of flats, where each flat is a set of elements from E

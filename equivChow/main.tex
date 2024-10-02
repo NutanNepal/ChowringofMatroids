@@ -388,32 +388,54 @@ theorem \ref{thm:equiv-main-recursion-defi-H-and-uH}.
 
 \begin{lemma}\label{lem:stapledon}
     Let $p(x)$ be a polynomial of degree $d$. There exist unique polynomials $a(x)$ of degree
-$d$ and $b(x)$ of degree at most $d-1$ with the properties that $a(x)=x^da(x^{-1})$ and
+$d$ and $b(x)$ of degree at most $d-1$ with the properties that $a(x)=x^d a(x^{-1})$ and
 $b(x) = x^{d-1}b(x^{-1})$, and that satisfy
 \[p(x)=a(x)+b(x).\]
 \end{lemma}
 We note that this lemma is true for polynomials over any ring. In particular,
 it is true for polynomials over $\VRep_G$.
 
-\begin{proof}[Proof of Theorem \ref{thm:main-perm-rep-augmented}]
-    We prove the theorem by induction on the size of the ground set of $\M$. When
-    the ground set has cardinality 0, $\rk(\M)=0$ and the polynomial $\uH_{\M}^G(x)$ is unique
-    and equals $1_G$ by the first property. We now assume that the uniqueness has been established
-    for all the matroids with cardinality less than $n$ and consider the matroid of cardinality
-    $n$. The polynomial
-    \[S_\M^G(x) = \sum_{F\neq\varnothing}x^{\rk(F)}\,\frac{|G_{F}|}{|G|}\Ind^G\left(\uH_{\M/F}^{G_F}(x)
-    \right)\]
-    is uniquely determined since $\uH$ is unique for all the matroids $\M/F$ by the inductive
-    step. We have a summand of degree $\rk(M)$ which we get when $F=E$. For all other flats, the
-    summands have degree $\rk(F)+\rk(\M/F)-1=\rk(\M)-1$.
+\begin{theorem}\label{thm:unique-equiv-main-recursion-defi-H-and-uH}
+    There is a unique way to assign to each loopless matroid $\M$ a palindromic polynomial $\widetilde{\uH}_{\M}^G(x) \in \VRep_G[x]$ such that the following properties hold:
+    \begin{enumerate}[\normalfont(i)]
+        \item If $\rk(\M) = 0$, then $\widetilde{\uH}_{\M}^G(x) = 1_G$.
+        \item If $\rk(\M) > 0$, then $\deg \widetilde{\uH}_{\M}^G(x) = \rk(\M) - 1$.
+        \item For every matroid $\M$, the polynomial
+            \[ \widetilde{\H}_{\M}^G(x) := \sum_{F\in \mathcal{L}(\M)} x^{\rk(F)}\, \frac{|G_F|}{|G|}\Ind^G\left(\widetilde{\uH}_{\M/F}^{G_F}(x)\right)\]
+        is palindromic.
+    \end{enumerate}
+\end{theorem}
 
-    Hence the degree of $S_\M^G(x)$ is $\rk(\M)$ and we can decompose it into unique polynomials
-    $a(x)$ and $b(x)\in\VRep_G[x]$ such that $a$ is palindromic and $b$ has degree at most
-    $\rk(\M)-1$.
+\begin{proof}
+    We prove the theorem by induction on the size of the ground set of \(\M\). When
+    the ground set has cardinality \(0\), the polynomial \(\widetilde{\uH}_{\M}^G(x)\) is unique
+    and equals \(1_G\) by the first property. We now assume that the uniqueness has been established
+    for all the matroids with cardinality less than \(n\) and consider the matroid of cardinality
+    \(n\). The polynomial
+    \[
+    S_\M^G(x) = \sum_{F \neq \varnothing} x^{\rk(F)}\,\frac{|G_{F}|}{|G|} \Ind^G\left(\widetilde{\uH}_{\M/F}^{G_F}(x)\right)
+    \]
+    is uniquely determined since \(\widetilde{\uH}\) is unique for all the matroids \(\M/F\) by the inductive
+    step. \(S_\M^G(x)\) has a summand of degree \(\rk(M)\) which we get when \(F=E\). For all other flats, the
+    summands have degree \(\rk(F) + \rk(\M/F) - 1 = \rk(\M) - 1\).
+
+    Hence the degree of \(S_\M^G(x)\) is \(\rk(\M)\), and we can decompose it into unique polynomials
+    \(a(x)\) and \(b(x)\in\VRep_G[x]\) such that \(a(x)\) is palindromic of degree \(\rk(M)\) and \(b(x)\) has degree at most
+    \(\rk(\M) - 1\). Taking \(\widetilde{\uH}_{\M}^G(x) = -b(x)\) we get,
+    \(
+    \widetilde{\H}_{\M}^G(x) = S_\M^G(x) + \widetilde{\uH}_{\M}^G(x) = 
+    a(x) + b(x) + \widetilde{\uH}_{\M}^G(x) = a(x)
+    \)
+    which is palindromic. The uniqueness of \(\widetilde{\uH}\) also implies the
+    uniqueness of \(\widetilde{\H}\). Finally, since \(\uH\) and \(\H\) satisfy these
+    conditions, they must be the polynomials \(\widetilde{\uH}\) and \(\widetilde{\H}\)
+    respectively.
 \end{proof}
+
 \begin{theorem}\label{thm:equiv-main-part2}
-    Let $\M$ be a loopless matroid. The equivariannt Hilbert series of the Chow ring of $\M$ satisfies:
-        \[ \uH_{\M}^G(x) = \sum_{\substack{F\in\mathcal{L}(\M)\\ F\neq\varnothing}} \frac{|G_F|}{|G|}\Ind^G\left(\overline{\chi}_{\M|_F}^{G_F}(x)\otimes \uH_{\M/F}^{G_F}(x)\right).\]
+    Let $\M$ be a loopless matroid. The equivariant Hilbert series of the Chow ring of $\M$ satisfies:
+        \[
+        \uH_{\M}^G(x) = \sum_{\substack{F\in\mathcal{L}(\M)\\ F\neq\varnothing}} \frac{|G_F|}{|G|}\Ind^G\left(\overline{\chi}_{\M|_F}^{G_F}(x)\otimes \uH_{\M/F}^{G_F}(x)\right).\]
 \end{theorem}
 \begin{proof}
     To prove this, we define the polynomials
