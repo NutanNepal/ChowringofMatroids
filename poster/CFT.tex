@@ -208,212 +208,124 @@
 \begin{column}{\onecolwid} % The first column
 
 \begin{block}{Goal}
-Define the equivariant Chow polynomial $\uH_{\M}^G$ of matroid $\M$ :
-\[
-\begin{array}{rcl}
-\Db_{G(\bw)}(E(\bw)) & \stackrel{\TT}{\longrightarrow} & \Db_{G(\bw^*)}(E(\bw^*))\\
-\cF & \longmapsto & {q_2}_! q_1^*(\cF)[\dim E(\bw)]
-\end{array}
-\]
-where
-\[
-\begin{tikzcd}[ampersand replacement=\&]
-\ \& E(\bw) \times E(\bw^*) \& \\
-\ \& Q \ar[hook]{u} \ar{dl}[swap]{q_1} \ar{dr}{q_2} \& \\
-E(\bw) \& \& E(\bw^*)
-\end{tikzcd}
-\]
-
-% \underline{\text{Global object}} \& \& \underline{\text{Local behavior}}\\
-%\hspace{63mm} \underline{Global object} \hspace{98mm} \underline{Local behavior}
-%\[\begin{tikzcd}[ampersand replacement=\&]
-% \left\{\begin{array}{c} \text{meromorphic} \\ \textrm{connections } \nabla \\ \textrm{on }\mathbb{P}^1 \text{ with sings} \\ \{x_1,\ldots,x_n\} \end{array}\right\} \ar[bend left=10]{rr} \& \& \left\{\begin{array}{c} \text{formal types at} \\ \{x_1,\ldots, x_n\}\end{array}\right\} \ar[bend left=10, dashed]{ll}{\text{inverse problem}}\end{tikzcd}\]
-%
-%{\bf Inverse problem:} Construct ``well-behaved'' moduli spaces of connections with specified formal types.
+Define the equivariant Chow polynomial $\uH_{\M}^G(x) \in \VRep_G[x]$ of a matroid $\M$ :
 
 \end{block}
 
 \vspace{-5mm}
 \begin{block}{Overview}
 \[
-\begin{tikzpicture}[node distance=4.5cm]
-\node (start) [startstop, align=center] {Type A quiver\\$\bullet \rightarrow \bullet \rightarrow \cdots \rightarrow \bullet$};
-\node (quivrepvar) [right of=start, xshift=3cm] {};
-\node (pronew) [startstop, right of=start, xshift=10cm, align=center] {Dimension vector\\$\bw = (w_1,\ldots w_n)$};
-\node (in1) [io, below of=quivrepvar, align=center] {Quiver rep. variety $E(\bw)$};
-\node (orbsw) [startstop, below of=in1, yshift=2.5cm] {$G(\bw)$-orbits on $E(\bw)$};
-\node (tri1) [startstop, right of=orbsw, align=center, xshift=12cm] {Triangular arrays\\ $\bP(\bw)$};
-\node (der) [startstop, below of=in1, yshift=-2cm] {$\Db_{G(\bw)}(E(\bw))$};
-\node (derrev) [startstop, below of=der] {$\Db_{G(\bw^*)}(E(\bw^*))$};
-\node (orbsrev) [startstop, below of=derrev] {$G(\bw^*)$-orbits on $E(\bw^*)$};
-\node (quivrepvarrev) [io, below of=orbsrev, yshift=2.5cm, align=center] {Quiver rep. variety $E(\bw^*)$};
-\node (trirev) [startstop, right of=orbsrev, align=center, xshift=12cm] {Triangular arrays\\ $\bP(\bw^*)$};
-%\node (pro2a) [process, below of=dec1, yshift=-3cm] {Process 2a};
-%\node (out1) [io, below of=pro2a] {Output};
-%\node (stop) [startstop, below of=out1] {Stop};
+    \begin{tikzpicture}[scale=3]
 
-\draw [->] (start) -- (in1);
-\draw [->] (pronew) -- (in1);
-\draw [->, snake=snake,segment amplitude=.4mm,
-         segment length=2mm,
-         line after snake=1mm, line width=2pt] (orbsw) -- (der);
-\draw [->] (der) -- (derrev);
-\draw [->, snake=snake,segment amplitude=.4mm,
-         segment length=2mm,
-         line after snake=1mm, line width=2pt] (orbsrev) -- (derrev);
-\draw [<->] (orbsw) -- (tri1);
-\draw [->] (tri1) -- (trirev);
-\draw [<->] (orbsrev) -- (trirev);
-%\draw [arrow] (in1) -- (pro1);
-%\draw [arrow] (pro1) -- (dec1);
-%\draw [arrow] (pro2b) |- (pro1);
-%\draw [arrow] (pro2a) -- (out1);
-%\draw [arrow] (out1) -- (stop);
-
-%\draw [arrow] (dec1) -- node[anchor=east] {yes} (pro2a);
-%\draw [arrow] (dec1) -- node[anchor=south] {no} (pro2b);
-\draw [arrow] (der) -- node[anchor=east] {$\TT$} (derrev);
-\draw [arrow] (tri1) -- node[anchor=west] {$\sT$} (trirev);
-\end{tikzpicture}
+        % Level 1 (topmost node)
+        \node at (0, 4) (A) {$\bullet$};
+        
+        % Level 2 (second row of nodes)
+        \node at (-6, 2) (B1) {$\bullet$};
+        \node at (-4, 2) (B2) {$\bullet$};
+        \node at (-2, 2) (B3) {$\bullet$};
+        \node at (0, 2) (B4) {$\bullet$};
+        \node at (2, 2) (B5) {$\bullet$};
+        \node at (4, 2) (B6) {$\bullet$};
+        \node at (6, 2) (B7) {$\bullet$};
+        
+        % Level 3 (third row of nodes)
+        \node at (-5, 0) (C1) {$\bullet$};
+        \node at (-3, 0) (C2) {$\bullet$};
+        \node at (-1, 0) (C3) {$\bullet$};
+        \node at (1, 0) (C4) {$\bullet$};
+        \node at (3, 0) (C5) {$\bullet$};
+        \node at (5, 0) (C6) {$\bullet$};
+        
+        % Level 4 (bottommost node)
+        \node at (0, -2) (D) {$\bullet$};
+        
+        % Arrows from top to second row
+        \draw[->] (A) -- (B1);
+        \draw[->] (A) -- (B2);
+        \draw[->] (A) -- (B3);
+        \draw[->] (A) -- (B4);
+        \draw[->] (A) -- (B5);
+        \draw[->] (A) -- (B6);
+        \draw[->] (A) -- (B7);
+        
+        % Arrows from second to third row
+        \draw[->] (B1) -- (C1);
+        \draw[->] (B1) -- (C2);
+        \draw[->] (B1) -- (C4);
+        
+        \draw[->] (B2) -- (C1);
+        \draw[->] (B2) -- (C3);
+        \draw[->] (B2) -- (C5);
+        
+        \draw[->] (B3) -- (C2);
+        \draw[->] (B3) -- (C5);
+        
+        \draw[->] (B4) -- (C1);
+        \draw[->] (B4) -- (C6);
+        
+        \draw[->] (B5) -- (C3);
+        \draw[->] (B5) -- (C4);
+        
+        \draw[->] (B6) -- (C2);
+        \draw[->] (B6) -- (C3);
+        \draw[->] (B6) -- (C6);
+        
+        \draw[->] (B7) -- (C4);
+        \draw[->] (B7) -- (C5);
+        \draw[->] (B7) -- (C6);
+        
+        % Arrows from third row to bottom
+        \draw[->] (C1) -- (D);
+        \draw[->] (C2) -- (D);
+        \draw[->] (C3) -- (D);
+        \draw[->] (C4) -- (D);
+        \draw[->] (C5) -- (D);
+        \draw[->] (C6) -- (D);
+        
+        \end{tikzpicture}
 \]
 \end{block}
 
 \vspace{-5mm}
-\begin{block}{Quiver representations}
-\begin{center}
-\begin{minipage}[t]{0.5\textwidth}
+\begin{block}{The Chow Ring}
+%\begin{center}
+%\begin{minipage}[t]{0.5\textwidth}
 \kern0pt
 \raggedright
-A \textbf{quiver representation} is:
-\begin{itemize}
-\item A finite-dimensional $\CC$-vector space for each vertex.
-\item A linear map for each arrow.
-\end{itemize}\end{minipage}%
-\begin{minipage}[t]{0.5\textwidth}
-\kern0pt
-\center
+For a matroid $\M$ with flats $F_1,\ldots, F_m$, \textbf{the Chow ring} $\uCH_{\M}$ can be defined as a graded
+$\mathbb{Z}$-module generated by the following monomials:
+
+\[x_{F_1}^{m_1}x_{F_2}^{m_2}\cdots x_{F_k}^{m_k}\ |\
+\varnothing\subset F_1\subset\cdots\subset F_k,\ 0\leq m_i\leq \rk(F_i)-\rk(F_{i-1})-1.\]
+%\end{minipage}%
+%\begin{minipage}[t]{0.5\textwidth}
+%\kern0pt
+%\center
 %\raggedleft
-\vspace{.5cm}
-\begin{tikzpicture}
-\node (v1) at (0,0) {$\CC$};
-\node (v2) at (7,0) {$\CC$};
-\node (v3) at (14,0) {$\CC^2$};
-%\node [fill,circle,scale=0.5] (v5) at (0,1) {};
-%\node [fill,circle,scale=0.5,label=above:$$] (vn) at (0,2) {};
-%\node [fill,circle,scale=0.5,label=above:$$] (v1) at (1,1) {};
-%\node [fill,circle,scale=0.5] (v6) at (1,2) {};
-%\node [fill,circle,scale=0.5,label=above:$$] (v) at (2,1) {};
-%\node [fill,circle,scale=0.5,label=below:$1$] (1) at (0,-1) {};
-%\node [fill,circle,scale=0.5,label=below:$2$]  (2)at (1,-1) {};
-%\node [fill,circle,scale=0.5,label=below:$3$] (3) at (2,-1) {};
-%\node at (3,-1) {$A_3$};
-
-\draw[thick, ->] (v1) -- (v2);
-\draw[thick, ->] (v2) -- (v3);
-
-\draw [arrow] (v1) -- node[anchor=south] {$1$} (v2);
-\draw [arrow] (v2) -- node[anchor=south] {$\left(\begin{array}{l}2\\5\end{array}\right)$} (v3);
-%\draw (1) -- (2);
-%\draw (2) -- (3);
-%\draw [thick,->] (v5)-- (v2);
-%\draw [thick,->] (v2)-- (v3);
-%\draw [thick,->] (v1)-- (v3);
-%\draw [thick,->] (v3) -- (v4) ;
-%\draw [thick,->] (vn)-- (v5);
-%\draw [thick,->](v6) -- (v1) ;
-%\draw [thick,->](v) -- (v4) ;
-%\draw [thick,->] (v3)-- (v5);
-%\draw [thick,->] (v5)-- (v6);
-%\draw [thick,->] (v6)-- (vn);
-%\draw [thick,->] (v)-- (v6);
-%\draw [thick,->] (v1)-- (v);
-%\draw [thick,->] (v4)-- (v1);
-\end{tikzpicture}
-\end{minipage}%
-\end{center}
+%\vspace{.5cm}
+%\end{minipage}%
+%\end{center}
 
 \vspace{2cm}
-A \textbf{quiver representation variety} $E(\bw)$ is the space of all quiver representations for a fixed dimension vector $\bw$.
+The restriction on the exponents $m_i$ of $x_{F_i}$ ensures that there are exactly $\rk(M)$ graded pieces.
+The \textbf{(non equivariant) Chow polynomial} $\uH_\M$ is defined as:
+
+\[\uH_{\M}(x) = a_0 + a_1x+\cdots a_{\rk(M)-1}x^{\rk(M)-1}\]
+where $a_i$ is the rank of degree $i$ piece in $\uCH_\M$.
 \vspace{10mm}
 
-$G(\bw) = \GL(w_1) \times \ldots  \times \GL(w_n)$ acts on $E(\bw)$ splitting it into orbits.
+For the braid matroid $K_4$ depicted above, the Chow polynomial is $1+8x+x^2$.
 
-
-
-%Fix a local parameter $z$ at a singularity $x$.  After fixing a local trivialization, we express a connection
-%
-%$$\nabla = d + A\frac{dz}{z}$$
-%for $A\in \mathfrak{gl}_n(\mathbb{C}(\!(z)\!))$ (the {\bf loop algebra}).  P. Boalch ('01) constructs moduli spaces for $A$ diagonalizable into a split Cartan.  Such a diagonalized $A$ is called a {\bf formal type}.  Bremer and Sage ('12) generalize this construction for $A$ ``diagonalizable'' into more general ``regular'' Cartans.  L. and Sage (in prep.) generalize further for $Sp$-connections.
-%%  Locally, the analysis of a connection is similar to the analysis of a matrix.
 \end{block}
-
-%\begin{alertblock}{Key Idea}
-%
-%This classification of formal connections involves generalizing a notion of diagonalization for connections.  Filtrations of loop algebra representations are fundamental to this approach.
-%
-%\end{alertblock}
-
-%\vspace{-3mm}
-%\begin{block}{Moy-Prasad filtrations}
-%
-%Two ingredients are needed to define a Moy-Prasad filtration:
-%\begin{enumerate}
-% \item a loop algebra representation of $\mathfrak{gl}_n$
-% \item a point $x$ in the fundamental alcove for $\mathfrak{gl}_n$
-%\end{enumerate}
-%\end{block}
-%
-%\vspace{-5mm}
-%\begin{block}{Loop algebra representations of $\mathfrak{gl}_3$}
-%
-%Any representation $V$ of $\mathfrak{gl}_n(\mathbb{C})$ induces a loop algebra representation $$\widehat{V}=V \otimes \mathbb{C}(\!(z)\!)$$
-%%Filtrations of the standard rep $\widehat{\mathbb{C}^3}=\mathbb{C}(\!(z)\!)^3$ are {\bf lattice chain filtrations} $\left(L^i\right)$
-%%\newline
-%%Filtrations of the adjoint rep $\widehat{\mathfrak{gl}_3}=\mathfrak{gl}_3\left(\mathbb{C}(\!(z)\!)\right)$ are {\bf parahoric filtrations} $\left(\mathfrak{P}^i\right)$
-%Let $\mathbb{C}^3$ be the standard rep and let $\mathfrak{gl}_3$ be the adjoint rep
-%\vspace{5mm}
-%\begin{align*}
-%\widehat{\mathbb{C}^3}=\mathbb{C}(\!(z)\!)^3 & \longleftrightarrow \text{{\bf lattice chain filtrations}} \\
-%\widehat{\mathfrak{gl}_3}=\mathfrak{gl}_3\left(\mathbb{C}(\!(z)\!)\right) & \longleftrightarrow \text{{\bf parahoric filtrations}}
-%\end{align*}
-%\end{block}
-
-
 
 \end{column} % End of the first column
 
 \begin{column}{\twocolwid} % The second col
 
 \begin{block}{The set of triangular arrays $\bP(\bw)$}
-\begin{center}
-\begin{minipage}[t]{0.3\textwidth}
-\kern0pt
-\center
-\vspace{-10mm}
-\begin{tikzpicture}
-\draw (0,3) -- (5,0) -- (0,-3) -- cycle;
 
-\draw (0,0) -- (5/2,1.5);
-\draw (0,1) -- (5/3,2);
 
-\draw (0,-0.5) -- (25/12, -7/4);
-\draw (0,-1.5) -- (5/4,-9/4);
-
-%\draw (2.5,3) edge[out=225,in=95,dblue!70,very thick,->] (1.5, -.25);
-
-\node (jchu) at (5/2+1.25,1.5+0.75) {\textcolor{dblue!70}{ladder}};
-\node (jchu2) at (25/12+1.5, -7/4-0.75) {\textcolor{dblue!70}{chute}};
-%\node (l11) at (.70,1.5) {1};
-%\node (l21) at (.70,0) {1};
-%\node (l31) at (.70,-1.5) {2};
-%
-%\node (l12) at (2.20,.75) {0};
-%\node (l22) at (2.20,-.75) {0};
-%
-%\node (l13a) at (3.70,0) {0};
-\end{tikzpicture}
-\end{minipage}%
-\begin{minipage}[t]{0.7\textwidth}
 \kern0pt
 %\center
 \raggedright
@@ -423,8 +335,6 @@ Define the set $\bP(\bw)$ of triangular arrays of nonnegative integers such that
 \item $\forall j$, the entries in the $j^{\mathrm{th}}$ chute sum to $w_j$.
 \item Ladders are weakly decreasing.
 \end{itemize}
-\end{minipage}%
-\end{center}
 \end{block}
 
 \vspace{-6mm}
