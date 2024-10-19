@@ -1,0 +1,517 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Jacobs Landscape Poster
+% LaTeX Template
+% Version 1.1 (14/06/14)
+%
+% Created by:
+% Computational Physics and Biophysics Group, Jacobs University
+% https://teamwork.jacobs-university.de:8443/confluence/display/CoPandBiG/LaTeX+Poster
+% 
+% Further modified by:
+% Nathaniel Johnston (nathaniel@njohnston.ca)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+\documentclass[final]{beamer}
+
+\usepackage[scale=1.24]{beamerposter} % Use the beamerposter package for laying out the poster
+
+
+\usetheme{confposter} % Use the confposter theme supplied with this template
+
+\setbeamercolor{block title}{fg=ngreen,bg=white} % Colors of the block titles
+\setbeamercolor{block body}{fg=black,bg=white} % Colors of the body of blocks
+\setbeamercolor{block alerted title}{fg=white,bg=dblue!70} % Colors of the highlighted block titles
+\setbeamercolor{block alerted body}{fg=black,bg=dblue!10} % Colors of the body of highlighted blocks
+% Many more colors are available for use in beamerthemeconfposter.sty
+
+%-----------------------------------------------------------
+% Define the column widths and overall poster size
+% To set effective sepwid, onecolwid and twocolwid values, first choose how many columns you want and how much separation you want between columns
+% In this template, the separation width chosen is 0.024 of the paper width and a 4-column layout
+% onecolwid should therefore be (1-(# of columns+1)*sepwid)/# of columns e.g. (1-(4+1)*0.024)/4 = 0.22
+% Set twocolwid to be (2*onecolwid)+sepwid = 0.464
+% Set threecolwid to be (3*onecolwid)+2*sepwid = 0.708
+
+\newlength{\sepwid}
+\newlength{\onecolwid}
+\newlength{\twocolwid}
+\newlength{\threecolwid}
+\setlength{\paperwidth}{48in} % A0 width: 46.8in
+\setlength{\paperheight}{36in} % A0 height: 33.1in
+\setlength{\sepwid}{0.003\paperwidth} % Separation width (white space) between columns
+\setlength{\onecolwid}{0.31\paperwidth} % Width of one column
+\setlength{\twocolwid}{0.28\paperwidth} % Width of two columns
+\setlength{\threecolwid}{0.31\paperwidth} % Width of three columns
+\setlength{\topmargin}{-0.6in} % Reduce the top margin size
+%-----------------------------------------------------------
+
+\usepackage{graphicx}  % Required for including images
+
+\usepackage{booktabs} % Top and bottom rules for tables
+
+\usepackage{tikz}
+\usepackage{tikz-cd}
+
+\usepackage{biblatex}
+\addbibresource{biblio.bib}
+
+%\usepackage[utf8]{inputenc}
+
+\usetikzlibrary{matrix,shapes,arrows,positioning,chains,decorations.pathmorphing,snakes,calc}
+
+\DeclareMathOperator{\rk}{rk}
+\DeclareMathOperator{\cusp}{cusp}
+\DeclareMathOperator{\Rel}{Rel}
+\DeclareMathOperator{\Poin}{Poin}
+\DeclareMathOperator{\Tor}{Tor}
+\DeclareMathOperator{\Ext}{Ext}
+
+\newcommand{\M}{\mathsf{M}}
+\newcommand{\FY}{\mathsf{FY}}
+\newcommand{\grp}{\mathsf{G}}
+\newcommand{\stab}{\mathsf{Stab}}
+%\newcommand{\B}{\mathsf{B}} let us only write \U_{n,n} for boolean matroids
+\newcommand{\N}{\mathsf{N}}
+\newcommand{\U}{\mathsf{U}}
+\newcommand{\cI}{\mathcal{I}}
+\newcommand{\symm}{\mathfrak{S}}
+\newcommand{\A}{\mathrm{A}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+
+\newcommand{\LL}{\mathsf{\Lambda}}
+\newcommand{\Hilb}{\operatorname{Hilb}}
+\newcommand{\rank}{\operatorname{rk}}
+\newcommand{\cl}{\operatorname{cl}}
+\renewcommand{\H}{\mathrm{H}}
+\newcommand{\CH}{\mathrm{CH}}
+\newcommand{\aug}{\operatorname{aug}}
+\newcommand{\IH}{\mathrm{IH}}
+\newcommand{\uH}{\underline{\mathrm{H}}}
+\newcommand{\uCH}{\underline{\mathrm{CH}}}
+\newcommand\size[1]{|#1|}
+\DeclareMathOperator{\Pal}{\mathrm{Pal}}
+\DeclareMathOperator{\Poly}{\mathrm{Poly}}
+
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\Rep}{\operatorname{Rep}}
+\newcommand{\gr}{\operatorname{gr}}
+\newcommand{\VRep}{\operatorname{VRep}}
+\newcommand{\Ind}{\operatorname{Ind}}
+\newcommand{\Res}{\operatorname{Res}}
+\newcommand{\Aut}{\operatorname{Aut}}
+\newcommand{\col}{\operatorname{col}}
+\newcommand{\asc}{\operatorname{asc}}
+\newcommand{\bad}{\operatorname{bad}}
+\newcommand{\des}{\operatorname{des}}
+
+\newcommand{\Ver}{7}
+\newcommand{\Vera}{2}
+\newcommand{\Hor}{15}
+\newcommand{\Hora}{20}
+\newcommand{\Horb}{3}
+\newcommand{\Horc}{4.5}
+\newcommand{\Hord}{6.3}
+\newcommand{\Hore}{11}
+\newcommand{\Horf}{7.7}
+\newcommand{\Tone}{1.85}
+
+\newcommand{\CC}{\mathbb{C}}
+\newcommand{\TT}{\mathbb{T}}
+
+\newcommand{\fg}{\mathfrak{g}}
+
+\newcommand{\cF}{\mathcal{F}}
+\newcommand{\cU}{\mathcal{U}}
+\newcommand{\cO}{\mathcal{O}}
+
+\newcommand{\bw}{\mathbf{w}}
+\newcommand{\bP}{\mathbf{P}}
+\newcommand{\be}{\mathbf{e}}
+
+\newcommand{\sT}{\mathsf{T}}
+
+\newcommand{\Db}{D^{\mathrm{b}}}
+\newcommand{\GL}{\mathbf{GL}}
+\newcommand{\IC}{\mathrm{IC}}
+
+
+
+\newcounter{sarrow}
+\newcommand\xrsquigarrow[1]{%
+\stepcounter{sarrow}%
+\begin{tikzpicture}[decoration=snake]
+\node (\thesarrow) {\strut#1};
+\draw[->,decorate] (\thesarrow.south west) -- (\thesarrow.south east);
+\end{tikzpicture}%
+}
+
+\tikzset{
+    ncbar angle/.initial=90,
+    ncbar/.style={
+        to path=(\tikztostart)
+        -- ($(\tikztostart)!#1!\pgfkeysvalueof{/tikz/ncbar angle}:(\tikztotarget)$)
+        -- ($(\tikztotarget)!($(\tikztostart)!#1!\pgfkeysvalueof{/tikz/ncbar angle}:(\tikztotarget)$)!\pgfkeysvalueof{/tikz/ncbar angle}:(\tikztostart)$)
+        -- (\tikztotarget)
+    },
+    ncbar/.default=0.5cm,
+}
+
+\tikzset{square left brace/.style={ncbar=0.5cm}}
+\tikzset{square right brace/.style={ncbar=-0.5cm}}
+
+\tikzset{round left paren/.style={ncbar=0.5cm,out=120,in=-120}}
+\tikzset{round right paren/.style={ncbar=0.5cm,out=60,in=-60}}
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION 
+%----------------------------------------------------------------------------------------
+
+\title{Equivariant Chow Polynomials of Matroids} % Poster title
+
+\author{Nutan Nepal} % Author(s)
+
+\institute{Department of Mathematics, North Carolina State University} % Institution(s)
+
+%----------------------------------------------------------------------------------------
+
+\begin{document}
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=dblue!10]
+%\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=ngreen]
+\tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=dblue!40]
+\tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=orange!30]
+\tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+
+
+
+\addtobeamertemplate{block end}{}{\vspace*{2ex}} % White space under blocks
+\addtobeamertemplate{block alerted end}{}{\vspace*{2ex}} % White space under highlighted (alert) blocks
+
+\setlength{\belowcaptionskip}{2ex} % White space under figures
+\setlength\belowdisplayshortskip{2ex} % White space under equations
+
+\begin{frame}[t] % The whole poster is enclosed in one beamer frame
+
+\begin{columns}[t] % The whole poster consists of three major columns, the second of which is split into two columns twice - the [t] option aligns each column's content to the top
+
+\begin{column}{\sepwid}\end{column} % Empty spacer column
+
+\begin{column}{\onecolwid} % The first column
+
+\begin{block}{Goal}
+When the Chow ring $\uCH(\M)$ of a matroid $\M$ carries an action of a
+group $G$, we study the equivariant Chow polynomial $\uH_{\M}^G(x) \in \VRep_G[x]$:
+
+\[\uH_\M^G(x) = \uCH^0(\M)+\uCH^1(\M)x+\cdots +\uCH^{\rk(\M)-1}(\M)x^{\rk(\M)-1}\]
+
+and describe some of its properties.
+\end{block}
+
+\vspace{-5mm}
+\begin{block}{Introduction}
+
+A matroid $\M$ on the ground set $E$ with $n$ elements
+can be identified with a geometric lattice
+$\cL(\M)\subseteq 2^{[n]}$.
+The following are  lattices corresponding to the braid matroid $\M(K_4)$
+(the graphic matroid associated to the
+complete graph on $4$ vertices)
+and the uniform matroid $U_{3,4}$.
+
+\begin{center}
+    \begin{minipage}[t]{0.5\textwidth}
+    \kern0pt
+    \raggedright
+    
+    \begin{figure}
+        \scalebox{0.3}{
+        \begin{tikzpicture}[scale=4]
+    
+            % Level 1 (topmost node)
+            \node at (0, 4) (A) {1234};
+            
+            % Level 2 (second row of nodes)
+            \node at (-6, 2) (B1) {$124$};
+            \node at (-4, 2) (B2) {$135$};
+            \node at (-2, 2) (B3) {$25$};
+            \node at (0, 2) (B4) {$16$};
+            \node at (2, 2) (B5) {$34$};
+            \node at (4, 2) (B6) {$236$};
+            \node at (6, 2) (B7) {$456$};
+            
+            % Level 3 (third row of nodes)
+            \node at (-5, 0) (C1) {$1$};
+            \node at (-3, 0) (C2) {$2$};
+            \node at (-1, 0) (C3) {$3$};
+            \node at (1, 0) (C4) {$4$};
+            \node at (3, 0) (C5) {$5$};
+            \node at (5, 0) (C6) {$6$};
+            
+            % Level 4 (bottommost node)
+            \node at (0, -2) (D) {$\varnothing$};
+            
+            % Arrows from top to second row
+            \draw[->] (A) -- (B1);
+            \draw[->] (A) -- (B2);
+            \draw[->] (A) -- (B3);
+            \draw[->] (A) -- (B4);
+            \draw[->] (A) -- (B5);
+            \draw[->] (A) -- (B6);
+            \draw[->] (A) -- (B7);
+            
+            % Arrows from second to third row
+            \draw[->] (B1) -- (C1);
+            \draw[->] (B1) -- (C2);
+            \draw[->] (B1) -- (C4);
+            
+            \draw[->] (B2) -- (C1);
+            \draw[->] (B2) -- (C3);
+            \draw[->] (B2) -- (C5);
+            
+            \draw[->] (B3) -- (C2);
+            \draw[->] (B3) -- (C5);
+            
+            \draw[->] (B4) -- (C1);
+            \draw[->] (B4) -- (C6);
+            
+            \draw[->] (B5) -- (C3);
+            \draw[->] (B5) -- (C4);
+            
+            \draw[->] (B6) -- (C2);
+            \draw[->] (B6) -- (C3);
+            \draw[->] (B6) -- (C6);
+            
+            \draw[->] (B7) -- (C4);
+            \draw[->] (B7) -- (C5);
+            \draw[->] (B7) -- (C6);
+            
+            % Arrows from third row to bottom
+            \draw[->] (C1) -- (D);
+            \draw[->] (C2) -- (D);
+            \draw[->] (C3) -- (D);
+            \draw[->] (C4) -- (D);
+            \draw[->] (C5) -- (D);
+            \draw[->] (C6) -- (D);
+            
+            \end{tikzpicture}
+        }
+            \caption{\ $\M(K_4)$.} \label{fig:M1}
+    \end{figure}
+    \end{minipage}%
+    \begin{minipage}[t]{0.5\textwidth}
+    \kern0pt
+    \center
+    %\raggedleft
+    \vspace{.5cm}
+    \begin{figure}
+        \scalebox{0.3}{
+        \begin{tikzpicture}[scale=4]
+    
+            % Level 1 (topmost node)
+            \node at (0, 4) (A) {1234};
+            
+            % Level 2 (second row of nodes)
+            \node at (-5, 2) (B1) {12};
+            \node at (-3, 2) (B2) {13};
+            \node at (-1, 2) (B3) {14};
+            \node at (1, 2) (B4) {23};
+            \node at (3, 2) (B5) {24};
+            \node at (5, 2) (B6) {34};
+            
+            % Level 3 (third row of nodes)
+            \node at (-3, 0) (C1) {1};
+            \node at (-1, 0) (C2) {2};
+            \node at (1, 0) (C3) {3};
+            \node at (3, 0) (C4) {4};
+            
+            % Level 4 (bottommost node)
+            \node at (0, -2) (D) {$\varnothing$};
+            
+            % Arrows from top to second row
+            \draw[->] (A) -- (B1);
+            \draw[->] (A) -- (B2);
+            \draw[->] (A) -- (B3);
+            \draw[->] (A) -- (B4);
+            \draw[->] (A) -- (B5);
+            \draw[->] (A) -- (B6);
+            
+            % Arrows from second to third row
+            \draw[->] (B1) -- (C1);
+            \draw[->] (B1) -- (C2);
+            
+            \draw[->] (B2) -- (C1);
+            \draw[->] (B2) -- (C3);
+            
+            \draw[->] (B3) -- (C1);
+            \draw[->] (B3) -- (C4);
+            
+            \draw[->] (B4) -- (C2);
+            \draw[->] (B4) -- (C3);
+            
+            \draw[->] (B5) -- (C2);
+            \draw[->] (B5) -- (C4);
+            
+            \draw[->] (B6) -- (C3);
+            \draw[->] (B6) -- (C4);
+            
+            % Arrows from third row to bottom
+            \draw[->] (C1) -- (D);
+            \draw[->] (C2) -- (D);
+            \draw[->] (C3) -- (D);
+            \draw[->] (C4) -- (D);
+            
+            \end{tikzpicture}
+        }
+        \caption{\ $U_{3,4}$.} \label{fig:M2}
+    \end{figure}
+    \end{minipage}%
+    \end{center}
+    
+\end{block}
+
+\vspace{-5mm}
+\begin{block}{Chow rings of matroids}
+%\begin{center}
+%\begin{minipage}[t]{0.5\textwidth}
+\kern0pt
+\raggedright
+The Chow ring of a matroid was first introduced by Feichtner and Yuzvinsky in \cite{Feichtner_2004}.
+Adiprasito, Huh and Katz \cite{adiprasito-2018} use this ring to prove
+the Heron--Rota--Welsh conjecture: the sequence of absolute values of the
+coefficients of the characteristic polynomial of a matroid is log-concave.
+
+For a loopless matroid $\M$ on $[n]$,
+\textbf{the Chow ring} $\uCH(\M)$ is defined as:
+\[\uCH(\M):=\mathbb{Q}\left[\{x_F\}_{F\in \cL(\M)\setminus\{\varnothing\}}\right]/(I+J)\]
+where $I$ is the ideal $\langle x_Fx_G:\, F,\, G \text{ are incomparable}\rangle$
+and $J$ is the ideal $\langle \sum_i{x_F}:\, F\ni i\rangle$ for $1\leq i\leq n$. The ring is graded and has a basis given
+by the following \textbf{$\FY$-monomials}:
+\begin{align*}
+    x_{F_1}^{m_1}x_{F_2}^{m_2}\cdots x_{F_k}^{m_k}\ :&\
+    \varnothing = F_0\subset F_1\subset\cdots\subset F_k;\\
+    &\ 0\leq m_i\leq \rk(F_i)-\rk(F_{i-1})-1.
+\end{align*}
+
+\vspace{2mm}
+We denote by $\FY^i$ the set of degree $i$ $\FY$-monomials.
+The restriction on the exponents $m_i$ of $x_{F_i}$ ensures that there are exactly $\rk(\M)$ graded pieces.
+The \textbf{(non-equivariant) Chow polynomial} $\uH_\M(x)$ is defined as the Hilbert series of $\uCH(\M)$:
+\[\uH_{\M}(x) = a_0 + a_1x+\cdots + a_{\rk(\M)-1}x^{\rk(\M)-1},\]
+where $a_i = \dim \uCH^i(\M)$.
+
+\end{block}
+
+\end{column} % End of the first column
+
+\begin{column}{\twocolwid} % The second col
+
+\begin{block}{Examples of Chow rings of matroids}
+
+    \begin{itemize}
+        \item The Chow ring of $\M(K_4)$ has basis given by the $\FY$-monomials
+        \(\FY^0 = \{1\}\), \(\FY^1 = \{x_{124},
+        x_{135},x_{25},x_{16},x_{34},x_{236},x_{456},x_{1234}\}\), \(\FY^2 = \{x^2_{1234}\}.\)
+        Thus, $\dim \uCH^0(\M) = 1$, $\dim \uCH^1(\M) = 8$ and $\dim \uCH^2(\M) = 1$.
+
+        \item THe Chow ring of $U_{3,4}$ has basis given by
+        \(\FY^0 = \{1\}\), \(\FY^1 = \{x_{12},
+        x_{13},x_{14},x_{23},x_{24},x_{34},x_{1234}\}\), \(\FY^2 = \{x^2_{1234}\}.\)
+        Thus, $\dim \uCH^0(\M) = 1$, $\dim \uCH^1(\M) = 7$ and $\dim \uCH^2(\M) = 1$.
+    \end{itemize}
+
+\end{block}
+
+\vspace*{-5mm}
+\begin{block}{Equivariant Chow Polynomial}
+For a matroid $\M$ with an action of a group $G$, there is an
+induced action on the Chow ring of $\M$. It can be shown that
+$G$ acts on each graded piece of $\uCH(\M)$ separately by permuting
+the $\FY$-monomials of that degree.
+
+\begin{alertblock}{Theorem [Angarone--Nathanson--Reiner\cite{angarone2024chowringsmatroidspermutation}}]
+    Let $\M$ be a simple matroid of rank $r+1$ with $G$ a group of automorphisms of $\M$. Then there exist
+    \begin{itemize}
+        \item $G$-equivariant bijections $\pi: \FY^k\to \FY^{r-k}$ for $k\leq r/2$, and
+        \item $G$-equivariant injections $\lambda: \FY^k\to \FY^{k+1}$ for $k<r/2$.
+    \end{itemize}
+    \end{alertblock}
+
+The
+\textbf{equivariant Chow polynomial}
+$\uH^G_\M(x)\in\VRep_G[x]$ is defined as:
+\[\uH_\M^G(x) = P(\FY^0)+P(\FY^1)x+\cdots P(\FY^{\rk(\M)-1})x^{\rk(\M)-1}\]
+
+where $P(\FY^i)$ denotes the permutation representation of $G$ on the
+set $\FY^i$ of degree $i$ $\FY$-monomials.
+
+\end{block}
+\begin{block}{Examples of equivariant Chow polynomials}
+    \begin{itemize}
+        \item For $\mathfrak{S}_4 \curvearrowright \M(K_4)$, the equivariant Chow polynomial is:
+        \[\uH_\M^G(x) = V_{(4)}+(V_{(4)}^{\oplus 3}\oplus V_{(3,1)}\oplus V_{(2,2)})x + V_{(4)}x^2\]
+        where $V_\lambda$ denotes the irreducible representation of $\mathfrak{S}_4$ corresponding to the
+        partition $\lambda$.
+
+        \item For $\mathfrak{S}_4 \curvearrowright U_{3,4}$: the polynomial is
+            \[V_{(4)}+(V_{(4)}^{\oplus 2}\oplus V_{(3,1)}\oplus V_{(2,2)})x + V_{(4)}x^2.\]
+
+        \item For $\mathfrak{S}_4 \curvearrowright U_{4,4}$: the polynomial is
+            \[V_{(4)}+(V_{(4)}^{\oplus 3}\oplus V_{(3,1)}^{\oplus 2}\oplus V_{(2,2)})x +
+            (V_{(4)}^{\oplus 3}\oplus V_{(3,1)}^{\oplus 2}\oplus V_{(2,2)})x^2 + V_{(4)}x^3.\]
+    \end{itemize}
+\end{block}
+\end{column} % End of the second column
+
+\begin{column}{\threecolwid} % The third col
+
+    In these examples, we can see the $G$-equivariant bijections and injections claimed in the
+    previous theorem.
+
+    \vspace*{5mm}
+\begin{alertblock}{Theorem [Nepal]}
+    There is a unique way to assign to each loopless matroid $\M$ a polynomial $\uH^G_\M(x)\in \VRep_G[x]$
+    such that the following conditions hold:
+    \begin{enumerate}
+        \item If $\rk(M) = 0$, then $\uH_\M (x) = 1_G$.
+        \item For every matroid M, the following recursion holds:
+            \[\uH^G_\M(x)=\sum_{[F]\in\cL(M)/G}{\Ind_{G_F}^G\left(\overline{\chi}^{G_F}_{\M|_F}(x)\otimes \uH^{G_F}_{\M/F}(x)\right)}.\]
+    \end{enumerate}
+\end{alertblock}
+\vspace*{-10mm}
+This theorem relies on results of Liao \cite{liao2024chowringsaugmentedchow} and equivariant versions of results in \cite{Ferroni_2024}.
+Future work on equivariant Chow polynomials includes:
+\begin{itemize}
+    \item Recover formulas for uniform matroids in \cite{liao2024chowringsaugmentedchow} using the recursion.
+    \item Find formulas for braid matroids and thagomizer matroids.
+    \item Find similar recursion for other building sets.
+\end{itemize}
+
+\begin{alertblock}{Acknowledgements}
+I sincerely thank Dr. Jacob P. Matherne for his guidance, support and
+encouragement on this project.
+\end{alertblock}
+\vspace{-7mm}
+\begin{alertblock}{References}
+
+\printbibliography
+\end{alertblock}
+\end{column} % End of the third column
+
+\end{columns} % End of all the columns in the poster
+
+\end{frame} % End of the enclosing frame
+
+\end{document}

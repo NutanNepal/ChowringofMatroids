@@ -1,0 +1,233 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{adiprasito-2018}{article}{}
+      \name{author}{3}{}{%
+        {{hash=9a1649ce3c4cedf6d493ef265b478d84}{%
+           family={Adiprasito},
+           familyi={A\bibinitperiod},
+           given={Kareem},
+           giveni={K\bibinitperiod}}}%
+        {{hash=cf81a98d9178abe3dd76e8d7e1b7f976}{%
+           family={Huh},
+           familyi={H\bibinitperiod},
+           given={June},
+           giveni={J\bibinitperiod}}}%
+        {{hash=791d53f58ebdd91b0289d0cd9224b207}{%
+           family={Katz},
+           familyi={K\bibinitperiod},
+           given={Eric},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{05e14bf14f37a0b93e99b395eed770c7}
+      \strng{fullhash}{05e14bf14f37a0b93e99b395eed770c7}
+      \strng{bibnamehash}{05e14bf14f37a0b93e99b395eed770c7}
+      \strng{authorbibnamehash}{05e14bf14f37a0b93e99b395eed770c7}
+      \strng{authornamehash}{05e14bf14f37a0b93e99b395eed770c7}
+      \strng{authorfullhash}{05e14bf14f37a0b93e99b395eed770c7}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Annals of Mathematics}
+      \field{month}{8}
+      \field{number}{2}
+      \field{title}{{Hodge theory for combinatorial geometries}}
+      \field{volume}{188}
+      \field{year}{2018}
+      \verb{doi}
+      \verb 10.4007/annals.2018.188.2.1
+      \endverb
+      \verb{urlraw}
+      \verb https://doi.org/10.4007/annals.2018.188.2.1
+      \endverb
+      \verb{url}
+      \verb https://doi.org/10.4007/annals.2018.188.2.1
+      \endverb
+    \endentry
+    \entry{angarone2024chowringsmatroidspermutation}{misc}{}
+      \name{author}{3}{}{%
+        {{hash=45ffacfddc25005be0797487348e8875}{%
+           family={Angarone},
+           familyi={A\bibinitperiod},
+           given={Robert},
+           giveni={R\bibinitperiod}}}%
+        {{hash=83f80d92e3e0d032165984f598d47795}{%
+           family={Nathanson},
+           familyi={N\bibinitperiod},
+           given={Anastasia},
+           giveni={A\bibinitperiod}}}%
+        {{hash=4a44edd94141e3585000862e399e7b20}{%
+           family={Reiner},
+           familyi={R\bibinitperiod},
+           given={Victor},
+           giveni={V\bibinitperiod}}}%
+      }
+      \strng{namehash}{b9e5960aa91696958d59a889c2096cf6}
+      \strng{fullhash}{b9e5960aa91696958d59a889c2096cf6}
+      \strng{bibnamehash}{b9e5960aa91696958d59a889c2096cf6}
+      \strng{authorbibnamehash}{b9e5960aa91696958d59a889c2096cf6}
+      \strng{authornamehash}{b9e5960aa91696958d59a889c2096cf6}
+      \strng{authorfullhash}{b9e5960aa91696958d59a889c2096cf6}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{math.CO}
+      \field{eprinttype}{arXiv}
+      \field{title}{Chow Rings of Matroids as Permutation Representations}
+      \field{year}{2024}
+      \verb{eprint}
+      \verb 2309.14312
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2309.14312
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2309.14312
+      \endverb
+    \endentry
+    \entry{Feichtner_2004}{article}{}
+      \name{author}{2}{}{%
+        {{hash=b6c1a4d41fc15e1f9ac505ff531a4c05}{%
+           family={Feichtner},
+           familyi={F\bibinitperiod},
+           given={Eva\bibnamedelima Maria},
+           giveni={E\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=de1e8d8b65334cfa10e71a2dba7a4d9f}{%
+           family={Yuzvinsky},
+           familyi={Y\bibinitperiod},
+           given={Sergey},
+           giveni={S\bibinitperiod}}}%
+      }
+      \list{publisher}{2}{%
+        {Springer Science}%
+        {Business Media LLC}%
+      }
+      \strng{namehash}{ec9f36d4701e502b708291415f296b59}
+      \strng{fullhash}{ec9f36d4701e502b708291415f296b59}
+      \strng{bibnamehash}{ec9f36d4701e502b708291415f296b59}
+      \strng{authorbibnamehash}{ec9f36d4701e502b708291415f296b59}
+      \strng{authornamehash}{ec9f36d4701e502b708291415f296b59}
+      \strng{authorfullhash}{ec9f36d4701e502b708291415f296b59}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{issn}{1432-1297}
+      \field{journaltitle}{Inventiones Mathematicae}
+      \field{month}{3}
+      \field{number}{3}
+      \field{title}{Chow rings of toric varieties defined by atomic lattices}
+      \field{volume}{155}
+      \field{year}{2004}
+      \field{pages}{515\bibrangedash 536}
+      \range{pages}{22}
+      \verb{urlraw}
+      \verb http://dx.doi.org/10.1007/s00222-003-0327-2
+      \endverb
+      \verb{url}
+      \verb http://dx.doi.org/10.1007/s00222-003-0327-2
+      \endverb
+    \endentry
+    \entry{Ferroni_2024}{article}{}
+      \name{author}{4}{}{%
+        {{hash=ad47148609d550979edddc378a6a9b87}{%
+           family={Ferroni},
+           familyi={F\bibinitperiod},
+           given={Luis},
+           giveni={L\bibinitperiod}}}%
+        {{hash=a1a270214805f2ec9802de202d109e97}{%
+           family={Matherne},
+           familyi={M\bibinitperiod},
+           given={Jacob\bibnamedelima P.},
+           giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=a684708f0588e7ac77cb2d3e129d0a9a}{%
+           family={Stevens},
+           familyi={S\bibinitperiod},
+           given={Matthew},
+           giveni={M\bibinitperiod}}}%
+        {{hash=d7fe7d058043e6738fee2c3164f35fbe}{%
+           family={Vecchi},
+           familyi={V\bibinitperiod},
+           given={Lorenzo},
+           giveni={L\bibinitperiod}}}%
+      }
+      \list{publisher}{1}{%
+        {Elsevier BV}%
+      }
+      \strng{namehash}{d18aeb1b6864c3b2f49572f61162258b}
+      \strng{fullhash}{6b15604ebe6edc031a94013d1359ae2b}
+      \strng{bibnamehash}{d18aeb1b6864c3b2f49572f61162258b}
+      \strng{authorbibnamehash}{d18aeb1b6864c3b2f49572f61162258b}
+      \strng{authornamehash}{d18aeb1b6864c3b2f49572f61162258b}
+      \strng{authorfullhash}{6b15604ebe6edc031a94013d1359ae2b}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Advances in Mathematics}
+      \field{month}{7}
+      \field{title}{Hilbert–Poincaré series of matroid Chow rings and intersection cohomology}
+      \field{volume}{449}
+      \field{year}{2024}
+      \field{pages}{109733}
+      \range{pages}{1}
+      \verb{doi}
+      \verb 10.1016/j.aim.2024.109733
+      \endverb
+    \endentry
+    \entry{liao2024chowringsaugmentedchow}{misc}{}
+      \name{author}{1}{}{%
+        {{hash=b3d8d47f48b3efad9bd843714e5d42cb}{%
+           family={Liao},
+           familyi={L\bibinitperiod},
+           given={Hsin-Chieh},
+           giveni={H\bibinithyphendelim C\bibinitperiod}}}%
+      }
+      \strng{namehash}{b3d8d47f48b3efad9bd843714e5d42cb}
+      \strng{fullhash}{b3d8d47f48b3efad9bd843714e5d42cb}
+      \strng{bibnamehash}{b3d8d47f48b3efad9bd843714e5d42cb}
+      \strng{authorbibnamehash}{b3d8d47f48b3efad9bd843714e5d42cb}
+      \strng{authornamehash}{b3d8d47f48b3efad9bd843714e5d42cb}
+      \strng{authorfullhash}{b3d8d47f48b3efad9bd843714e5d42cb}
+      \field{sortinit}{L}
+      \field{sortinithash}{7c47d417cecb1f4bd38d1825c427a61a}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprintclass}{math.CO}
+      \field{eprinttype}{arXiv}
+      \field{title}{Chow rings and augmented Chow rings of uniform matroids and their $q$-analogs}
+      \field{year}{2024}
+      \verb{eprint}
+      \verb 2406.19660
+      \endverb
+      \verb{urlraw}
+      \verb https://arxiv.org/abs/2406.19660
+      \endverb
+      \verb{url}
+      \verb https://arxiv.org/abs/2406.19660
+      \endverb
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+
