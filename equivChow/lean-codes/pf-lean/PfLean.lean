@@ -17,31 +17,30 @@ structure MatroidF (E : Type) where
   closure_extends : ∀ (X : Set E), X ⊆ closure X  -- Closure extends the set
   closure_minimal : ∀ (X : Set E) (F : Set E), F ∈ flats → X ⊆ F → closure X ⊆ F  -- Minimality of closure property
 
--- Example of a matroid on the ground set {0, 1, 2}
+-- Example of a simple matroid on a set with three elements {a, b, c}
 def exampleMatroid : MatroidF (Fin 3) :=
-{ flats := {∅, {0}, {1}, {2}, {0, 1, 2}},  -- Define flats
-  ground_set := {0, 1, 2},               -- Define the ground set explicitly
-  empty_flat := by  simp,                 -- The empty set is a flat
-  univ_flat := by simp,                   -- The ground set is in flats
-  flat_iff_closure :=
-    by
+  { flats := { ∅, {0}, {1}, {2}, {0, 1}, {0, 2}, {1, 2}, {0, 1, 2} },
+    ground_set := {0, 1, 2},
+    empty_flat := by simp,
+    univ_flat := by simp,
+    closure := λ X => ⋂₀ { F | F ∈ { ∅, {0}, {1}, {2}, {0, 1}, {0, 2}, {1, 2}, {0, 1, 2} } ∧ X ⊆ F },
+    flat_iff_closure := by
       intro F
-      constructor
-      unfold Set.sInter
-
-  flat_inter :=
-    by
+      apply Iff.intro
+      · intro h
+        simp only [Set.mem_set_of_eq] at h
+        exact h.2
+      · intro h
+        rw [Set.mem_set_of_eq]
+        exact ⟨Set.mem_univ F, h⟩,
+    flat_inter := by
       intros F₁ F₂ hF₁ hF₂
-      simp [hF₁, hF₂]
-      exact Set.inter_subset_left hF₁ hF₂
-  closure_extends :=
-    by
+      simp [Set.mem_set_of_eq] at *
+      exact Set.inter_subset_inter hF₁ hF₂,
+    closure_extends := by
       intro X
-      simp                    -- X is a subset of its closure
-  closure_minimal :=
-    by
+      simp [Set.sInter_eq_Inter],
+    closure_minimal := by
       intros X F hF hXF
-      unfold closure
-      apply Set.sInter_subset_of_mem
-      exact ⟨hF, hXF⟩                    -- Minimality of closure property
-}
+      simp [Set.sInter_eq_Inter]
+      exact Set.subset.trans hXF (Set.Inter_subset _ hF) }
