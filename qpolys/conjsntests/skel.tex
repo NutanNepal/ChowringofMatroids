@@ -1,0 +1,88 @@
+\documentclass[10pt]{article}
+\usepackage[margin = 1in]{geometry}
+\usepackage{parskip}
+\usepackage{amssymb,amsmath,amsfonts,verbatim, amsthm}
+\usepackage[breakable, skins]{tcolorbox}
+\usepackage{graphicx, tikz-cd, adjustbox}
+\usepackage{float, breqn}
+\usepackage{scalerel}
+\usepackage{stackengine,wasysym}
+\usepackage{biblatex}
+
+\newtcolorbox{mybox}[2][]{
+    arc=0mm, enhanced, frame hidden, breakable
+}
+
+%\newcommand{\bqed}{$\hfill\blacksquare$}
+\newcommand{\bz}{\mathbb{Z}}
+\newcommand{\lt}{\normalfont\text{lt}}
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\ind}{\text{\normalfont Ind}}
+\newcommand{\stab}{\text{\normalfont Stab}}
+\newcommand{\hilbM}{\normalfont\text{ \underline{H}}_\text{M}}
+\newcommand{\aughilbM}{\normalfont\text{H}_\text{M}}
+\newcommand{\rank}{\normalfont\text{rk}}
+\newcommand{\flats}{\normalfont\text{Flats}}
+\newcommand{\flags}{\normalfont\text{Flags}}
+\newcommand{\matM}{\normalfont\text{M}}
+
+\newcommand{\hilbMmodF}{\normalfont\text{ \underline{H}}_\text{M/F}}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+%\setlength{\topmargin}{0mm}
+%\setlength{\textwidth}{150mm} 
+%\setlength{\textheight}{240mm}
+%\setlength{\oddsidemargin}{0mm} 
+%\setlength{\evensidemargin}{0mm}
+
+\title{Notes (Inverse Kazhdan-Lusztig Polynomials under Deletion)}
+%\author{Nutan Nepal}
+%\date{\today}
+
+
+\begin{document}
+{\textbf{Notes: Inverse Kazhdan-Lusztig Polynomials under Deletion}}\hfill {\small{\today}}
+
+\hrulefill
+\begin{conjecture}
+    Let $M$ be the parallel connection of two cycles $C_n = U(n-1, n)$ and $C_m = U(m-1, m)$, where $n \geq 3$ and $m \geq 3$.
+    Let $e$ be the shared edge between $C_n$ and $C_m$. Then, we have
+    \begin{equation}
+        Q_{M} = Q_{M\setminus e} + (t + 1)\cdot Q_{M/e} - t\cdot(Q_{C_{n-1}}\cdot \lt(C_{m-1}) + \lt(C_{n-1})\cdot Q_{C_{m-1}})
+        \end{equation}
+    where, $\lt(M)$ is 0 if the rank of $M$ is even, and leading term of $Q_M$ otherwise.
+    \end{conjecture}
+
+\begin{theorem}
+    Let $M$ be a matroid with ground set $E$ and let $e \in E$. Then, we have
+    \begin{equation}
+        P_M = P_{M \setminus e} - t P_{M / e} + \sum_{F \in S} \tau(M/{F \cup e}) t^{\text{crk} (F)/2} P_{M\mid F}.
+    \end{equation}
+    Here, the sum is taken over the set $S$ of all subsets $F$ of $E \setminus e$ such that $F$ and $F \cup e$ are both flats of $M$
+    (any such $F$ is automatically also a flat of $M \setminus e$), and $\tau(M)$ is the coefficient of
+    $t^{(\text{rk} (M) - 1)/2}$ in $P_M(t)$ if $\text{rk} (M)$ is odd, and zero otherwise.
+\end{theorem}
+
+\begin{theorem}
+    Let $M$ be the parallel connection of two cycles $C_n = U(n-1, n)$ and $C_m = U(m-1, m)$, where $n \geq 3$ and $m \geq 3$. Let $e$ be the shared edge between $C_n$ and $C_m$. Then, we have
+    \begin{equation}
+        P_M(t) = P_{M \setminus e} - t P_{C_{n-1}}P_{C_{m-1}}.
+    \end{equation}
+\end{theorem}
+
+\begin{conjecture}
+    Let $W$ be a finite Coxeter group with $S$ as the set of simple reflections. Let $w \in W$ and $s \in S$. Let $w = s_1s_2\cdots s_k$ be a reduced expression for $w$. Then, for any $i \in \{1,2,\ldots,k\}$, we have
+    \begin{equation}
+        P_{w}(q) = P_{s_iw}(q) + qP_{s_iw}(q)P_{s_{i+1}s_{i+2}\cdots s_k}(q).
+    \end{equation}
+    \end{conjecture}
+
+\end{document}
