@@ -86,3 +86,17 @@ def uniformKLpoly(r, n):
         s = s * binomial(m + d, i)/(d - i)
         sum = sum + s * t**(i)
     return sum
+
+def is_graphic(matroid):
+    from sage.matroids.database_matroids import (
+        U24,
+        Fano,
+        FanoDual,
+        K5dual,
+        K33dual
+    )
+    excluded_minors = [U24(), Fano(), FanoDual(), K5dual(), K33dual()]
+    for M in excluded_minors:
+        if matroid.has_minor(M):
+            return False
+    return True
