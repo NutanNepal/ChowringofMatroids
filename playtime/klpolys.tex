@@ -1,0 +1,76 @@
+\documentclass[10pt]{article}
+\usepackage[margin = 1in]{geometry}
+\usepackage{parskip}
+\usepackage{amssymb,amsmath,amsfonts,verbatim, amsthm}
+\usepackage[breakable, skins]{tcolorbox}
+\usepackage{graphicx, tikz-cd, adjustbox}
+\usepackage{float, breqn}
+\usepackage{scalerel}
+\usepackage{stackengine,wasysym}
+\usepackage{biblatex}
+
+\newtcolorbox{mybox}[2][]{
+    arc=0mm, enhanced, frame hidden, breakable
+}
+
+%\newcommand{\bqed}{$\hfill\blacksquare$}
+\newcommand{\bz}{\mathbb{Z}}
+\newcommand{\lt}{\normalfont\text{lt}}
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\ind}{\text{\normalfont Ind}}
+\newcommand{\stab}{\text{\normalfont Stab}}
+\newcommand{\hilbM}{\normalfont\text{ \underline{H}}_\text{M}}
+\newcommand{\aughilbM}{\normalfont\text{H}_\text{M}}
+\newcommand{\rank}{\normalfont\text{rk}}
+\newcommand{\flats}{\normalfont\text{Flats}}
+\newcommand{\flags}{\normalfont\text{Flags}}
+\newcommand{\matM}{\normalfont\text{M}}
+
+\newcommand{\hilbMmodF}{\normalfont\text{ \underline{H}}_\text{M/F}}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark}
+
+%\setlength{\topmargin}{0mm}
+%\setlength{\textwidth}{150mm} 
+%\setlength{\textheight}{240mm}
+%\setlength{\oddsidemargin}{0mm} 
+%\setlength{\evensidemargin}{0mm}
+
+\title{Notes (Kazhdan-Lusztig Polynomials)}
+%\author{Nutan Nepal}
+%\date{\today}
+
+
+\begin{document}
+{\textbf{Notes: Kazhdan-Lusztig Polynomials}}\hfill {\small{\today}}
+
+\hrulefill
+
+\section{Outline}
+\begin{itemize}
+    \item Introduction
+    \item History of Kazhdan-Lusztig Polynomials
+    \item Definition and Properties
+    \item Kazhdan-Lusztig Polynomials of Matroids
+    \item Examples
+    \item Applications
+    \item Conclusion
+\end{itemize}
+
+\section{History of Kazhdan-Lusztig Polynomials}
+Kazhdan-Lusztig polynomials were introduced by David Kazhdan and George Lusztig in their seminal 1979 paper. These polynomials arise in the representation theory of Hecke algebras and play a crucial role in the study of the representation theory of semisimple Lie algebras and algebraic groups. The original motivation for defining these polynomials was to understand the characters of irreducible representations of Hecke algebras.
+
+Kazhdan and Lusztig discovered that these polynomials have deep connections with the geometry of Schubert varieties in flag manifolds. Specifically, the coefficients of the Kazhdan-Lusztig polynomials encode important topological information about the intersection cohomology of Schubert varieties. This connection has led to significant advances in both algebraic geometry and representation theory.
+
+Over the years, Kazhdan-Lusztig polynomials have found applications in various areas of mathematics, including combinatorics, algebraic geometry, and mathematical physics. Their study has also led to the development of new mathematical tools and techniques, such as the theory of perverse sheaves and the concept of canonical bases in quantum groups.
+
+In recent years, the concept of Kazhdan-Lusztig polynomials has been extended to matroids, which are combinatorial structures that generalize the notion of linear independence in vector spaces. The study of Kazhdan-Lusztig polynomials of matroids has opened up new avenues of research in combinatorial geometry and has provided new insights into the structure of matroids.
+
+\end{document}
