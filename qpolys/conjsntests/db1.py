@@ -14,7 +14,7 @@ def cmp_elements_key(x):
     return (isinstance(x, str), x)
 
 def characteristic_polynomial(M, la=None):
-    R = ZZ['l']
+    R = ZZ['t']
     w = whitney_numbers(M)
     w.reverse()
     chi = R(w)
