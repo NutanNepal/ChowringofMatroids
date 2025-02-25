@@ -85,45 +85,6 @@ def no_broken_circuits_sets_iterator(M: Matroid, ordering: Optional[List] = None
                 yield frozenset(H)
                 next_level.extend(Ht)
 
-def uniformQpoly(r: int, n: int) -> Polynomial:
-    """
-    Compute the uniform Q-polynomial for given parameters.
-
-    :param r: Rank of the matroid.
-    :param n: Size of the groundset.
-    :return: The uniform Q-polynomial.
-    """
-    m, d = n - r, r
-    R = PolynomialRing(QQ, 't')
-    t = R.gen()
-    upper_bound = (d - 1) // 2
-    sum = R(0)
-    for j in range(0, upper_bound + 1):
-        coeff = m * (d - 2 * j) / ((m + j) * (m + d - j)) * binomial(d, j)
-        sum += coeff * t**j
-    return binomial(m + d, d) * sum
-
-def uniformKLpoly(r: int, n: int) -> Polynomial:
-    """
-    Compute the uniform KL-polynomial for given parameters.
-
-    :param r: Rank of the matroid.
-    :param n: Size of the groundset.
-    :return: The uniform KL-polynomial.
-    """
-    m, d = n - r, r
-    R = PolynomialRing(QQ, 't')
-    t = R.gen()
-    upper_bound = (d - 1) // 2
-    sum = R(0)
-    for i in range(0, upper_bound + 1):
-        s = R(0)
-        for h in range(0, m):
-            s += binomial(d - i + h, h + i + 1) * binomial(i - 1 + h, h)
-        s *= binomial(m + d, i) / (d - i)
-        sum += s * t**i
-    return sum
-
 def is_graphic(matroid: Matroid) -> bool:
     """
     Check if a matroid is graphic.
@@ -345,6 +306,10 @@ def doit_once(p: Polynomial) -> Polynomial:
 def kl(M):
     return M.lattice_of_flats().kazhdan_lusztig_polynomial()(t)
 
+def qhat(M):
+    S = PolynomialRing(ZZ, 't')
+    return S((-1) ** M.rank() * invkl(M)(t))
+
 def lattice_kl(L):
     return L.kazhdan_lusztig_polynomial()(t)
 
@@ -353,3 +318,42 @@ def parallel_connection(m, n):
     G.add_edge(0, m-1)
     edge_e = frozenset({(0, m - 1)})
     return G, edge_e
+
+def uniformQpoly(r: int, n: int) -> Polynomial:
+    """
+    Compute the uniform Q-polynomial for given parameters.
+
+    :param r: Rank of the matroid.
+    :param n: Size of the groundset.
+    :return: The uniform Q-polynomial.
+    """
+    m, d = n - r, r
+    R = PolynomialRing(QQ, 't')
+    t = R.gen()
+    upper_bound = (d - 1) // 2
+    sum = R(0)
+    for j in range(0, upper_bound + 1):
+        coeff = m * (d - 2 * j) / ((m + j) * (m + d - j)) * binomial(d, j)
+        sum += coeff * t**j
+    return binomial(m + d, d) * sum
+
+def uniformKLpoly(r: int, n: int) -> Polynomial:
+    """
+    Compute the uniform KL-polynomial for given parameters.
+
+    :param r: Rank of the matroid.
+    :param n: Size of the groundset.
+    :return: The uniform KL-polynomial.
+    """
+    m, d = n - r, r
+    R = PolynomialRing(QQ, 't')
+    t = R.gen()
+    upper_bound = (d - 1) // 2
+    sum = R(0)
+    for i in range(0, upper_bound + 1):
+        s = R(0)
+        for h in range(0, m):
+            s += binomial(d - i + h, h + i + 1) * binomial(i - 1 + h, h)
+        s *= binomial(m + d, i) / (d - i)
+        sum += s * t**i
+    return sum
