@@ -1,0 +1,288 @@
+{
+    "nodes": [
+        {
+            "data": {
+                "id": "rank_0",
+                "label": "Rank 0",
+                "color": "#CCCCCC"
+            }
+        },
+        {
+            "data": {
+                "id": "rank_1",
+                "label": "Rank 1",
+                "color": "#CCCCCC"
+            }
+        },
+        {
+            "data": {
+                "id": "rank_2",
+                "label": "Rank 2",
+                "color": "#CCCCCC"
+            }
+        },
+        {
+            "data": {
+                "id": "rank_3",
+                "label": "Rank 3",
+                "color": "#CCCCCC"
+            }
+        },
+        {
+            "data": {
+                "id": "0",
+                "label": "-t - 4",
+                "color": "#DFDF00",
+                "parent": "rank_0"
+            }
+        },
+        {
+            "data": {
+                "id": "1",
+                "label": "2",
+                "color": "#00F0F0",
+                "parent": "rank_1"
+            }
+        },
+        {
+            "data": {
+                "id": "2",
+                "label": "2",
+                "color": "#00F0F0",
+                "parent": "rank_1"
+            }
+        },
+        {
+            "data": {
+                "id": "3",
+                "label": "-1",
+                "color": "#FFFF00",
+                "parent": "rank_2"
+            }
+        },
+        {
+            "data": {
+                "id": "4",
+                "label": "2",
+                "color": "#00F0F0",
+                "parent": "rank_1"
+            }
+        },
+        {
+            "data": {
+                "id": "5",
+                "label": "-1",
+                "color": "#FFFF00",
+                "parent": "rank_2"
+            }
+        },
+        {
+            "data": {
+                "id": "6",
+                "label": "1",
+                "color": "#00F0F0",
+                "parent": "rank_1"
+            }
+        },
+        {
+            "data": {
+                "id": "7",
+                "label": "-1",
+                "color": "#FFFF00",
+                "parent": "rank_2"
+            }
+        },
+        {
+            "data": {
+                "id": "8",
+                "label": "2",
+                "color": "#00F0F0",
+                "parent": "rank_1"
+            }
+        },
+        {
+            "data": {
+                "id": "9",
+                "label": "-1",
+                "color": "#FFFF00",
+                "parent": "rank_2"
+            }
+        },
+        {
+            "data": {
+                "id": "10",
+                "label": "-1",
+                "color": "#FFFF00",
+                "parent": "rank_2"
+            }
+        },
+        {
+            "data": {
+                "id": "11",
+                "label": "-1",
+                "color": "#FFFF00",
+                "parent": "rank_2"
+            }
+        },
+        {
+            "data": {
+                "id": "12",
+                "label": "t + 1",
+                "color": "#FFD0DF",
+                "parent": "rank_3"
+            }
+        }
+    ],
+    "edges": [
+        {
+            "data": {
+                "source": "1",
+                "target": "0"
+            }
+        },
+        {
+            "data": {
+                "source": "2",
+                "target": "0"
+            }
+        },
+        {
+            "data": {
+                "source": "4",
+                "target": "0"
+            }
+        },
+        {
+            "data": {
+                "source": "6",
+                "target": "0"
+            }
+        },
+        {
+            "data": {
+                "source": "8",
+                "target": "0"
+            }
+        },
+        {
+            "data": {
+                "source": "3",
+                "target": "1"
+            }
+        },
+        {
+            "data": {
+                "source": "7",
+                "target": "1"
+            }
+        },
+        {
+            "data": {
+                "source": "9",
+                "target": "1"
+            }
+        },
+        {
+            "data": {
+                "source": "3",
+                "target": "2"
+            }
+        },
+        {
+            "data": {
+                "source": "5",
+                "target": "2"
+            }
+        },
+        {
+            "data": {
+                "source": "10",
+                "target": "2"
+            }
+        },
+        {
+            "data": {
+                "source": "12",
+                "target": "3"
+            }
+        },
+        {
+            "data": {
+                "source": "5",
+                "target": "4"
+            }
+        },
+        {
+            "data": {
+                "source": "7",
+                "target": "4"
+            }
+        },
+        {
+            "data": {
+                "source": "11",
+                "target": "4"
+            }
+        },
+        {
+            "data": {
+                "source": "12",
+                "target": "5"
+            }
+        },
+        {
+            "data": {
+                "source": "7",
+                "target": "6"
+            }
+        },
+        {
+            "data": {
+                "source": "10",
+                "target": "6"
+            }
+        },
+        {
+            "data": {
+                "source": "12",
+                "target": "7"
+            }
+        },
+        {
+            "data": {
+                "source": "9",
+                "target": "8"
+            }
+        },
+        {
+            "data": {
+                "source": "10",
+                "target": "8"
+            }
+        },
+        {
+            "data": {
+                "source": "11",
+                "target": "8"
+            }
+        },
+        {
+            "data": {
+                "source": "12",
+                "target": "9"
+            }
+        },
+        {
+            "data": {
+                "source": "12",
+                "target": "10"
+            }
+        },
+        {
+            "data": {
+                "source": "12",
+                "target": "11"
+            }
+        }
+    ]
+}

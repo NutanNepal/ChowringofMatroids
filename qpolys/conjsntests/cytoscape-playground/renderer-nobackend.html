@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Matroid Graph Viewer</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.23.0/cytoscape.min.js"></script>
+    <script src="https://unpkg.com/webcola/WebCola/cola.min.js"></script>
+    <script src="cytoscape-cola.js"></script>
+    <style>
+        /* Keep your existing styles, add compound node styling */
+        body {
+            font-family: helvetica, sans-serif;
+            margin: 20px;
+        }
+
+        #file-list {
+            margin-bottom: 20px;
+        }
+
+        #file-list ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #file-list li {
+            margin: 5px 0;
+            cursor: pointer;
+            color: blue;
+            text-decoration: underline;
+        }
+
+        #cy {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ccc;
+        }
+
+        /* Add compound node styling */
+        node:parent {
+            opacity: 0.3;
+            padding: 10px;
+            border-width: 2px;
+            border-color: #999;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Matroid Graph Viewer</h1>
+    <div id="file-list">
+        <h2>Available Matroids</h2>
+        <ul id="file-ul"></ul>
+    </div>
+    <div id="cy"></div>
+
+    <script>
+        const jsonFiles = [
+            "data/graph_data_pcr4-4.json",
+            "data/graph_data_pcr4-5.json",
+            "data/graph_data_pcr3-4.json"
+        ];
+
+        function renderGraph(file) {
+            fetch(file)
+                .then(response => response.json())
+                .then(data => {
+                    // Process nodes to add parent groups based on rank
+                    const processedData = processDataForCompounds(data);
+
+                    // Clear previous graph
+                    const container = document.getElementById("cy");
+                    container.innerHTML = "";
+
+                    // Initialize Cytoscape with compound configuration
+                    const cy = cytoscape({
+                        container: container,
+                        elements: processedData,
+                        style: [
+                            {
+                                selector: 'node',
+                                style: {
+                                    'label': 'data(label)',
+                                    'background-color': 'data(color)',
+                                    'text-valign': 'center',
+                                    'text-halign': 'center',
+                                    'color': 'black',
+                                    'font-size': 12,
+                                    'width': 20,
+                                    'height': 20
+                                }
+                            },
+                            {
+                                selector: 'node:parent',
+                                style: {
+                                    'background-opacity': 0.3,
+                                    'padding': 10,
+                                    'border-width': 2,
+                                    'border-color': '#999'
+                                }
+                            },
+                            {
+                                selector: 'edge',
+                                style: {
+                                    'curve-style': 'straight',
+                                    'width': 1,
+                                    'line-color': '#999'
+                                }
+                            }
+                        ],
+                        layout: {
+                            name: 'cola',
+                            animate: true,
+                            refresh: 1,
+                            nodeSpacing: 20,
+                            edgeLength: 100,
+                            randomize: false,
+                            maxSimulationTime: 4000,
+                            fit: true,
+                            // Compound layout parameters
+                            handleDisconnected: false,
+                            avoidOverlap: true,
+                            convergenceThreshold: 0.01
+                        }
+                    });
+                })
+                .catch(console.error);
+        }
+
+        function processDataForCompounds(originalData) {
+            // Create parent nodes based on rank and modify children
+            const ranks = new Set();
+            const newNodes = [];
+            const newEdges = originalData.edges || [];
+
+            // Find all unique ranks
+            originalData.nodes.forEach(node => {
+                if (node.data.rank) {
+                    ranks.add(node.data.rank);
+                }
+            });
+
+            // Create parent nodes for each rank
+            const rankParents = {};
+            Array.from(ranks).forEach((rank, i) => {
+                const parentId = `rank_${rank}`;
+                rankParents[rank] = parentId;
+                newNodes.push({
+                    data: {
+                        id: parentId,
+                        label: `Rank ${rank}`,
+                        color: '#f0f0f0'
+                    }
+                });
+            });
+
+            // Modify original nodes to have parent relationships
+            originalData.nodes.forEach(node => {
+                if (node.data.rank) {
+                    node.data.parent = rankParents[node.data.rank];
+                }
+                newNodes.push(node);
+            });
+
+            return { nodes: newNodes, edges: newEdges };
+        }
+
+        // Rest of your file list code remains the same
+        const fileList = document.getElementById("file-ul");
+        jsonFiles.forEach(file => {
+            const li = document.createElement("li");
+            li.textContent = file;
+            li.addEventListener("click", () => renderGraph(file));
+            fileList.appendChild(li);
+        });
+
+        if (jsonFiles.length > 0) renderGraph(jsonFiles[0]);
+    </script>
+</body>
+
+</html>
