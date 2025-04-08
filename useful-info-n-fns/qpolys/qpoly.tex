@@ -1,0 +1,68 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsfonts} % Added to support \mathbb
+\usepackage[margin=1in]{geometry} % Added to decrease margins
+
+\title{On a Recurrence Relation for Matroid Polynomials}
+\author{Your Name}
+\date{\today}
+
+\newcommand{\rk}{\text{rk}}
+\newcommand{\Qhat}{\hat{Q}}
+\newcommand{\bz}{\mathbb{Z}} % Define shorthand for integers (requires amsfonts)
+\newcommand{\tauinv}{\tau} % Define shorthand for tau invariant
+
+\begin{document}
+\maketitle
+\section{Introduction}
+
+Let $M$ be a matroid of rank $r$ on a finite ground set $E$.
+Let $P_M(t)$ and $Q(M)$ denote the Kazhdan-Lusztig polynomial and the
+inverse Kazhdan-Lusztig polynomial, respectively.
+
+We also define
+\[\Qhat_M(t) = (-1)^{\rk(M)} Q_M(t),\]
+\[ A(M)(t) = t^{\rk(M)} \Qhat_M(t^{-2}),\]
+and
+\[B(M)(t) = t^{\rk(M)} P_M(t^{-2}).\]
+Let $[F]$ and $\zeta^F$, indexed by
+$\mathcal{L}(M)$, be the standard basis and the Kazhdan-Lusztig basis of
+the module $\mathcal{H}(M)$, respectively.
+We have the following relation between the two bases:
+\[
+\zeta^F = \sum_{G \leq F} B(M^F_G) \cdot [G],\]
+and
+\[[F] = \sum_{G \leq F} A(M^F_G) \cdot \zeta^G.\]
+where $M^F_G$ is the matroid obtained by restricting $M$ to the flat $F$ and
+then contracting the flat $G$.
+
+\section{The Braden-Vysogorets Approach}
+
+The proof technique in the Braden-Vysogorets paper [BV20] centers around an algebraic framework using Hecke algebra modules and a specific homomorphism relating the modules for $M$ and its deletion $M \setminus e$.
+
+Let $\mathcal{H}(M)$ be the Hecke algebra module associated with the lattice of flats $L(M)$, equipped with the standard basis $\{[F] \mid F \in L(M)\}$ and the Kazhdan-Lusztig (KL) basis $\{\zeta^F \mid F \in L(M)\}$.
+
+BV introduce a $\mathbb{Z}[t, t^{-1}]$-linear homomorphism $\Delta: \mathcal{H}(M) \rightarrow \mathcal{H}(M \setminus e)$. This map is defined by its action on the standard basis elements:
+$$ \Delta([F]) =
+\begin{cases}
+    t^{-1}\cdot [F \setminus e] & \text{if } e \in \text{coloops}(M|_F) \\
+    [F\setminus e] & \text{otherwise}.
+\end{cases}$$
+where $F \setminus e$ is interpreted as the corresponding flat in $L(M \setminus e)$.
+
+We then have:
+\begin{align*}
+    \Delta(\zeta^F) &= \sum_{G \leq F} B(M^F_G) \cdot \Delta[G]\\
+    &= \sum_{H \leq F;\ e\notin coloops(H)} B(M^F_G)\cdot [H \setminus e] +
+        \sum_{H \leq F;\ e\in coloops(H)} B(M^F_G)\cdot t^{-1}[H\setminus e]\\
+        &= \zeta^{F \setminus e} + \sum_{H \leq F;\ e\in coloops(H)} B(M^F_G)\cdot t^{-1}[H\setminus e]\\
+\end{align*}
+
+This leads to the expansion (Equation (12) in [BV20]):
+$$ \Delta(\zeta^E) = \zeta^{E \setminus e} + \sum_{F' \in S} \tauinv(M_{F' \cup e}) \zeta^{F'} $$
+Further steps in the proof involve applying $\Delta$ to another specific element, $Z_M(t)$, related to the identity element of the algebra, and manipulating the resulting expressions using properties of the KL basis and the $P_M(t)$ polynomial to arrive at their main recurrence relation for $P_M(t)$ (Theorem 2.8).
+
+(Note: The recurrence stated in Theorem 2.8 of the BV paper relates $P_M$, $P_{M \setminus e}$, and terms involving $P_{M_{F'\cup e}}$, which differs from the formula involving contraction $P_{M/e}$ that you included in your LaTeX outline. The formula you stated might be from a different source or context).
+
+\end{document}
