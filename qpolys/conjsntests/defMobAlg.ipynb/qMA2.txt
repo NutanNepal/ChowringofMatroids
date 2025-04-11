@@ -1,0 +1,386 @@
+def cmp_elements_key(x):
+    return (isinstance(x, str), x)
+
+def characteristic_polynomial(M, la=None):
+    R = ZZ['l']
+    w = whitney_numbers(M)
+    w.reverse()
+    chi = R(w)
+    if la is not None:
+        return chi(la)
+    return chi
+
+def whitney_numbers(M):
+    abs_w = [0] * (M.rank() + 1)
+    for S in no_broken_circuits_sets_iterator(M):
+        abs_w[len(S)] += 1
+    return [ZZ((-1)**i * val) for i, val in enumerate(abs_w) if val != 0]
+
+def no_broken_circuits_sets_iterator(M, ordering=None):
+    if M.loops():
+        return
+    if ordering is None:
+        rev_order = sorted(M.groundset(), key=cmp_elements_key, reverse=True)
+    else:
+        if frozenset(ordering) != M.groundset():
+            raise ValueError("not an ordering of the groundset")
+        rev_order = list(reversed(ordering))
+    
+    Tmax = len(rev_order)
+    reverse_dict = {value: key for key, value in enumerate(rev_order)}
+    yield frozenset()
+    next_level = [[val] for val in rev_order]
+    level = -1
+    
+    while next_level:
+        cur_level = next_level
+        next_level = []
+        level += 1
+        for H in cur_level:
+            tp = reverse_dict[H[level]] + 1
+            is_indep = True
+            Ht = [None] * (Tmax - tp)
+            for i in range(tp, Tmax):
+                temp = H + [rev_order[i]]
+                if not M._is_independent(frozenset(temp)):
+                    is_indep = False
+                    break
+                Ht[i - tp] = temp
+            if is_indep:
+                yield frozenset(H)
+                next_level.extend(Ht)
+R = PolynomialRing(QQ, 't')
+S = PolynomialRing(ZZ, 't')
+t = R.gen()
+
+def is_paving(M):
+    n = M.size()
+    r = M.rank()
+    return (len(M.independent_r_sets(r-1)) == binomial(n, r-1))
+
+def q_kl(k, h):
+    return kazhdan_lusztig_inverse_uniform(k, h+1) - kazhdan_lusztig_inverse_uniform(k-1, h)
+
+def kl_inverse_fast(M):
+    if M.loops(): return R(0)
+    k, n = M.rank(), M.size()
+    if k == n or k == 0: return R(1)
+    if not M.is_connected():
+        ans = R(1)
+        CC = M.components()
+        for N in CC:
+            res = M.delete(M.groundset() - N)
+            ans = ans * kl_inverse_fast(res)
+        return ans
+
+    if is_paving(M):
+        return kl_inverse_paving(M)
+    if is_paving(M.dual()):
+        return kl_inverse_copaving(M)
+    """
+    if n <= 8 and M.is_connected():
+        for i in range(len(mat[n][k])):
+            if mat[n][k][i].is_isomorphic(M):
+                return ikl[n][k][i]
+    """
+    LF = M.lattice_of_flats()
+    ans = R(0)
+    for F in LF:
+        if len(F) != n:
+            Res = M.delete(M.groundset() - F)
+            Con = M.contract(F)
+            chi = characteristic_polynomial(Con)(1/t) * t**(Con.rank())
+            PPP = kl_inverse_fast(Res)(t) * (-1)**(Res.rank())
+            ans = ans + chi * PPP
+    assert (t**k * ans(1/t)).numerator() == -ans(t)
+    ans = ans.numerator() * (-1)**(k+1)
+    return ans.truncate((k+1)//2)
+
+def kazhdan_lusztig_inverse_uniform(k, n):
+    if k == n:
+        return R(1)
+    d = k
+    m = n - d
+    ans = 0
+    for j in range((d-1)//2 + 1):
+        ans = ans + m * (d-2*j)/((m+j) * (m+d-j)) * binomial(d, j) * t**j
+    return ans * binomial(m+d, d)
+
+def kl_inverse_paving(M):
+    assert is_paving(M)
+    n = M.size()
+    k = M.rank()
+    ans = kazhdan_lusztig_inverse_uniform(k, n)
+    for H in M.hyperplanes():
+        h = len(H)
+        if h >= k:
+            ans = ans - q_kl(k, h)
+    return ans
+
+def kl_inverse_copaving(M):
+    assert is_paving(M.dual())
+    n = M.size()
+    k = M.rank()
+    ans = kazhdan_lusztig_inverse_uniform(k, n)
+    for H in M.dual().hyperplanes():
+        h = len(H)
+        if h >= n-k:
+            ans = ans - kli_vtilde_dual(n-k, h, n) + kazhdan_lusztig_inverse_uniform(h-n+k+1, h) * kazhdan_lusztig_inverse_uniform(n-h-1, n-h)
+    return ans
+
+def kli_vtilde_dual(k, h, n):
+    return helper1(n-k, h, n)
+
+def helper1(k, h, n):
+    c = n - h
+    ans1 = kazhdan_lusztig_inverse_uniform(k, n)
+    ans2 = helper2(c, k, n)
+    ans3 = kazhdan_lusztig_inverse_uniform(k-c+1, h) * kazhdan_lusztig_inverse_uniform(c-1, c)
+    return ans1 - ans2 + ans3
+
+def helper2(c, k, n):
+    h = n - c
+    ans = 0
+    for j in range(k-c+1):
+        ans = ans + binomial(n-c, j) * (-1)**(c-1+j) * kazhdan_lusztig_inverse_uniform(c-1, c) * t**(k-c-j+1) * chuly(k-c-j+1, n-c-j)(1/t)
+    for i in range(c-1):
+        for j in range(k-i):
+            ans = ans + binomial(c, i) * binomial(n-c, j) * (-1)**(i+j) * t**(k-i-j) * helper4(c, k, n, i, j)(1/t)
+    ans = ans.numerator().truncate((k-1)//2 + 1)
+    if ans[0] < 0:
+        ans = -ans
+    return ans
+
+def helper3(c, k, n):
+    ans = 0
+    for j in range(k-c+1):
+        ans = ans + binomial(n-c, j) * kazhdan_lusztig_uniform_matroid(c-1, c) * (-1)**(k-c-j+1) * kazhdan_lusztig_inverse_uniform(k-c-j+1, n-c-j)
+    for i in range(c-1):
+        for j in range(k-i):
+            ans = ans + binomial(c, i) * binomial(n-c, j) * (-1)**(k-i-j) * helper2(c-i, k-i-j, n-i-j)
+    return -ans
+
+def helper4(c, k, n, i, j):
+    ans = 0
+    for l in range(c-i-1):
+        ans = ans + (-1)**l * (t-1)**(max(n-i-j-l-1, 0))
+    for u in range(n-k-1):
+        ans = doit_once(ans)
+    return ans
+
+def chuly(a, b):
+    ans = (t-1)**b
+    for i in range(b-a):
+        ans = doit_once(ans)
+    return ans
+
+def doit_once(p):
+    p = p // t**2
+    p = p * t
+    p = p - p(1)
+    return p
+
+def lorenzo(k, h, n):
+    c = n - h
+    ans1 = kazhdan_lusztig_uniform_matroid(k, n) + kazhdan_lusztig_uniform_matroid(k-c+1, h) * kazhdan_lusztig_uniform_matroid(c-1, c)
+    ans2 = helper3(c, k, n)
+    return ans1 - ans2
+
+def kl(M):
+    return M.lattice_of_flats().kazhdan_lusztig_polynomial()
+invkl = kl_inverse_fast
+
+def qhat(M):
+    return (-1) ^ M.rank() * kl_inverse_fast(M)
+from sage.combinat.posets.moebius_algebra import *
+
+class ZetaBasis(BasisAbstract):
+    """
+    The zeta basis for the Quantum Möbius Algebra.
+    """
+    def __init__(self, M, prefix='Z') -> None:
+        self._basis_name = "zeta"
+        CombinatorialFreeModule.__init__(self, M.base_ring(),
+                                        tuple(M._lattice),
+                                        prefix=prefix,
+                                        category=MoebiusAlgebraBases(M))
+
+        # Change of basis:
+        E = M.E()
+        phi = self.module_morphism(self._to_natural_basis,
+                                codomain=E, category=self.category(),
+                                triangular='upper', unitriangular=True,
+                                key=M._lattice._element_to_vertex)
+
+        phi.register_as_coercion()
+        (~phi).register_as_coercion()
+
+    def _to_natural_basis(self, x):
+        M = self.realization_of()
+        L = M._lattice
+        E = M.E()
+        q = M._q
+        rank = L.rank_function()
+        return E.sum_of_terms((y, q**(rank(x) - rank(y)) *
+                            L.kazhdan_lusztig_polynomial(y, x)(q=q**-2))
+                            for y in L.order_ideal([x]))
+
+class DeformedMoebiusAlgebra(QuantumMoebiusAlgebra):
+    """
+    A class representing the Deformed Möbius Algebra with the Zeta basis.
+    """
+    def __init__(self, L):
+        """
+        Initialize the Deformed Möbius Algebra.
+        """
+        self._R = LaurentPolynomialRing(ZZ, 'x')
+        x = self._R.gen()
+        super().__init__(L, x)
+        self._zeta_basis = ZetaBasis(self)
+
+    def zeta(self):
+        """
+        Return the zeta basis for this algebra.
+        """
+        return self._zeta_basis
+def is_in_Hp(alpha, M, L, E, t):
+    rank_func = lambda x : M.rank(x)
+
+    alpha_dict = E(alpha).monomial_coefficients()
+    print(alpha_dict)
+
+    for F in alpha_dict.keys():
+        for G in L.order_filter([F]):
+            if G in alpha_dict and not isinstance(alpha_dict[G], type(t^0)):
+                try:
+                    alpha_dict[G].subs({t: 0})
+                except (TypeError, ValueError):
+                    print(f"Coefficient for G={G} is not a polynomial: {alpha_dict[G]}")
+                    return False
+
+        sum_S_F = 0
+        rank_F = rank_func(F)
+
+        for G in L.order_filter([F]):
+            coeff_G = alpha_dict.get(G, 0) # Get coefficient alpha_G, default to 0
+            if coeff_G != 0:
+                rank_G = rank_func(G)
+                term = (t**(rank_F - rank_G)) * coeff_G
+                sum_S_F += term
+        try:
+            if sum_S_F != sum_S_F.subs({t: 1/t}):
+                print(f"Palindromic check failed for F={F}")
+                print(f"Sum = {sum_S_F}")
+                print(f"Sum(1/t) = {sum_S_F.subs({t: 1/t})}")
+                return False
+        except Exception as e:
+            print(f"Error during palindromic check for F={F}: {e}")
+            return False
+
+    return True
+P = LaurentPolynomialRing(ZZ, 'x')
+x = P.gen() 
+k, n = 4, 5
+M = matroids.CompleteGraphic(n)
+r = M.rank()
+
+e = next(x for x in M.groundset() if x  not in M.coloops())
+
+print(M.groundset())
+print("deleting ", e)
+mdele = M.delete(e)
+L = M.lattice_of_flats()
+Ldel_e = mdele.lattice_of_flats()
+Eq_M = DeformedMoebiusAlgebra(L)
+Eq_mdele = DeformedMoebiusAlgebra(Ldel_e)
+unit = Eq_M.one()
+
+E = Eq_M.natural()
+E_basis = E.basis()
+
+E_mdele = Eq_mdele.natural()
+E_mdele_basis = E_mdele.basis()
+
+zeta = Eq_M.zeta()
+zeta_basis = zeta.basis()
+
+zeta_mdele = Eq_mdele.zeta()
+zeta_mdele_basis = zeta_mdele.basis()
+
+is_in_Hp(zeta[E_basis.keys()[-1]], M, L, E, x)
+def delta_flat(F):
+    F_del_e = frozenset(set(F) - {e})
+    assert F_del_e in Ldel_e
+    return Eq_mdele(x^( - M.rank(F) + mdele.rank(F_del_e)) * E_mdele_basis[F_del_e])
+    
+def delta(elem):
+    rep = E(elem)
+    rev = {value: key for key, value in E_basis.items()}
+    decom = {monomial: coeff for monomial, coeff in zip(rep.monomials(), rep.coefficients())}
+    return Eq_mdele(sum(decom[F] * delta_flat(rev[F]) for F in decom))
+
+def sum_coeffs(elem):
+    return sum(elem.coefficients())
+
+dict = {F : zeta_mdele(delta(zeta[F])) for F in E_basis.keys()}
+
+from IPython.display import HTML, display
+
+data = []
+basis_list_mdele = list(Ldel_e)
+
+for F in dict:
+    elem = dict[F]
+    coeff_empty = elem.monomial_coefficients().get(frozenset(), 0)
+    
+    # Format delta(zeta(F)) with x_i notation
+    terms = []
+    for S, coeff in elem.monomial_coefficients().items():
+        terms.append(f"({coeff})*Z[{str(set(S))}]")
+    formatted_expr = " + ".join(terms) if terms else "0"
+    if coeff_empty != 0:
+        data.append({
+            'F': str(F),
+            'in kl': E(zeta[F]).monomial_coefficients(),
+            'delta(zeta(F))': formatted_expr,
+            'coeff of empty': coeff_empty,
+            'in natural basis': E_mdele(elem).monomial_coefficients()
+        })
+
+is_in_Hp(delta(zeta[E_basis.keys()[-1]]), mdele, Ldel_e, Eq_mdele, x)
+import pandas as pd
+df = pd.DataFrame(data)
+display(HTML(
+    f'<div style="height: 400px; overflow-y: auto;">{df.to_html(index=False)}</div>'
+))
+Q = P(invkl(M))
+[kl(M), Q]
+def change_of_basis(old, new, f):
+    #outputs the change_of_basis matrix
+
+    cob = []
+    for b in old:
+        k = f(b)
+        coefficients_dict = {monomial: coeff for monomial, coeff in zip(k.monomials(), k.coefficients())}
+        row = [coefficients_dict.get(Kb, 0) for Kb in new]
+        cob.append(row)
+    return cob
+
+A = change_of_basis(E_basis, zeta_basis, zeta)       # e = A * zeta
+B = change_of_basis(zeta_basis, E_basis, E)   # zeta = B * e
+import json
+
+# Example dictionary
+data = {
+    "name": "Matroid",
+    "rank": M.rank(),
+    "groundset": list(M.groundset()),
+    "coloops": list(M.coloops()),
+    "delta": list(str(dict))
+}
+
+# Write dictionary to a JSON file
+with open("matroid_data.json", "w") as json_file:
+    json.dump(data, json_file, indent=4)
+
+print("Dictionary written to matroid_data.json")

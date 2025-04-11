@@ -4,24 +4,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Matroid Graph Viewer</title>
+    <title>Improved Matroid Graph Viewer - Aligned Ranks</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cytoscape/3.23.0/cytoscape.min.js"></script>
-    <script src="https://unpkg.com/webcola/WebCola/cola.min.js"></script>
-    <script src="cytoscape-cola.js"></script>
     <style>
-        /* Keep your existing styles, add compound node styling */
+        /* Basic styles - same as before */
         body {
             font-family: helvetica, sans-serif;
             margin: 20px;
+            display: flex;
+            flex-direction: column;
+            height: calc(100vh - 40px);
+            /* Adjust height to fit viewport */
+        }
+
+        #controls {
+            margin-bottom: 15px;
+            flex-shrink: 0;
+            /* Prevent controls from shrinking */
         }
 
         #file-list {
-            margin-bottom: 20px;
+            margin-bottom: 10px;
         }
 
         #file-list ul {
             list-style-type: none;
             padding: 0;
+            margin: 0;
         }
 
         #file-list li {
@@ -29,55 +38,200 @@
             cursor: pointer;
             color: blue;
             text-decoration: underline;
+            display: inline-block;
+            /* Arrange files horizontally */
+            margin-right: 15px;
+        }
+
+        #status {
+            margin-top: 10px;
+            min-height: 20px;
+            /* Ensure space for messages */
+            font-style: italic;
+            color: #555;
         }
 
         #cy {
-            width: 100%;
-            height: 600px;
+            flex-grow: 1;
+            /* Allow graph area to fill available space */
             border: 1px solid #ccc;
+            min-height: 400px;
+            /* Ensure minimum height */
         }
 
-        /* Add compound node styling */
+        /* Compound node styling - same as before */
         node:parent {
             opacity: 0.3;
             padding: 10px;
             border-width: 2px;
             border-color: #999;
+            background-color: #f0f0f0;
+            label: 'data(label)';
+            text-valign: 'top';
+            text-halign: 'center';
+            font-size: 10px;
+            color: #555;
+            text-margin-y: -5px;
+            /* Hide parent nodes for breadthfirst layout if they interfere */
+            /* display: 'none'; */
+            /* Or just make less obtrusive */
+            background-opacity: 0.1;
+            border-opacity: 0.2;
+            z-index: -1;
+            /* Try sending them behind child nodes */
+
+        }
+
+        .loading {
+            font-weight: bold;
+            color: green;
+        }
+
+        .error {
+            color: red;
+            font-weight: bold;
         }
     </style>
 </head>
 
 <body>
-    <h1>Matroid Graph Viewer</h1>
-    <div id="file-list">
-        <h2>Available Matroids</h2>
-        <ul id="file-ul"></ul>
+    <div id="controls">
+        <h1>Matroid Graph Viewer (Aligned Ranks)</h1>
+        <div id="file-list">
+            <h2>Available Matroids:</h2>
+            <ul id="file-ul"></ul>
+        </div>
+        <div id="status"></div>
     </div>
-    <div id="cy"></div>
 
+    <div id="cy"></div>
     <script>
         const jsonFiles = [
             "data/graph_data_pcr4-4.json",
             "data/graph_data_pcr4-5.json",
-            "data/graph_data_pcr3-4.json"
+            "data/graph_data_pcr3-4.json",
+            "data/non_existent_file.json" // Example for error handling
         ];
 
+        const cyContainer = document.getElementById("cy");
+        const statusDiv = document.getElementById("status");
+        let cy; // Keep a reference to the cytoscape instance
+
+        function setStatus(message, isError = false) {
+            statusDiv.textContent = message;
+            statusDiv.className = isError ? 'error' : (message.includes('Loading') ? 'loading' : '');
+        }
+
+        // processDataForCompounds remains the same as it correctly structures parent-child relationships based on rank
+        function processDataForCompounds(originalData) {
+            const ranks = new Set();
+            const newNodes = [];
+            const newEdges = originalData.edges || []; // Ensure edges is an array
+
+            // Validate nodes array
+            if (!Array.isArray(originalData.nodes)) {
+                console.warn("Original data does not contain a valid 'nodes' array.");
+                return { nodes: [], edges: newEdges }; // Return empty nodes if invalid
+            }
+
+            // Find all unique ranks from nodes that have the rank property
+            originalData.nodes.forEach(node => {
+                if (node && node.data && typeof node.data.rank !== 'undefined' && node.data.rank !== null) {
+                    ranks.add(node.data.rank);
+                }
+            });
+
+            // Create parent nodes for each rank, sorted numerically
+            const rankParents = {};
+            Array.from(ranks).sort((a, b) => a - b).forEach(rank => {
+                const parentId = `rank_${rank}`;
+                rankParents[rank] = parentId;
+                newNodes.push({
+                    group: 'nodes',
+                    data: { id: parentId, label: `Rank ${rank}` },
+                    classes: 'rank-group'
+                });
+            });
+
+            // Add original nodes, assigning parent relationships if rank exists
+            originalData.nodes.forEach(node => {
+                if (node && node.data) {
+                    // Assign parent if rank is valid and parent exists
+                    if (typeof node.data.rank !== 'undefined' && node.data.rank !== null && rankParents[node.data.rank]) {
+                        node.data.parent = rankParents[node.data.rank];
+                    }
+                    // Ensure node has an id
+                    if (typeof node.data.id === 'undefined') {
+                        console.warn("Node found without an ID:", node.data);
+                        node.data.id = `node_${Math.random().toString(16).slice(2)}`;
+                    }
+                    // Ensure node is marked as group: 'nodes'
+                    node.group = 'nodes';
+                    newNodes.push(node);
+                } else {
+                    console.warn("Invalid node structure encountered:", node);
+                }
+            });
+
+
+            // Add edges (ensure they are formatted correctly for Cytoscape)
+            const formattedEdges = newEdges.map((edge, index) => {
+                if (!edge || !edge.data || typeof edge.data.source === 'undefined' || typeof edge.data.target === 'undefined') {
+                    console.warn(`Edge at index ${index} is missing required data (source/target):`, edge);
+                    return null; // Skip invalid edges
+                }
+                // Ensure edge has an ID
+                if (typeof edge.data.id === 'undefined') {
+                    edge.data.id = `edge_${edge.data.source}_${edge.data.target}_${index}`;
+                }
+                return { group: 'edges', data: edge.data }; // Ensure correct group format
+            }).filter(edge => edge !== null); // Remove null entries from skipped edges
+
+            return { nodes: newNodes, edges: formattedEdges };
+        }
+
+
         function renderGraph(file) {
+            setStatus(`Loading ${file}...`);
+
+            if (cy) {
+                cy.destroy();
+                cy = null;
+            }
+            cyContainer.innerHTML = '';
+
             fetch(file)
-                .then(response => response.json())
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status} - Could not fetch file: ${file}`);
+                    }
+                    return response.json();
+                })
                 .then(data => {
-                    // Process nodes to add parent groups based on rank
+                    if (!data || !Array.isArray(data.nodes)) {
+                        throw new Error(`Invalid data format in file: ${file}`);
+                    }
+
                     const processedData = processDataForCompounds(data);
 
-                    // Clear previous graph
-                    const container = document.getElementById("cy");
-                    container.innerHTML = "";
+                    // Find potential root nodes (nodes with rank 0 or minimum rank if 0 doesn't exist)
+                    // Breadthfirst needs root(s) to start the traversal.
+                    let minRank = Infinity;
+                    processedData.nodes.forEach(node => {
+                        if (node.data && typeof node.data.rank !== 'undefined' && node.data.rank !== null) {
+                            minRank = Math.min(minRank, node.data.rank);
+                        }
+                    });
+                    const rootSelector = processedData.nodes
+                        .filter(node => node.data && node.data.rank === minRank)
+                        .map(node => `#${node.data.id}`) // Select by node ID
+                        .join(', ');
 
-                    // Initialize Cytoscape with compound configuration
-                    const cy = cytoscape({
-                        container: container,
+
+                    cy = cytoscape({
+                        container: cyContainer,
                         elements: processedData,
-                        style: [
+                        style: [ // Styles remain largely the same
                             {
                                 selector: 'node',
                                 style: {
@@ -88,94 +242,98 @@
                                     'color': 'black',
                                     'font-size': 12,
                                     'width': 20,
-                                    'height': 20
+                                    'height': 20,
+                                    'shape': 'ellipse' // Default shape
                                 }
                             },
                             {
-                                selector: 'node:parent',
+                                selector: 'node:parent', // Style for parent (rank group) nodes
                                 style: {
-                                    'background-opacity': 0.3,
-                                    'padding': 10,
-                                    'border-width': 2,
-                                    'border-color': '#999'
+                                    'background-opacity': 0.15, // Make less obtrusive
+                                    'border-opacity': 0.3,
+                                    'padding': '15px', // Adjust padding
+                                    'border-width': 1,
+                                    'border-color': '#ccc',
+                                    'label': 'data(label)',
+                                    'text-valign': 'top',
+                                    'text-halign': 'center',
+                                    'font-size': 9,
+                                    'color': '#777',
+                                    'text-margin-y': -8,
+                                    'z-index': -1 // Attempt to send behind child nodes
                                 }
                             },
                             {
                                 selector: 'edge',
                                 style: {
-                                    'curve-style': 'straight',
+                                    'curve-style': 'bezier', // Bezier often looks better with hierarchical layouts
                                     'width': 1,
-                                    'line-color': '#999'
+                                    'line-color': '#ccc', // Lighter edge color
+                                    'target-arrow-shape': 'triangle', // Add arrows if direction matters
+                                    'target-arrow-color': '#ccc',
+                                    'arrow-scale': 0.5
                                 }
                             }
                         ],
+                        // *** Use breadthfirst layout instead of Cola ***
                         layout: {
-                            name: 'cola',
-                            animate: true,
-                            refresh: 1,
-                            nodeSpacing: 20,
-                            edgeLength: 100,
-                            randomize: false,
-                            maxSimulationTime: 4000,
-                            fit: true,
-                            // Compound layout parameters
-                            handleDisconnected: false,
-                            avoidOverlap: true,
-                            convergenceThreshold: 0.01
+                            name: 'breadthfirst',
+                            fit: true, // Fit the viewport to the graph
+                            directed: true, // Treat edges as directed for hierarchy
+                            padding: 30, // Padding around layout
+                            spacingFactor: 1.0, // Adjust spacing between nodes horizontally
+                            grid: true, // Align nodes in a grid structure at each level
+                            roots: rootSelector || undefined, // Define the starting node(s) - those with minimum rank
+                            maximal: false, // If true, fit viewport maximal; if false, fit viewport minimum
+                            // Breadthfirst doesn't use physics simulation parameters like animate, refresh, nodeSpacing, edgeLength, maxSimulationTime
+                            // It doesn't inherently use the compound parent structure for layout levels,
+                            // but the parent nodes might still be rendered based on the style.
+                            transform: function (node, position) {
+                                // Optional: You could manually adjust positions here if needed
+                                // e.g., base y-position strictly on rank
+                                // if(node.data('rank') !== undefined) {
+                                //    position.y = node.data('rank') * 150; // Example: 150px per rank level
+                                // }
+                                return position;
+                            }
                         }
                     });
+
+                    // --- Interaction (same as before) ---
+                    cy.on('tap', 'node[rank]', function (evt) {
+                        const node = evt.target;
+                        alert(`Node Details:\nID: ${node.id()}\nRank: ${node.data('rank')}\nLabel: ${node.data('label') || 'N/A'}`);
+                    });
+                    cy.on('tap', 'node:parent', function (evt) {
+                        const node = evt.target;
+                        alert(`Group Details:\nID: ${node.id()}\n${node.data('label')}`);
+                    });
+                    // --- End Interaction ---
+
+                    setStatus(`Successfully loaded ${file} using Breadthfirst layout`);
                 })
-                .catch(console.error);
-        }
-
-        function processDataForCompounds(originalData) {
-            // Create parent nodes based on rank and modify children
-            const ranks = new Set();
-            const newNodes = [];
-            const newEdges = originalData.edges || [];
-
-            // Find all unique ranks
-            originalData.nodes.forEach(node => {
-                if (node.data.rank) {
-                    ranks.add(node.data.rank);
-                }
-            });
-
-            // Create parent nodes for each rank
-            const rankParents = {};
-            Array.from(ranks).forEach((rank, i) => {
-                const parentId = `rank_${rank}`;
-                rankParents[rank] = parentId;
-                newNodes.push({
-                    data: {
-                        id: parentId,
-                        label: `Rank ${rank}`,
-                        color: '#f0f0f0'
-                    }
+                .catch(error => {
+                    console.error('Error loading or processing graph:', error);
+                    setStatus(`Error: ${error.message}`, true);
                 });
-            });
-
-            // Modify original nodes to have parent relationships
-            originalData.nodes.forEach(node => {
-                if (node.data.rank) {
-                    node.data.parent = rankParents[node.data.rank];
-                }
-                newNodes.push(node);
-            });
-
-            return { nodes: newNodes, edges: newEdges };
         }
 
-        // Rest of your file list code remains the same
+        // --- File List Population (same as before) ---
         const fileList = document.getElementById("file-ul");
         jsonFiles.forEach(file => {
             const li = document.createElement("li");
-            li.textContent = file;
+            li.textContent = file.split('/').pop();
+            li.setAttribute('data-filepath', file);
             li.addEventListener("click", () => renderGraph(file));
             fileList.appendChild(li);
         });
 
-        if (jsonFiles.length > 0) renderGraph(jsonFiles[0]);
+        if (jsonFiles.length > 0) {
+            renderGraph(jsonFiles[0]);
+        } else {
+            setStatus("No graph files available.", true);
+        }
+
     </script>
 </body>
 
