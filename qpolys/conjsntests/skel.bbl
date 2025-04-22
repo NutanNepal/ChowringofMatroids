@@ -1,0 +1,91 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{Bra19}{article}{}
+      \name{author}{2}{}{%
+        {{hash=e85130124c549dd4d5a1f089f11f8336}{%
+           family={Braden},
+           familyi={B\bibinitperiod},
+           given={Tom},
+           giveni={T\bibinitperiod}}}%
+        {{hash=1c2df25acaa0d580eb0c549471588ae1}{%
+           family={Vysogorets},
+           familyi={V\bibinitperiod},
+           given={Artem},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{0bd20decd025a7114878c759d04b0f72}
+      \strng{fullhash}{0bd20decd025a7114878c759d04b0f72}
+      \strng{bibnamehash}{0bd20decd025a7114878c759d04b0f72}
+      \strng{authorbibnamehash}{0bd20decd025a7114878c759d04b0f72}
+      \strng{authornamehash}{0bd20decd025a7114878c759d04b0f72}
+      \strng{authorfullhash}{0bd20decd025a7114878c759d04b0f72}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Electron. J. Combin.}
+      \field{number}{1}
+      \field{title}{Kazhdan–Lusztig polynomials of matroids under deletion}
+      \field{volume}{27}
+      \field{year}{2020}
+      \field{pages}{P1.17}
+      \range{pages}{-1}
+    \endentry
+    \entry{EPW16}{article}{}
+      \name{author}{3}{}{%
+        {{hash=f6eef24b37d12e329461d1d3c6ab2fa3}{%
+           family={Elias},
+           familyi={E\bibinitperiod},
+           given={Ben},
+           giveni={B\bibinitperiod}}}%
+        {{hash=6f88f0a852679de50f93717383a3cd1f}{%
+           family={Proudfoot},
+           familyi={P\bibinitperiod},
+           given={Nicholas},
+           giveni={N\bibinitperiod}}}%
+        {{hash=880459431d050292a0e3fb2d4280d488}{%
+           family={Wakefield},
+           familyi={W\bibinitperiod},
+           given={Max},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{1b8e142cc20f1ec37376124e670311f5}
+      \strng{fullhash}{1b8e142cc20f1ec37376124e670311f5}
+      \strng{bibnamehash}{1b8e142cc20f1ec37376124e670311f5}
+      \strng{authorbibnamehash}{1b8e142cc20f1ec37376124e670311f5}
+      \strng{authornamehash}{1b8e142cc20f1ec37376124e670311f5}
+      \strng{authorfullhash}{1b8e142cc20f1ec37376124e670311f5}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Adv. Math.}
+      \field{title}{The Kazhdan-Lusztig polynomial of a matroid}
+      \field{volume}{299}
+      \field{year}{2016}
+      \field{pages}{36\bibrangedash 70}
+      \range{pages}{35}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

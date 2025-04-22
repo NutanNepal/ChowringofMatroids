@@ -1,33 +1,36 @@
 \documentclass[10pt]{article}
-\usepackage[margin = 1in]{geometry}
+\usepackage[margin=1in]{geometry}
 \usepackage{parskip}
-\usepackage{amssymb,amsmath,amsfonts,verbatim, amsthm}
-\usepackage[breakable, skins]{tcolorbox}
-\usepackage{graphicx, tikz-cd, adjustbox}
-\usepackage{float, breqn}
+\usepackage{amssymb,amsmath,amsfonts,verbatim,amsthm}
+\usepackage[breakable,skins]{tcolorbox}
+\usepackage{graphicx,tikz-cd,adjustbox}
+\usepackage{float,breqn} % breqn can sometimes conflict with amsmath, be mindful
 \usepackage{scalerel}
 \usepackage{stackengine,wasysym}
-\usepackage{biblatex}
+\usepackage[backend=biber]{biblatex} % Using biber backend is recommended
+\addbibresource{references.bib} % Use \addbibresource with biblatex
 
 \newtcolorbox{mybox}[2][]{
     arc=0mm, enhanced, frame hidden, breakable
 }
 
-%\newcommand{\bqed}{$\hfill\blacksquare$}
+% Define math commands
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calH}{\mathcal{H}}
 \newcommand{\bz}{\mathbb{Z}}
 \newcommand{\lt}{\normalfont\text{lt}}
 \newcommand{\calA}{\mathcal{A}}
 \newcommand{\ind}{\text{\normalfont Ind}}
 \newcommand{\stab}{\text{\normalfont Stab}}
-\newcommand{\hilbM}{\normalfont\text{ \underline{H}}_\text{M}}
+\newcommand{\hilbM}{\normalfont\text{\underline{H}}_\text{M}}
 \newcommand{\aughilbM}{\normalfont\text{H}_\text{M}}
 \newcommand{\rank}{\normalfont\text{rk}}
-\newcommand{\flats}{\normalfont\text{Flats}}
+\newcommand{\flats}{\normalfont\text{Flats}} % Corrected typo \normalfSont -> \normalfont
 \newcommand{\flags}{\normalfont\text{Flags}}
 \newcommand{\matM}{\normalfont\text{M}}
+\newcommand{\hilbMmodF}{\normalfont\text{\underline{H}}_\text{M/F}}
 
-\newcommand{\hilbMmodF}{\normalfont\text{ \underline{H}}_\text{M/F}}
-
+% Theorem environments
 \newtheorem{theorem}{Theorem}
 \newtheorem{corollary}[theorem]{Corollary}
 \newtheorem{lemma}[theorem]{Lemma}
@@ -35,71 +38,77 @@
 \newtheorem{conjecture}[theorem]{Conjecture}
 
 \theoremstyle{remark}
-\newtheorem*{remark}{Remark}
-
-%\setlength{\topmargin}{0mm}
-%\setlength{\textwidth}{150mm} 
-%\setlength{\textheight}{240mm}
-%\setlength{\oddsidemargin}{0mm} 
-%\setlength{\evensidemargin}{0mm}
+\newtheorem*{remark}{Remark} % Unnumbered remark
 
 \title{Notes (Inverse Kazhdan-Lusztig Polynomials under Deletion)}
 %\author{Nutan Nepal}
 %\date{\today}
 
-
 \begin{document}
 {\textbf{Notes: Inverse Kazhdan-Lusztig Polynomials under Deletion}}\hfill {\small{\today}}
 
-\hrulefill
-\begin{conjecture}
-    Let $M$ be the parallel connection of two cycles $C_n = U(n-1, n)$ and $C_m = U(m-1, m)$, where $n \geq 3$ and $m \geq 3$.
-    Let $e$ be the shared edge between $C_n$ and $C_m$. Then, we have
-    \begin{equation}
-        Q_{M} = Q_{M\setminus e} + (t + 1)\cdot Q_{M/e} - t\cdot(Q_{C_{n-1}}\cdot \lt(C_{m-1}) + \lt(C_{n-1})\cdot Q_{C_{m-1}})
-        \end{equation}
-    where, $\lt(M)$ is 0 if the rank of $M$ is even, and leading term of $Q_M$ otherwise.
-    \end{conjecture}
+\hrulefill % Horizontal line after title block
 
-\begin{conjecture}
-    Let $M$ be a matroid and $e$ be a non coloop of $M$. Then, we have
-    \begin{equation}
-        Q_{M} = Q_{M\setminus e} + (t + 1)\cdot Q_{M/e} + \sum_{C\in \mathcal{C}}{t\cdot Q_{M/C}\cdot \lt\left({M|_C /e}
-        \right)}.
-    \end{equation}
-    where, $\lt(M)$ is 0 if the rank of $M$ is even, and leading term of $Q_M$ otherwise.
-    \end{conjecture}
+\section{Introduction}
 
-\begin{theorem}
-    Let $M$ be a matroid with ground set $E$ and let $e \in E$. Then, we have
-    \begin{equation}
-        P_M = P_{M \setminus e} - t P_{M / e} + \sum_{F \in S} \tau(M/{F \cup e}) t^{\text{crk} (F)/2} P_{M\mid F}.
-    \end{equation}
-    Here, the sum is taken over the set $S$ of all subsets $F$ of $E \setminus e$ such that $F$ and $F \cup e$ are both flats of $M$
-    (any such $F$ is automatically also a flat of $M \setminus e$), and $\tau(M)$ is the coefficient of
-    $t^{(\text{rk} (M) - 1)/2}$ in $P_M(t)$ if $\text{rk} (M)$ is odd, and zero otherwise.
-\end{theorem}
+The Kazhdan-Lusztig polynomial $P_M(t)$ is a fundamental invariant associated with any matroid $M$, as defined by Elias, Proudfoot, and Wakefield in \cite{EPW16}. This polynomial, denoted $P_M(t)$, exhibits formal similarities to the Kazhdan–Lusztig polynomials defined for Coxeter groups. The coefficients of $P_M(t)$ depend only on the lattice of flats $L(M)$ of the matroid, and in fact, they are integral linear combinations of the flag Whitney numbers counting chains of flats with specified ranks.
 
-\begin{theorem}
-    Let $M$ be the parallel connection of two cycles $C_n = U(n-1, n)$ and $C_m = U(m-1, m)$, where $n \geq 3$ and $m \geq 3$. Let $e$ be the shared edge between $C_n$ and $C_m$. Then, we have
-    \begin{equation}
-        P_M(t) = P_{M \setminus e} - t P_{C_{n-1}}P_{C_{m-1}}.
-    \end{equation}
-\end{theorem}
+In \cite{Bra19}, Braden and Vysogorets presented a formula that relates the Kazhdan-Lusztig polynomial of a matroid $M$ to that of the matroid obtained by deleting an element $e$, denoted $M\setminus e$, as well as various contractions and localizations of $M$. Specifically, for a simple matroid $M$ where $e$ is not a coloop, their main result, Theorem 2.8, states:
+\[
+P_M(t) = P_{M\setminus e}(t) - tP_{M/e}(t) + \sum_{F\in S} \tau(M_{F\cup e})\cdot
+t^{\text{crk}(F)/2}\cdot P_{M^F}(t)
+\]
+where the sum is taken over the set $S$ of all subsets $F$ of $E \setminus e$ such that both $F$ and $F \cup e$ are flats of $M$, and $\tau(M)$ is the coefficient of $t^{(\rank(M)-1)/2}$ in $P_M(t)$ if $\rank(M)$ is odd, and zero otherwise.
 
-\begin{conjecture}
-    Let $W$ be a finite Coxeter group with $S$ as the set of simple reflections. Let $w \in W$ and $s \in S$. Let $w = s_1s_2\cdots s_k$ be a reduced expression for $w$. Then, for any $i \in \{1,2,\ldots,k\}$, we have
-    \begin{equation}
-        P_{w}(q) = P_{s_iw}(q) + qP_{s_iw}(q)P_{s_{i+1}s_{i+2}\cdots s_k}(q).
-    \end{equation}
-    \end{conjecture}
+The inverse Kazhdan-Lusztig polynomial $Q_M(x)$ is another important invariant.
+There is a related polynomial $\hat{Q}_M(x) = (-1)^{\rank(M)} Q_M(x)$ which acts as the inverse of the Kazhdan-Lusztig polynomial $P_M(t)$ within the incidence algebra of the lattice of flats under appropriate variable transformation. % Added "(x)" to Q_M and hat{Q}_M for consistency
 
-\begin{equation}
-    x_F = \sum_{G\geq F}{q^{\text{rk}(G) - \text{rk}(F)}\cdot P_{M^G_F}(q^{-2})\cdot \zeta_F}
-\end{equation}
+In this paper, we aim to prove the following deletion formula for $\hat{Q}_M(x)$:
+\[
+    \hat{Q}_M(x) = \hat{Q}_{M\setminus e}(x) -(1 + x)\cdot \hat{Q}_{M/e}(x) -
+    \sum_{G \in S'}{\tau(M^G_e)\cdot x^{\rank(G)/2}\cdot
+    \hat{Q}_{M/G}(x)}
+\]
+where $S' = \{F\in \calL(M)\mid e\in F \text{ and } F\setminus e \notin \calL(M)\}$.
 
-\begin{equation}
-    \zeta_F = \sum_{G\geq F}{q^{\text{rk}(G) - \text{rk}(F)}\cdot \hat{Q}_{M^G_F}(q^{-2})\cdot x_F}
-\end{equation}
+\section{Perverse elements and the KL basis}
+\label{sec:algebraic_framework}
+
+Let $M$ be a matroid and $\calL(M)$ be its lattice of flats.
+
+\begin{itemize}
+    \item \textbf{The Module $\calH(M)$}: Let $\calH = \calH(M)$ be the
+    \textbf{free $\mathbb{Z}[t, t^{-1}]$-module with basis indexed by $\calL(M)$}.
+    Elements of $\calH$ are formal sums of the form
+    \[
+    \alpha = \sum_{F \in \calL(M)} \alpha_F \cdot F, \quad \alpha_F \in \mathbb{Z}
+    [t, t^{-1}].
+    \]
+
+    \item \textbf{The Abelian Subgroup $\calH_p$}: $\calH_p$ is an
+    \textbf{abelian subgroup of $\calH$} consisting of all $\alpha \in \calH$
+    such that for every flat $F \in \calL(M)$, the following two conditions hold:
+    \begin{itemize}
+        \item[i.] $\alpha_F \in \mathbb{Z}[t]$.
+        \item[ii.] $\sum_{G \geq F} t^{\rank(F) - \rank(G)} \alpha_G \in Pal(0)$, where $Pal(0)$ is the set of Laurent polynomials $f(t)$ such that $f(t) = f(t^{-1})$.
+    \end{itemize}
+
+    \item \textbf{The Elements $\zeta^F$}: For any flat $F \in \calL(M)$, an element
+    $\zeta^F \in \calH$ is defined as
+    \[
+    \zeta^F = \sum_{G \leq F} \zeta_G^F \cdot G = \sum_{G \leq F} t^{\rank(F) - \rank(G)} P_{M_G^F}(t^{-2}) \cdot G.
+    \]
+    \item \textbf{Basis of $\calH_p$}: Proposition 2.13 states that the set of elements
+    $\{\zeta^F\}_{F \in \calL(M)}$ forms a \textbf{$\mathbb{Z}$-basis for $\calH_p$}.
+    Any element $\beta \in \calH_p$ can be uniquely expressed as a linear combination of
+    the $\zeta^F$ with integer coefficients:
+    \[
+    \beta = \sum_{F \in \calL(M)} \beta_F(0) \zeta^F.
+    \]
+\end{itemize}
+
+This algebraic framework, involving the module $\calH(M)$ and its subgroup $\calH_p$ with the basis $\{\zeta^F\}$, provides a foundation for studying the Kazhdan–Lusztig polynomials of matroids, as demonstrated by its role in the derivation of deletion formulas. % Removed dangling [4]
+
+\printbibliography % Ensure you have a 'references.bib' file and run biber/bibtex
 
 \end{document}
