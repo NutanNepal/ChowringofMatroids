@@ -2,11 +2,13 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{parskip}
 \usepackage{amssymb,amsmath,amsfonts,verbatim,amsthm}
+\usepackage[dvipsnames]{xcolor}
 \usepackage[breakable,skins]{tcolorbox}
 \usepackage{graphicx,tikz-cd,adjustbox}
 \usepackage{float,breqn} % breqn can sometimes conflict with amsmath, be mindful
 \usepackage{scalerel}
 \usepackage{stackengine,wasysym}
+\usepackage{lipsum}
 \usepackage[backend=biber]{biblatex} % Using biber backend is recommended
 \addbibresource{references.bib} % Use \addbibresource with biblatex
 
@@ -25,7 +27,7 @@
 \newcommand{\hilbM}{\normalfont\text{\underline{H}}_\text{M}}
 \newcommand{\aughilbM}{\normalfont\text{H}_\text{M}}
 \newcommand{\rank}{\normalfont\text{rk}}
-\newcommand{\flats}{\normalfont\text{Flats}} % Corrected typo \normalfSont -> \normalfont
+\newcommand{\flats}{\normalfont\text{Flats}}
 \newcommand{\flags}{\normalfont\text{Flags}}
 \newcommand{\matM}{\normalfont\text{M}}
 \newcommand{\hilbMmodF}{\normalfont\text{\underline{H}}_\text{M/F}}
@@ -39,6 +41,12 @@
 
 \theoremstyle{remark}
 \newtheorem*{remark}{Remark} % Unnumbered remark
+% \theoremstyle{definition} % For proof environment styling - amsthm handles this with \begin{proof}
+% \newtheorem*{proof_env}{Proof}
+
+\newcommand{\luis}[1]{{\color{blue} \sf $\clubsuit$ Luis: [#1]}}
+\newcommand{\nutan}[1]{{\color{violet} \sf $\clubsuit$ Nutan: [#1]}}
+\newcommand{\jacob}[1]{{\color{Bittersweet} \sf $\clubsuit$ Jacob: [#1]}}
 
 \title{Notes (Inverse Kazhdan-Lusztig Polynomials under Deletion)}
 %\author{Nutan Nepal}
@@ -50,26 +58,37 @@
 \hrulefill % Horizontal line after title block
 
 \section{Introduction}
+The Kazhdan-Lusztig polynomial $P_M(t)$ is a fundamental invariant associated with any matroid $M$,
+as defined by Elias, Proudfoot, and Wakefield in \cite{EPW16}. This polynomial, denoted $P_M(t)$,
+exhibits formal similarities to the Kazhdan-Lusztig polynomials defined for Coxeter groups.
+The coefficients of $P_M(t)$ depend only on the lattice of flats $\calL(M)$ of the matroid,
+and in fact, they are integral linear combinations of the flag Whitney numbers counting chains of flats
+with specified ranks.
 
-The Kazhdan-Lusztig polynomial $P_M(t)$ is a fundamental invariant associated with any matroid $M$, as defined by Elias, Proudfoot, and Wakefield in \cite{EPW16}. This polynomial, denoted $P_M(t)$, exhibits formal similarities to the Kazhdan–Lusztig polynomials defined for Coxeter groups. The coefficients of $P_M(t)$ depend only on the lattice of flats $L(M)$ of the matroid, and in fact, they are integral linear combinations of the flag Whitney numbers counting chains of flats with specified ranks.
-
-In \cite{Bra19}, Braden and Vysogorets presented a formula that relates the Kazhdan-Lusztig polynomial of a matroid $M$ to that of the matroid obtained by deleting an element $e$, denoted $M\setminus e$, as well as various contractions and localizations of $M$. Specifically, for a simple matroid $M$ where $e$ is not a coloop, their main result, Theorem 2.8, states:
+In \cite{Bra19}, Braden and Vysogorets presented a formula that relates the Kazhdan-Lusztig polynomial
+of a matroid $M$ to that of the matroid obtained by deleting an element $e$, denoted $M\setminus e$, as well as various contractions and localizations of $M$. Specifically, for a simple matroid $M$ where $e$ is not a coloop, their main result, Theorem 2.8, states:
 \[
-P_M(t) = P_{M\setminus e}(t) - tP_{M/e}(t) + \sum_{F\in S} \tau(M_{F\cup e})\cdot
+P_M(t) = P_{M\setminus e}(t) - tP_{M_e}(t) + \sum_{F\in S} \tau(M_{F\cup e})\cdot
 t^{\text{crk}(F)/2}\cdot P_{M^F}(t)
 \]
 where the sum is taken over the set $S$ of all subsets $F$ of $E \setminus e$ such that both $F$ and $F \cup e$ are flats of $M$, and $\tau(M)$ is the coefficient of $t^{(\rank(M)-1)/2}$ in $P_M(t)$ if $\rank(M)$ is odd, and zero otherwise.
 
 The inverse Kazhdan-Lusztig polynomial $Q_M(x)$ is another important invariant.
-There is a related polynomial $\hat{Q}_M(x) = (-1)^{\rank(M)} Q_M(x)$ which acts as the inverse of the Kazhdan-Lusztig polynomial $P_M(t)$ within the incidence algebra of the lattice of flats under appropriate variable transformation. % Added "(x)" to Q_M and hat{Q}_M for consistency
+There is a related polynomial $\hat{Q}_M(x) = (-1)^{\rank(M)} Q_M(x)$ which acts as the inverse of
+the Kazhdan-Lusztig polynomial $P_M(t)$ within the incidence algebra of the lattice of flats $\calL(M)$.
 
 In this paper, we aim to prove the following deletion formula for $\hat{Q}_M(x)$:
+\begin{theorem}[Deletion Formula for $\hat{Q}_M(x)$]
+\label{thm:deletion_formula_Q_hat}
+Let $M$ be a simple matroid and $e$ an element that is not a coloop. Then
 \[
-    \hat{Q}_M(x) = \hat{Q}_{M\setminus e}(x) -(1 + x)\cdot \hat{Q}_{M/e}(x) -
+    \hat{Q}_M(x) = \hat{Q}_{M\setminus e}(x) -(1 + x)\cdot \hat{Q}_{M_e}(x) -
     \sum_{G \in S'}{\tau(M^G_e)\cdot x^{\rank(G)/2}\cdot
-    \hat{Q}_{M/G}(x)}
+    \hat{Q}_{M_G}(x)}
 \]
 where $S' = \{F\in \calL(M)\mid e\in F \text{ and } F\setminus e \notin \calL(M)\}$.
+\end{theorem}
+The proof of this theorem is the main goal of these notes.
 
 \section{Perverse elements and the KL basis}
 \label{sec:algebraic_framework}
@@ -96,9 +115,9 @@ Let $M$ be a matroid and $\calL(M)$ be its lattice of flats.
     \item \textbf{The Elements $\zeta^F$}: For any flat $F \in \calL(M)$, an element
     $\zeta^F \in \calH$ is defined as
     \[
-    \zeta^F = \sum_{G \leq F} \zeta_G^F \cdot G = \sum_{G \leq F} t^{\rank(F) - \rank(G)} P_{M_G^F}(t^{-2}) \cdot G.
+    \zeta^F = \sum_{G \leq F} t^{\rank(F) - \rank(G)} P_{M_G^F}(t^{-2}) \cdot G.
     \]
-    \item \textbf{Basis of $\calH_p$}: Proposition 2.13 states that the set of elements
+    \item \textbf{Basis of $\calH_p$}: Proposition 2.13 of \cite{Bra19} states that the set of elements
     $\{\zeta^F\}_{F \in \calL(M)}$ forms a \textbf{$\mathbb{Z}$-basis for $\calH_p$}.
     Any element $\beta \in \calH_p$ can be uniquely expressed as a linear combination of
     the $\zeta^F$ with integer coefficients:
@@ -107,8 +126,157 @@ Let $M$ be a matroid and $\calL(M)$ be its lattice of flats.
     \]
 \end{itemize}
 
-This algebraic framework, involving the module $\calH(M)$ and its subgroup $\calH_p$ with the basis $\{\zeta^F\}$, provides a foundation for studying the Kazhdan–Lusztig polynomials of matroids, as demonstrated by its role in the derivation of deletion formulas. % Removed dangling [4]
+This algebraic framework, involving the module $\calH(M)$ and its subgroup $\calH_p$ with the basis $\{\zeta^F\}$, provides a foundation for studying the Kazhdan–Lusztig polynomials of matroids, as demonstrated by its role in the derivation of deletion formulas.
 
+\section{The module homomorphism $\calH(M) \to \calH(M\setminus e)$}
+\label{sec:module_homomorphism}
+Let $M$ be a simple matroid and $e$ be an element of its ground set that is not a coloop.
+There is a surjective map $\calL(M) \to \calL(M\setminus e)$ sending a flat $F \in \calL(M)$ to $F\setminus e \in \calL(M\setminus e)$.
+There also exists a module homomorphism $\Delta: \calH(M) \to \calH(M\setminus e)$ which
+is $\mathbb{Z}[t, t^{-1}]$-linear and is defined on the basis elements $F \in \calL(M)$ by
+\[
+\Delta(F) = \begin{cases}
+    F & \text{if }F\not\ni e\\
+    F\setminus e & \text{if } F\ni e \text{ and }F\setminus e \notin \calL(M) \\
+    t^{-1}\cdot (F\setminus e) & \text{if } F\ni e \text{ and }F\setminus e \in \calL(M).
+\end{cases}
+\]
+This definition is taken from Section 2.6 of Braden and Vysogorets \cite{Bra19}.
+In \cite{Bra19}, the authors also prove the following lemma:
+
+\begin{lemma}
+\label{lem:delta_zeta_nocoloop}
+Let $F \in \calL(M)$ be a flat such that $e \in F$ and $F\setminus e \notin \calL(M)$. Then
+\[\Delta(\zeta^F) = \zeta^{F\setminus e} + \sum_{G\in S(M^F)}\tau(M^F_{G\cup e})\cdot\zeta^G\]
+where $S(M^F) = \{G\in \calL(M^F)\mid e\notin G \text{ and } G\cup e \in \calL(M^F)\}$.
+\end{lemma}
+
+\begin{theorem}
+\label{thm:delta_zeta_special_case}
+Let $F \in \calL(M)$ be a flat such that $e \in F$ and $F\setminus e \in \calL(M)$, then
+\[ \Delta(\zeta^F) = (t + t^{-1})\zeta^{F\setminus e} \]
+where $\zeta^{F\setminus e}$ on the right-hand side is the $\zeta$-element in
+$\calH(M\setminus e)$ associated with the flat $F\setminus e \in \calL(M\setminus e)$.
+\end{theorem}
+\begin{proof}
+Let $F_0 = F\setminus e$. We are given $F_0 \in \calL(M)$.
+By the definition of $\Delta(G)$:
+\begin{itemize}
+    \item If $G \leq F$ and $e \notin G$: Then $G \leq F_0$. Since $G \in \calL(M)$ and $e \notin G$, $G$ is also a flat in $M\setminus e$, so $G \in \calL(M\setminus e)$. In this case, $\Delta(G) = G$.
+    \item If $G \leq F$ and $e \in G$: Let $G_0 = G\setminus e$. Then $G_0 \leq F_0$. Since $F_0 \in \calL(M)$, it follows that $G_0 = G \cap F_0 \in \calL(M)$. Thus $G_0 \in \calL(M\setminus e)$. In this case, $\Delta(G) = t^{-1}G_0$.
+\end{itemize}
+Applying this to $\Delta(\zeta^F)$:
+\begin{align*}
+\Delta(\zeta^F) &= \Delta \left( \sum_{G \leq F} t^{\rank_M(F) - \rank_M(G)} P_{M_G^F}(t^{-2}) \cdot G \right) \\
+&= \sum_{G \leq F, G \not\ni e} t^{\rank_M(F) - \rank_M(G)} P_{M_G^F}(t^{-2}) \cdot \Delta(G) \\
+&\quad + \sum_{G \leq F, G \ni e} t^{\rank_M(F) - \rank_M(G)} P_{M_G^F}(t^{-2}) \cdot \Delta(G) \\
+&= \sum_{G \leq F_0} t^{\rank_M(F) - \rank_M(G)} P_{M_G^F}(t^{-2}) \cdot G \\
+&\quad + \sum_{\substack{G_0 \leq F_0 \\ (G = G_0 \cup \{e\})}} t^{\rank_M(F) - \rank_M(G_0 \cup \{e\})} P_{M_{G_0 \cup \{e\}}^{F}}(t^{-2}) \cdot (t^{-1}G_0).
+\end{align*}
+We use the rank relations:
+\begin{itemize}
+    \item $\rank_M(F) = \rank_{M\setminus e}(F_0) + 1$.
+    \item For $G \leq F_0$: $\rank_M(G) = \rank_{M\setminus e}(G)$.
+    \item For $G_0 \leq F_0$: $\rank_M(G_0 \cup \{e\}) = \rank_{M\setminus e}(G_0) + 1$.
+\end{itemize}
+And the Kazhdan-Lusztig polynomial identities under these conditions:
+\begin{itemize}
+    \item For $G \leq F_0$: $M_G^F \cong (M\setminus e)_G^{F_0} \oplus U_{1,1}(\{e\})$, so $P_{M_G^F}(t^{-2}) = P_{(M\setminus e)_G^{F_0}}(t^{-2})$.
+    \item For $G_0 \leq F_0$: $M_{G_0 \cup \{e\}}^{F} \cong (M\setminus e)_{G_0}^{F_0}$, so $P_{M_{G_0 \cup \{e\}}^{F}}(t^{-2}) = P_{(M\setminus e)_{G_0}^{F_0}}(t^{-2})$.
+\end{itemize}
+Substituting these into the sums:
+\begin{align*}
+\Delta(\zeta^F) &= \sum_{G \leq F_0} t^{(\rank_{M\setminus e}(F_0) + 1) - \rank_{M\setminus e}(G)} P_{(M\setminus e)_G^{F_0}}(t^{-2}) \cdot G \\
+&\quad + t^{-1} \sum_{G_0 \leq F_0} t^{(\rank_{M\setminus e}(F_0) + 1) - (\rank_{M\setminus e}(G_0) + 1)} P_{(M\setminus e)_{G_0}^{F_0}}(t^{-2}) \cdot G_0 \\
+&= t \sum_{G \leq F_0, G \in \calL(M\setminus e)} t^{\rank_{M\setminus e}(F_0) - \rank_{M\setminus e}(G)} P_{(M\setminus e)_G^{F_0}}(t^{-2}) \cdot G \\
+&\quad + t^{-1} \sum_{G_0 \leq F_0, G_0 \in \calL(M\setminus e)} t^{\rank_{M\setminus e}(F_0) - \rank_{M\setminus e}(G_0)} P_{(M\setminus e)_{G_0}^{F_0}}(t^{-2}) \cdot G_0.
+\end{align*}
+Using the definition of $\zeta^{F_0}_{M\setminus e}$:
+\begin{align*}
+\Delta(\zeta^F) &= t \cdot \zeta^{F_0}_{M\setminus e} + t^{-1} \cdot \zeta^{F_0}_{M\setminus e} \\
+&= (t + t^{-1})\zeta^{F_0}_{M\setminus e}.
+\end{align*}
+\end{proof}
+
+\section{The Deletion Formula for $\hat{Q}_M(x)$}
+\label{sec:deletion_formula}
+
+\begin{lemma}
+\label{lem:standard_basis_in_zeta}
+    The standard basis $\{F\}_{F \in \calL(M)}$ of $\calH(M)$ satisfies
+    \begin{equation}
+    \label{cob-lemma}
+        F = \sum_{G \leq F} t^{\rank(F) - \rank(G)} \hat{Q}_{M_G^F}(t^{-2}) \cdot \zeta^G.
+    \end{equation}
+\end{lemma}
+\begin{proof}
+    \lipsum[1]
+\end{proof}
+
+\begin{proof}[Proof of \ref{thm:deletion_formula_Q_hat}]
+    Applying the homomorphism $\Delta$ to equation \ref{cob-lemma}
+    when $F = E$, we get 
+    \[[E\setminus e] = \sum_{G \leq E} t^{\rank(E) - \rank(G)} \hat{Q}_{M_G^E}(t^{-2}) \cdot \Delta(\zeta^G).\] 
+    Using lemma \ref{lem:standard_basis_in_zeta}, the coefficient of $\zeta^\emptyset$ in the left-hand side is
+    $t^{\rank(E\setminus e) - \rank(\emptyset)}\cdot
+    \hat{Q}_{M_\emptyset^{E\setminus e}}(t^{-2}) = t^{\rank(M)}\cdot
+    \hat{Q}_{M\setminus e}(t^{-2})$.
+    
+    By Theorem \ref{thm:delta_zeta_special_case}, the coefficient $\zeta^\emptyset$ on the right-hand side is non-zero only when $G\in \{\emptyset, e\} \cup S'$. In each of these cases, we have the following:
+    \begin{itemize}
+        \item For $G = \emptyset$, we have $\Delta(\zeta^\emptyset) = \zeta^\emptyset$.
+        \item For $G = e$, we have $\Delta(\zeta^e) = (t+t^{-1})\zeta^\emptyset$.
+        \item For $G\in S'$, we have $\Delta(\zeta^G) = \tau(M^G_e)\cdot\zeta^\emptyset
+            +\text{terms not including $\zeta^\emptyset$}$.
+    \end{itemize}
+    
+    Collecting the coefficients of
+    $\zeta^\emptyset$ on the right-hand side, we have:
+    \begin{align*}
+        &t^{\rank(E) - \rank(\emptyset)}
+        \hat{Q}_{M_\emptyset^E}(t^{-2}) + t^{\rank(E) - \rank(e)}(t+t^{-1})
+        \hat{Q}_{M_e^E}(t^{-2}) + \sum_{G\in S'} t^{\rank(E) - \rank(G)}
+        \hat{Q}_{M_G^E}(t^{-2})\cdot \tau(M^G_e)\\
+        =\ &t^{\rank(M)}
+        \hat{Q}_{M}(t^{-2}) + t^{\rank(M) - 1}(t+t^{-1})
+        \hat{Q}_{M_e}(t^{-2}) + \sum_{G\in S'} t^{\rank(M) - \rank(G)}
+        \hat{Q}_{M_G}(t^{-2})\cdot \tau(M^G_e).
+    \end{align*}
+    Equating the coefficients of $\zeta^\emptyset$ on both sides, we obtain:
+    \[\hat{Q}_{M\setminus e}(t^{-2}) = \hat{Q}_{M}(t^{-2}) + (1+t^{-2})
+    \hat{Q}_{M_e}(t^{-2}) + \sum_{G\in S'} t^{- \rank(G)}
+    \hat{Q}_{M_G}(t^{-2})\cdot \tau(M^G_e).\]
+    Finally, taking $x = t^{-2}$ and rearranging yields the desired statement: \[
+    \hat{Q}_M(x) = \hat{Q}_{M\setminus e}(x) -(1 + x)\cdot \hat{Q}_{M_e}(x) -
+    \sum_{G \in S'}{\tau(M^G_e)\cdot x^{\rank(G)/2}\cdot
+    \hat{Q}_{M_G}(x)}.
+\]
+\end{proof}
+The inverse Kazhdan-Lusztig polynomial $Q_M(x) = (-1)^{\rank(M)}\hat{Q}_M(x)$ then satisfies the following:
+\begin{corollary}
+\label{cor:deletion_formula_Q}
+Let $M$ be a simple matroid and $e$ an element that is not a coloop. Then
+\[
+    Q_M(x) = Q_{M\setminus e}(x) + (1 + x)\cdot Q_{M_e}(x) -
+    \sum_{G \in S'}{\tau(M^G_e)\cdot x^{\rank(G)/2} \cdot
+    Q_{M_G}(x)}
+\]
+where $S' = \{F\in \calL(M)\mid e\in F \text{ and } F\setminus e \notin \calL(M)\}$.
+\end{corollary}
+\begin{corollary}
+\label{cor:deletion_formula_Q_uniform}
+Let $M:=U_{m,d}$ be the uniform matroid of rank $d$ on $m+d$ elements with $d\geq 1$. Then
+\[
+    Q_{U_{m,d}}(x) = Q_{U_{m-1,d}}(x) + (1 + x)\cdot Q_{U_{m,d-1}}(x) -
+    \tau(U_{m,d-1})\cdot x^{d/2}.
+\]
+\end{corollary}
+\begin{proof}
+    As none of the elements in the ground set are coloops, we may apply the deletion formula for a generic element $e$ in the ground set. The set $S'$ then consists only of the top flat $E$ and the sum over $S'$ reduces to \[\tau(M_e)\cdot x^{\rank(M)/2}
+    = \tau(U_{m,d-1})\cdot x^{d/2}.\]
+\end{proof}
+
+\jacob{For the previous corollary, can you now use induction to get a formula for $Q_{m,d}$ for any $m$ and $d$ that does not have any $Q$'s in it?  (Perhaps starting with the fact the inverse KL polynomials of Boolean matroids are equal to $1$?)}
 \printbibliography % Ensure you have a 'references.bib' file and run biber/bibtex
 
 \end{document}
