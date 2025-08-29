@@ -1,0 +1,119 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{parskip}
+\usepackage{amssymb,amsmath,amsfonts,verbatim,amsthm, amscd}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[breakable,skins]{tcolorbox}
+\usepackage{graphicx,tikz-cd,adjustbox}
+\usepackage{float} % breqn can sometimes conflict with amsmath, be mindful
+\usepackage{scalerel}
+\usepackage{stackengine,wasysym}
+\usepackage{lipsum}
+\usepackage[backend=biber]{biblatex} % Using biber backend is recommended
+
+\newtcolorbox{mybox}[2][]{
+    arc=0mm, enhanced, frame hidden, breakable
+}
+\usepackage{mathtools}
+
+\usepackage{subcaption}% <-- added
+
+\usepackage{array} % core package
+\usepackage{newtxtext,newtxmath} %fuente
+
+\usepackage[cal=boondoxo,scr=euler]{mathalfa}
+\usepackage[unicode=true]{hyperref} % permits navigating on the pdf
+\hypersetup{pdfencoding=auto}
+\usepackage{cleveref} % smart referencing
+\usepackage{caption} %
+
+% Define math commands
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calH}{\mathcal{H}}
+\newcommand{\bz}{\mathbb{Z}}
+\newcommand{\lt}{\normalfont\text{lt}}
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\ind}{\text{\normalfont Ind}}
+\newcommand{\stab}{\text{\normalfont Stab}}
+\newcommand{\hilbM}{\normalfont\text{\underline{H}}_\text{M}}
+\newcommand{\aughilbM}{\normalfont\text{H}_\text{M}}
+\newcommand{\rank}{\normalfont\text{rk}}
+\newcommand{\flats}{\normalfont\text{Flats}}
+\newcommand{\flags}{\normalfont\text{Flags}}
+\newcommand{\matM}{\normalfont\text{M}}
+\newcommand{\hilbMmodF}{\normalfont\text{\underline{H}}_\text{M/F}}
+\newcommand{\M}{\normalfont\text{M}}
+\newcommand{\N}{\normalfont\text{N}}
+\newcommand{\e}{\normalfont\text{e}}
+\newcommand{\rk}{\normalfont\text{rk}}
+\newcommand{\corank}{\normalfont\text{crk}}
+\newcommand{\crk}{\normalfont\text{crk}}
+
+\newcommand{\qbinom}[2]{\begin{bmatrix} #1 \\ #2 \end{bmatrix}_q}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark} % Unnumbered remark
+% \theoremstyle{definition} % For proof environment styling - amsthm handles this with \begin{proof}
+% \newtheorem*{proof_env}{Proof}
+
+\newcommand{\luis}[1]{{\color{blue} \sf $\clubsuit$ Luis: [#1]}}
+\newcommand{\nutan}[1]{{\color{violet} \sf $\clubsuit$ Nutan: [#1]}}
+\newcommand{\jacob}[1]{{\color{Bittersweet} \sf $\clubsuit$ Jacob: [#1]}}
+
+\title{\texorpdfstring{Notes (Inverse Kazhdan-Lusztig Polynomials under Deletion)}{Notes (Inverse Kazhdan-Lusztig Polynomials under Deletion)}}
+%\author{Nutan Nepal}
+%\date{\today}
+
+\begin{document}
+\textbf{Notes: Deletion Formula for $Y_M(x)$}\hfill {\small{\today}}
+
+\hrulefill % Horizontal line after title block
+
+Hi everyone,
+
+I'm writing to provide an update on the deletion formula for Y and to ask for some guidance.
+
+Following Tom's suggestion, I've been working on proving the formula by defining the new basis $\mu_F$.
+The polynomial $\hat{Y}_M(x)$ is defined as
+\[
+    \hat{Y}_M(x) = \sum_{F \in \calL(M)} \left( x^{\corank(F)}\mu[F,E] \right) \cdot \hat{Q}_{M^F}(x).
+\]
+
+
+
+In the initial steps of the proof, I realized that we might need to redefine $\mu_F$ as
+\[
+    \mu_F = \sum_{G \leq F} x^{\rank(G) - 2\rank(F)}\mu[G,F]\cdot G
+\]
+
+so that the polynomial $\hat{Y}_M(x)$ appears in the expression for $\mu_M$ as
+\[
+    \mu_M = \sum_{G \in \calL(M)} x^{-\rank(G)}\hat{Y}_{M/G}(x^{-2})\cdot \zeta^G
+\]
+
+
+
+
+The issue arises when computing $\Delta(\mu_M)$. It seems that my current approach doesn't satisfy the desired property $\Delta(\mu_M) = \mu_{M\setminus e}$.
+
+I have attached a PDF that contains the detailed LaTeX write-up. It outlines the steps I have taken and the calculations.
+
+It's very likely that I am either misunderstanding a subtle part of the original suggestion or overlooking a crucial detail. Tom, I was hoping that by seeing my specific approach, you might be able to identify where I've gone wrong and provide some guidance.
+
+Thank you for your help.
+
+Best regards,
+
+Nutan
+
+\[F\mapsto x^{\rank(F\setminus e)-\rank(F)}\cdot (F\setminus e)\]
+
+\end{document}

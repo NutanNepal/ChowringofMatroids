@@ -1,0 +1,40 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\providecommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\thinspace}
+\providecommand{\MR}{\relax\ifhmode\unskip\space\fi MR }
+% \MRhref is called by the amsart/book/proc definition of \MR.
+\providecommand{\MRhref}[2]{%
+  \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
+}
+\providecommand{\href}[2]{#2}
+\begin{thebibliography}{BHM{\etalchar{+}}22}
+
+\bibitem[BHM{\etalchar{+}}22]{braden-huh-matherne-proudfoot-wang}
+Tom {Braden}, June {Huh}, Jacob~P. {Matherne}, Nicholas {Proudfoot}, and Botong
+  {Wang}, \emph{{Singular Hodge theory for combinatorial geometries}}, arXiv
+  e-prints (2022), arXiv:2010.06088.
+
+\bibitem[BV20]{braden-vysogorets}
+Tom Braden and Artem Vysogorets, \emph{Kazhdan-{L}usztig polynomials of
+  matroids under deletion}, Electron. J. Combin. \textbf{27} (2020), no.~1,
+  Paper No. 1.17, 17. \MR{4061059}
+
+\bibitem[EPW16]{EPW16}
+Ben Elias, Nicholas Proudfoot, and Max Wakefield, \emph{The kazhdan-lusztig
+  polynomial of a matroid}, Adv. Math. \textbf{299} (2016), 36--70.
+
+\bibitem[FS24]{ferroni-schroter}
+Luis Ferroni and Benjamin Schr\"oter, \emph{Valuative invariants for large
+  classes of matroids}, J. Lond. Math. Soc. (2) \textbf{110} (2024), no.~3,
+  Paper No. e12984. \MR{4795885}
+
+\bibitem[GX21]{gao-xie}
+Alice L.~L. Gao and Matthew H.~Y. Xie, \emph{The inverse {K}azhdan-{L}usztig
+  polynomial of a matroid}, J. Combin. Theory Ser. B \textbf{151} (2021),
+  375--392. \MR{4294228}
+
+\bibitem[PXY18]{proudfoot-xu-young}
+Nicholas Proudfoot, Yuan Xu, and Ben Young, \emph{The {$Z$}-polynomial of a
+  matroid}, Electron. J. Combin. \textbf{25} (2018), no.~1, Paper No. 1.26, 21.
+  \MR{3785005}
+
+\end{thebibliography}

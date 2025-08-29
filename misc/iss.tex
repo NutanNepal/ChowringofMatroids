@@ -1,0 +1,128 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{parskip}
+\usepackage{amssymb,amsmath,amsfonts,verbatim,amsthm, amscd}
+\usepackage[dvipsnames]{xcolor}
+\usepackage[breakable,skins]{tcolorbox}
+\usepackage{graphicx,tikz-cd,adjustbox}
+\usepackage{float} % breqn can sometimes conflict with amsmath, be mindful
+\usepackage{scalerel}
+\usepackage{stackengine,wasysym}
+\usepackage{lipsum}
+\usepackage[backend=biber]{biblatex} % Using biber backend is recommended
+
+\newtcolorbox{mybox}[2][]{
+    arc=0mm, enhanced, frame hidden, breakable
+}
+\usepackage{mathtools}
+
+\usepackage{subcaption}% <-- added
+
+\usepackage{array} % core package
+\usepackage{newtxtext,newtxmath} %fuente
+
+\usepackage[cal=boondoxo,scr=euler]{mathalfa}
+\usepackage[unicode=true]{hyperref} % permits navigating on the pdf
+\hypersetup{pdfencoding=auto}
+\usepackage{cleveref} % smart referencing
+\usepackage{caption} %
+
+% Define math commands
+\newcommand{\calL}{\mathcal{L}}
+\newcommand{\calH}{\mathcal{H}}
+\newcommand{\bz}{\mathbb{Z}}
+\newcommand{\lt}{\normalfont\text{lt}}
+\newcommand{\calA}{\mathcal{A}}
+\newcommand{\ind}{\text{\normalfont Ind}}
+\newcommand{\stab}{\text{\normalfont Stab}}
+\newcommand{\hilbM}{\normalfont\text{\underline{H}}_\text{M}}
+\newcommand{\aughilbM}{\normalfont\text{H}_\text{M}}
+\newcommand{\rank}{\normalfont\text{rk}}
+\newcommand{\flats}{\normalfont\text{Flats}}
+\newcommand{\flags}{\normalfont\text{Flags}}
+\newcommand{\matM}{\normalfont\text{M}}
+\newcommand{\hilbMmodF}{\normalfont\text{\underline{H}}_\text{M/F}}
+\newcommand{\M}{\normalfont\text{M}}
+\newcommand{\N}{\normalfont\text{N}}
+\newcommand{\e}{\normalfont\text{e}}
+\newcommand{\rk}{\normalfont\text{rk}}
+\newcommand{\corank}{\normalfont\text{crk}}
+\newcommand{\crk}{\normalfont\text{crk}}
+
+\newcommand{\qbinom}[2]{\begin{bmatrix} #1 \\ #2 \end{bmatrix}_q}
+
+% Theorem environments
+\newtheorem{theorem}{Theorem}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{conjecture}[theorem]{Conjecture}
+\newtheorem{example}[theorem]{Example}
+
+\theoremstyle{remark}
+\newtheorem*{remark}{Remark} % Unnumbered remark
+% \theoremstyle{definition} % For proof environment styling - amsthm handles this with \begin{proof}
+% \newtheorem*{proof_env}{Proof}
+
+\newcommand{\luis}[1]{{\color{blue} \sf $\clubsuit$ Luis: [#1]}}
+\newcommand{\nutan}[1]{{\color{violet} \sf $\clubsuit$ Nutan: [#1]}}
+\newcommand{\jacob}[1]{{\color{Bittersweet} \sf $\clubsuit$ Jacob: [#1]}}
+
+\title{\texorpdfstring{Notes (Inverse Kazhdan-Lusztig Polynomials under Deletion)}{Notes (Inverse Kazhdan-Lusztig Polynomials under Deletion)}}
+%\author{Nutan Nepal}
+%\date{\today}
+
+\begin{document}
+\textbf{Notes: Deletion Formula for $Y_M(x)$}\hfill {\small{\today}}
+
+\hrulefill % Horizontal line after title block
+
+Let $M$ be a matroid and $e \in M$. The polynomial $\hat{Y}_M(x)$ is defined as
+\[
+    \hat{Y}_M(x)
+    = \sum_{F \in \calL(M)} \left( x^{\corank(F)}\mu[F,E] \right) \cdot \hat{Q}_{M^F}(x).
+\]
+For $F\in\calL(M)$, we have,
+\[
+    \hat{Y}_{M^F}(x)
+    = \sum_{G \leq F} \left( x^{\rank(F)-\rank(G)}\mu[G,F] \right) \cdot \hat{Q}_{M^G}(x)
+\]
+and
+\[
+    \hat{Y}_{M/G}(x)
+    = \sum_{F \geq G} \left( x^{\rank(E)-\rank(F)}\mu[F,E] \right) \cdot \hat{Q}_{M^F_G}(x).
+\]
+
+
+We want to find a formula for $Y_M(x):=(-1)^{\rank(M)} \hat{Y}_M(x)$ in terms of $Y_{M\setminus e}(x)$.
+
+\section*{Suggestion 1}
+Let $\mu_F := \sum_{G \leq F} x^{\rank(G)}\mu[G,F]\cdot G$. Then, writing $\mu_M$ in Kazhdan-Lusztig basis, we have
+\begin{align*}
+    \mu_M & = \sum_{F \in \calL(M)} \left(\left( x^{\rank(F)}\mu[F,E] \right) \cdot \sum_{G \leq F} x^{\rank(F)-\rank(G)}\hat{Q}_{M_G^F}(x^{-2})\cdot \zeta^G \right) \\
+          & = \sum_{F \in \calL(M)} \sum_{G \leq F} x^{2\rank(F)-\rank(G)}\mu[F, E]\cdot \hat{Q}_{M_G^F}(x^{-2})\cdot \zeta^G                                         \\
+          & = \sum_{G \in \calL(M)} \sum_{F \geq G} x^{2\rank(F)-\rank(G)}\mu[F, E]\cdot \hat{Q}_{M_G^F}(x^{-2})\cdot \zeta^G                                         \\
+          & = \sum_{G \in \calL(M)} x^{-\rank(G)}\left(\sum_{F \geq G} x^{2\rank(F)}\mu[F, E]\cdot \hat{Q}_{M_G^F}(x^{-2})\right)\cdot \zeta^G                        \\
+\end{align*}
+
+The exponent of $x$ in the above expression should be $-2\corank(F) = 2\rank(F) -2\rank(M)$ for us to get the
+expression for $\mu_M$ in terms of $\hat{Y}_{M/G}(x)$.
+
+Redefining $\mu_F$ as $\sum_{G \leq F} x^{\rank(G) - 2\rank(F)}\mu[G,F]\cdot G$, we have
+\begin{align*}
+    \mu_M & = \sum_{G \in \calL(M)} x^{-\rank(G)}\left(\sum_{F \geq G} x^{2\rank(F) - 2\rank(E)}\mu[F, E]\cdot \hat{Q}_{M_G^F}(x^{-2})\right)\cdot \zeta^G \\
+          & = \sum_{G \in \calL(M)} x^{-\rank(G)}\hat{Y}_{M/G}(x^{-2})\cdot \zeta^G                                                                        \\
+\end{align*}
+
+\section*{Computing $\Delta(\mu_M)$}
+
+We defined $\mu_M = \sum_{F \in \calL(M)} x^{\rank(F) - 2\rank(E)}\mu[F,E]\cdot F$. Then,
+\begin{align*}
+    \Delta(\mu_M) & = \sum_{F \ni e \wedge F\setminus e \in \calL(M)}x^{\rank(F) - 2\rank(E)-1}\mu[F,E]\cdot (F\setminus e)
+    + \sum_{\text{other terms}} x^{\rank(F) - 2\rank(E)}\mu[F,E]\cdot (F\setminus e)                                        \\
+                  & = \sum_{F \in S}x^{\rank(F) - 2\rank(E)}\mu[F \cup e,E]\cdot F + \mu_{M\setminus e}
+\end{align*}
+
+The desired expression for $\Delta(\mu_M)$ is $\mu_{M\setminus e}$ which we could not obtain.
+
+\end{document}
