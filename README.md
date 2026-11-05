@@ -47,11 +47,3 @@ mean their conclusions have been proved or their code works for every input.
 - `dump/` remains an ignored local experiment directory. Its local data,
   machine-learning plan, and environment were preserved; they are not included
   in a fresh clone.
-
-## Keeping the record useful
-
-For new work, use a descriptive filename and begin the notebook or note with the
-question, assumptions, and date. State whether a result is proved, checked on
-examples, or conjectured. Record the relevant SageMath version and any special
-dependencies when a computation is saved. Preserve meaningful intermediate
-attempts, but keep automatically generated caches out of Git using `.gitignore`.
