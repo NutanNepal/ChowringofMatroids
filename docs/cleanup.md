@@ -59,7 +59,8 @@ This is a static check, not an execution of every historical workflow.
 
 ## Credential cleanup
 
-The hard-coded API key in `qpolys/deepseekchat.ipynb` was replaced with an
-environment-variable lookup. Its conjectures and saved research discussion
-were retained. The old key may still exist in Git history and should be revoked
-or rotated with its provider; this cleanup does not rewrite history.
+The hard-coded API key in `qpolys/deepseekchat.ipynb` was initially replaced with
+an environment-variable lookup. On 2026-11-05, the entire notebook was deleted
+at the owner's request, in addition to the 148 files removed above. The old key
+may still exist in Git history and should be revoked or rotated with its
+provider; this cleanup does not rewrite history.

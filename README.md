@@ -41,9 +41,6 @@ mean their conclusions have been proved or their code works for every input.
 - Compile TeX from the document's directory with its bibliography and local
   styles available. Some historical sources or dependencies are missing; see
   [cleanup notes](docs/cleanup.md) before assuming an old result can be rebuilt.
-- The AI-assisted conjecture discussion in `qpolys/deepseekchat.ipynb` is an
-  exploratory record, not a verified proof. To run its API call, set
-  `NVIDIA_API_KEY` in the environment used by the notebook kernel.
 - `dump/` remains an ignored local experiment directory. Its local data,
   machine-learning plan, and environment were preserved; they are not included
   in a fresh clone.
