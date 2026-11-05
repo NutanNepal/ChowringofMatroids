@@ -1,0 +1,350 @@
+% $ biblatex auxiliary file $
+% $ biblatex bbl format version 3.2 $
+% Do not modify the above lines!
+%
+% This is an auxiliary file used by the 'biblatex' package.
+% This file may safely be deleted. It will be recreated by
+% biber as required.
+%
+\begingroup
+\makeatletter
+\@ifundefined{ver@biblatex.sty}
+  {\@latex@error
+     {Missing 'biblatex' package}
+     {The bibliography requires the 'biblatex' package.}
+      \aftergroup\endinput}
+  {}
+\endgroup
+
+
+\refsection{0}
+  \datalist[entry]{nty/global//global/global}
+    \entry{adiprasito-huh-katz}{article}{}
+      \name{author}{3}{}{%
+        {{hash=89a6e6a2b08876e6a0f8fb56b6495cda}{%
+           family={Adiprasito},
+           familyi={A\bibinitperiod},
+           given={Karim},
+           giveni={K\bibinitperiod}}}%
+        {{hash=cf81a98d9178abe3dd76e8d7e1b7f976}{%
+           family={Huh},
+           familyi={H\bibinitperiod},
+           given={June},
+           giveni={J\bibinitperiod}}}%
+        {{hash=791d53f58ebdd91b0289d0cd9224b207}{%
+           family={Katz},
+           familyi={K\bibinitperiod},
+           given={Eric},
+           giveni={E\bibinitperiod}}}%
+      }
+      \strng{namehash}{410c60f8dee66e9809888742c339dcb2}
+      \strng{fullhash}{410c60f8dee66e9809888742c339dcb2}
+      \strng{bibnamehash}{410c60f8dee66e9809888742c339dcb2}
+      \strng{authorbibnamehash}{410c60f8dee66e9809888742c339dcb2}
+      \strng{authornamehash}{410c60f8dee66e9809888742c339dcb2}
+      \strng{authorfullhash}{410c60f8dee66e9809888742c339dcb2}
+      \field{sortinit}{A}
+      \field{sortinithash}{2f401846e2029bad6b3ecc16d50031e2}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Ann. of Math. (2)}
+      \field{number}{2}
+      \field{title}{Hodge theory for combinatorial geometries}
+      \field{volume}{188}
+      \field{year}{2018}
+      \field{pages}{381\bibrangedash 452}
+      \range{pages}{72}
+    \endentry
+    \entry{braden2025inversekazhdanlusztigpolynomialsmatroids}{misc}{}
+      \name{author}{4}{}{%
+        {{hash=e85130124c549dd4d5a1f089f11f8336}{%
+           family={Braden},
+           familyi={B\bibinitperiod},
+           given={Tom},
+           giveni={T\bibinitperiod}}}%
+        {{hash=ad47148609d550979edddc378a6a9b87}{%
+           family={Ferroni},
+           familyi={F\bibinitperiod},
+           given={Luis},
+           giveni={L\bibinitperiod}}}%
+        {{hash=a1a270214805f2ec9802de202d109e97}{%
+           family={Matherne},
+           familyi={M\bibinitperiod},
+           given={Jacob\bibnamedelima P.},
+           giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=0221bdcda99460ff670cd6edb719594d}{%
+           family={Nepal},
+           familyi={N\bibinitperiod},
+           given={Nutan},
+           giveni={N\bibinitperiod}}}%
+      }
+      \strng{namehash}{e7a7f7ce75cc09ccf2dd4d560f8c212c}
+      \strng{fullhash}{e7a7f7ce75cc09ccf2dd4d560f8c212c}
+      \strng{bibnamehash}{e7a7f7ce75cc09ccf2dd4d560f8c212c}
+      \strng{authorbibnamehash}{e7a7f7ce75cc09ccf2dd4d560f8c212c}
+      \strng{authornamehash}{e7a7f7ce75cc09ccf2dd4d560f8c212c}
+      \strng{authorfullhash}{e7a7f7ce75cc09ccf2dd4d560f8c212c}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{title}{Inverse Kazhdan-Lusztig polynomials of matroids under deletion}
+      \field{year}{2025}
+      \verb{eprint}
+      \verb 2510.01086
+      \endverb
+    \endentry
+    \entry{braden-huh-matherne-proudfoot-wang}{misc}{}
+      \name{author}{5}{}{%
+        {{hash=e85130124c549dd4d5a1f089f11f8336}{%
+           family={{Braden}},
+           familyi={B\bibinitperiod},
+           given={Tom},
+           giveni={T\bibinitperiod}}}%
+        {{hash=cf81a98d9178abe3dd76e8d7e1b7f976}{%
+           family={{Huh}},
+           familyi={H\bibinitperiod},
+           given={June},
+           giveni={J\bibinitperiod}}}%
+        {{hash=a1a270214805f2ec9802de202d109e97}{%
+           family={{Matherne}},
+           familyi={M\bibinitperiod},
+           given={Jacob\bibnamedelima P.},
+           giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=6f88f0a852679de50f93717383a3cd1f}{%
+           family={{Proudfoot}},
+           familyi={P\bibinitperiod},
+           given={Nicholas},
+           giveni={N\bibinitperiod}}}%
+        {{hash=e862c40ef95401f9ecdd5c01e531ffc6}{%
+           family={{Wang}},
+           familyi={W\bibinitperiod},
+           given={Botong},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{94c4a7e68ce915ecb37004073eaa1925}
+      \strng{fullhash}{94c4a7e68ce915ecb37004073eaa1925}
+      \strng{bibnamehash}{94c4a7e68ce915ecb37004073eaa1925}
+      \strng{authorbibnamehash}{94c4a7e68ce915ecb37004073eaa1925}
+      \strng{authornamehash}{94c4a7e68ce915ecb37004073eaa1925}
+      \strng{authorfullhash}{94c4a7e68ce915ecb37004073eaa1925}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{eprinttype}{arXiv}
+      \field{month}{10}
+      \field{title}{{Singular Hodge theory for combinatorial geometries}}
+      \field{year}{2022}
+      \verb{eprint}
+      \verb 2010.06088
+      \endverb
+      \keyw{Mathematics - Combinatorics,Mathematics - Algebraic Geometry,05B35 (Primary),14F43 (Secondary)}
+    \endentry
+    \entry{braden-vysogorets}{article}{}
+      \name{author}{2}{}{%
+        {{hash=e85130124c549dd4d5a1f089f11f8336}{%
+           family={Braden},
+           familyi={B\bibinitperiod},
+           given={Tom},
+           giveni={T\bibinitperiod}}}%
+        {{hash=1c2df25acaa0d580eb0c549471588ae1}{%
+           family={Vysogorets},
+           familyi={V\bibinitperiod},
+           given={Artem},
+           giveni={A\bibinitperiod}}}%
+      }
+      \strng{namehash}{0bd20decd025a7114878c759d04b0f72}
+      \strng{fullhash}{0bd20decd025a7114878c759d04b0f72}
+      \strng{bibnamehash}{0bd20decd025a7114878c759d04b0f72}
+      \strng{authorbibnamehash}{0bd20decd025a7114878c759d04b0f72}
+      \strng{authornamehash}{0bd20decd025a7114878c759d04b0f72}
+      \strng{authorfullhash}{0bd20decd025a7114878c759d04b0f72}
+      \field{sortinit}{B}
+      \field{sortinithash}{d7095fff47cda75ca2589920aae98399}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Electron. J. Combin.}
+      \field{number}{1}
+      \field{title}{Kazhdan-{L}usztig polynomials of matroids under deletion}
+      \field{volume}{27}
+      \field{year}{2020}
+      \field{pages}{Paper No. 1.17\bibrangessep 17}
+      \range{pages}{-1}
+    \endentry
+    \entry{EPW16}{article}{}
+      \name{author}{3}{}{%
+        {{hash=f6eef24b37d12e329461d1d3c6ab2fa3}{%
+           family={Elias},
+           familyi={E\bibinitperiod},
+           given={Ben},
+           giveni={B\bibinitperiod}}}%
+        {{hash=6f88f0a852679de50f93717383a3cd1f}{%
+           family={Proudfoot},
+           familyi={P\bibinitperiod},
+           given={Nicholas},
+           giveni={N\bibinitperiod}}}%
+        {{hash=880459431d050292a0e3fb2d4280d488}{%
+           family={Wakefield},
+           familyi={W\bibinitperiod},
+           given={Max},
+           giveni={M\bibinitperiod}}}%
+      }
+      \strng{namehash}{1b8e142cc20f1ec37376124e670311f5}
+      \strng{fullhash}{1b8e142cc20f1ec37376124e670311f5}
+      \strng{bibnamehash}{1b8e142cc20f1ec37376124e670311f5}
+      \strng{authorbibnamehash}{1b8e142cc20f1ec37376124e670311f5}
+      \strng{authornamehash}{1b8e142cc20f1ec37376124e670311f5}
+      \strng{authorfullhash}{1b8e142cc20f1ec37376124e670311f5}
+      \field{sortinit}{E}
+      \field{sortinithash}{8da8a182d344d5b9047633dfc0cc9131}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Adv. Math.}
+      \field{title}{The Kazhdan-Lusztig polynomial of a matroid}
+      \field{volume}{299}
+      \field{year}{2016}
+      \field{pages}{36\bibrangedash 70}
+      \range{pages}{35}
+    \endentry
+    \entry{feichtner-yuzvinsky}{article}{}
+      \name{author}{2}{}{%
+        {{hash=b6c1a4d41fc15e1f9ac505ff531a4c05}{%
+           family={Feichtner},
+           familyi={F\bibinitperiod},
+           given={Eva\bibnamedelima Maria},
+           giveni={E\bibinitperiod\bibinitdelim M\bibinitperiod}}}%
+        {{hash=de1e8d8b65334cfa10e71a2dba7a4d9f}{%
+           family={Yuzvinsky},
+           familyi={Y\bibinitperiod},
+           given={Sergey},
+           giveni={S\bibinitperiod}}}%
+      }
+      \strng{namehash}{ec9f36d4701e502b708291415f296b59}
+      \strng{fullhash}{ec9f36d4701e502b708291415f296b59}
+      \strng{bibnamehash}{ec9f36d4701e502b708291415f296b59}
+      \strng{authorbibnamehash}{ec9f36d4701e502b708291415f296b59}
+      \strng{authornamehash}{ec9f36d4701e502b708291415f296b59}
+      \strng{authorfullhash}{ec9f36d4701e502b708291415f296b59}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Invent. Math.}
+      \field{number}{3}
+      \field{title}{Chow rings of toric varieties defined by atomic lattices}
+      \field{volume}{155}
+      \field{year}{2004}
+      \field{pages}{515\bibrangedash 536}
+      \range{pages}{22}
+    \endentry
+    \entry{ferroni-matherne-stevens-vecchi}{article}{}
+      \name{author}{4}{}{%
+        {{hash=ad47148609d550979edddc378a6a9b87}{%
+           family={Ferroni},
+           familyi={F\bibinitperiod},
+           given={Luis},
+           giveni={L\bibinitperiod}}}%
+        {{hash=a1a270214805f2ec9802de202d109e97}{%
+           family={Matherne},
+           familyi={M\bibinitperiod},
+           given={Jacob\bibnamedelima P.},
+           giveni={J\bibinitperiod\bibinitdelim P\bibinitperiod}}}%
+        {{hash=a684708f0588e7ac77cb2d3e129d0a9a}{%
+           family={Stevens},
+           familyi={S\bibinitperiod},
+           given={Matthew},
+           giveni={M\bibinitperiod}}}%
+        {{hash=d7fe7d058043e6738fee2c3164f35fbe}{%
+           family={Vecchi},
+           familyi={V\bibinitperiod},
+           given={Lorenzo},
+           giveni={L\bibinitperiod}}}%
+      }
+      \strng{namehash}{6b15604ebe6edc031a94013d1359ae2b}
+      \strng{fullhash}{6b15604ebe6edc031a94013d1359ae2b}
+      \strng{bibnamehash}{6b15604ebe6edc031a94013d1359ae2b}
+      \strng{authorbibnamehash}{6b15604ebe6edc031a94013d1359ae2b}
+      \strng{authornamehash}{6b15604ebe6edc031a94013d1359ae2b}
+      \strng{authorfullhash}{6b15604ebe6edc031a94013d1359ae2b}
+      \field{sortinit}{F}
+      \field{sortinithash}{2638baaa20439f1b5a8f80c6c08a13b4}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Adv. Math.}
+      \field{title}{Hilbert-{P}oincaré{} series of matroid {C}how rings and intersection cohomology}
+      \field{volume}{449}
+      \field{year}{2024}
+      \field{pages}{Paper No. 109733}
+      \range{pages}{-1}
+    \endentry
+    \entry{gao-xie}{article}{}
+      \name{author}{2}{}{%
+        {{hash=014ee5bc1d9dbda13f25e28cf8cd89d4}{%
+           family={Gao},
+           familyi={G\bibinitperiod},
+           given={Alice\bibnamedelimb L.\bibnamedelimi L.},
+           giveni={A\bibinitperiod\bibinitdelim L\bibinitperiod\bibinitdelim L\bibinitperiod}}}%
+        {{hash=b4bb4bbe69e5deeb55534abe039b2564}{%
+           family={Xie},
+           familyi={X\bibinitperiod},
+           given={Matthew\bibnamedelimb H.\bibnamedelimi Y.},
+           giveni={M\bibinitperiod\bibinitdelim H\bibinitperiod\bibinitdelim Y\bibinitperiod}}}%
+      }
+      \strng{namehash}{111b3805058a15aa25ca8e2f4761c20b}
+      \strng{fullhash}{111b3805058a15aa25ca8e2f4761c20b}
+      \strng{bibnamehash}{111b3805058a15aa25ca8e2f4761c20b}
+      \strng{authorbibnamehash}{111b3805058a15aa25ca8e2f4761c20b}
+      \strng{authornamehash}{111b3805058a15aa25ca8e2f4761c20b}
+      \strng{authorfullhash}{111b3805058a15aa25ca8e2f4761c20b}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{J. Combin. Theory Ser. B}
+      \field{title}{The inverse {K}azhdan-{L}usztig polynomial of a matroid}
+      \field{volume}{151}
+      \field{year}{2021}
+      \field{pages}{375\bibrangedash 392}
+      \range{pages}{18}
+    \endentry
+    \entry{gedeon-proudfoot-young-survey}{article}{}
+      \name{author}{3}{}{%
+        {{hash=a1a477387df02a3bad0848659f97a7d7}{%
+           family={Gedeon},
+           familyi={G\bibinitperiod},
+           given={Katie},
+           giveni={K\bibinitperiod}}}%
+        {{hash=6f88f0a852679de50f93717383a3cd1f}{%
+           family={Proudfoot},
+           familyi={P\bibinitperiod},
+           given={Nicholas},
+           giveni={N\bibinitperiod}}}%
+        {{hash=d885f2b0f408e5ccfead722fae285a8f}{%
+           family={Young},
+           familyi={Y\bibinitperiod},
+           given={Benjamin},
+           giveni={B\bibinitperiod}}}%
+      }
+      \strng{namehash}{cbb51b4621ccf80de850b8ccedb19106}
+      \strng{fullhash}{cbb51b4621ccf80de850b8ccedb19106}
+      \strng{bibnamehash}{cbb51b4621ccf80de850b8ccedb19106}
+      \strng{authorbibnamehash}{cbb51b4621ccf80de850b8ccedb19106}
+      \strng{authornamehash}{cbb51b4621ccf80de850b8ccedb19106}
+      \strng{authorfullhash}{cbb51b4621ccf80de850b8ccedb19106}
+      \field{sortinit}{G}
+      \field{sortinithash}{32d67eca0634bf53703493fb1090a2e8}
+      \field{labelnamesource}{author}
+      \field{labeltitlesource}{title}
+      \field{journaltitle}{Sém. Lothar. Combin.}
+      \field{title}{Kazhdan-{L}usztig polynomials of matroids: a survey of results and conjectures}
+      \field{volume}{78B}
+      \field{year}{2017}
+      \field{pages}{Art. 80\bibrangessep 12}
+      \range{pages}{-1}
+    \endentry
+  \enddatalist
+\endrefsection
+\endinput
+

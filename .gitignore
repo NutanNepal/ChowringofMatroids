@@ -1,3 +1,43 @@
+# Local experiments and environments (existing exclusions retained)
 /equivChow/lean-codes/pf-lean/.lake
+dump/
+.venv/
+venv/
+
+# Operating-system metadata
 .DS_Store
-.DS_Store
+*:Zone.Identifier
+
+# Python and Jupyter caches
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+
+# LaTeX build bookkeeping; keep PDFs, figures, sources, and .bbl files
+*.aux
+*.log
+*.fdb_latexmk
+*.fls
+*.brf
+*.nav
+*.snm
+*.run.xml
+*.synctex.gz
+*.bcf
+*.blg
+*.toc
+*.out
+
+# Manim intermediate renders; keep complete videos
+/manimpg/media/texts/
+/manimpg/media/Tex/
+/manimpg/media/videos/**/partial_movie_files/
+/qpolys/conjsntests/cytoscape-playground/media/texts/
+/qpolys/conjsntests/cytoscape-playground/media/Tex/
+/qpolys/conjsntests/cytoscape-playground/media/videos/**/partial_movie_files/
+
+# Local credentials
+.env
+.env.*
+!.env.example
